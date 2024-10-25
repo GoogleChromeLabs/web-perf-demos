@@ -1,0 +1,12 @@
+{
+  "name": "bfcache_no_store",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "deploy": "gcloud functions deploy bfcache_not_store --runtime nodejs20 --trigger-http -no-gen2",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "Apache-2.0",
+  "description": "A demo of a cache-control: no-store page used to test upcoming bfcache changes"
+}

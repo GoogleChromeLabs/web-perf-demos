@@ -1,0 +1,28 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Test page for bfcache</title>
+  <meta name="robots" content="noindex">
+</head>
+<body> 
+  <h1>Test page for bfcache</h1>
+
+  <p>This is an example of a page which uses Cache-Control: no-store.</p>
+  <p>Test if it can be restored from the bfcache by going to below page:</p>
+  <p><a href="new-page.html">Go to another page</a></p>
+  <div id="output1"></div>
+
+  <script type="module">
+    window.addEventListener('pageshow', (event) => {
+      const navigationType = performance.getEntriesByType('navigation')[0].type;
+      if (event.persisted) {
+        document.querySelector('#output1').innerText = 'This page was restored from the bfcache!';
+      } else if (navigationType == 'back_forward' ) {
+        document.querySelector('#output1').innerText = 'This page was NOT restored from the bfcache :-(';
+      }
+      console.log(event)
+    });
+  </script>
+</body>
+</html>
