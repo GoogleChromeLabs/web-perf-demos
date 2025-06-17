@@ -17,16 +17,15 @@ const THIRD_PARTY_DIR = path.join(BASE_DIR, 'third_party', 'three_js');
 async function loadThreeJsScript(ver) {
   const data = await fsp.readFile(path.join(THIRD_PARTY_DIR, `${ver}.js`));
   const hash = crypto.createHash('sha256').update(data).digest();
-  const hashV1 = hash.toString('hex');
   const hashV2 = ':' + hash.toString('base64') + ':';
   const compressed = await fsp.readFile(path.join(THIRD_PARTY_DIR, `${ver}.js.br`));
-  return {ver: ver, data: data, hash: hash, hashV1: hashV1, hashV2: hashV2, compressed: compressed};
+  return {ver: ver, data: data, hash: hash, hashV2: hashV2, compressed: compressed};
 }
 
 async function loadThreeJsDelta(from, to) {
-  const sbr = await fsp.readFile(path.join(THIRD_PARTY_DIR, `${from}-${to}.js.sbr`));
-  const szst = await fsp.readFile(path.join(THIRD_PARTY_DIR, `${from}-${to}.js.szst`));
-  return {from: from, to: to, sbr: sbr, szst: szst};
+  const dcb = await fsp.readFile(path.join(THIRD_PARTY_DIR, `${from}-${to}.js.dcb`));
+  const dcz = await fsp.readFile(path.join(THIRD_PARTY_DIR, `${from}-${to}.js.dcz`));
+  return {from: from, to: to, dcb: dcb, dcz: dcz};
 }
 
 let threeJsInfoPromise;
@@ -47,7 +46,6 @@ async function loadThreeJsFiles() {
     let deltaMap = {};
     scripts.forEach((script) => {
       scriptMap[script.ver] = script;
-      deltaMap[script.hashV1] = {};
       deltaMap[script.hashV2] = {};
       deltaMap[script.hashV2].hash = script.hash;
     });
@@ -62,9 +60,6 @@ async function loadThreeJsFiles() {
     const deltas = await Promise.all(promises);
     deltas.forEach((delta) => {
       if (scriptMap[delta.from]) {
-        if (deltaMap[scriptMap[delta.from].hashV1]) {
-           deltaMap[scriptMap[delta.from].hashV1][delta.to] = delta;
-        }
         if (deltaMap[scriptMap[delta.from].hashV2]) {
            deltaMap[scriptMap[delta.from].hashV2][delta.to] = delta;
         }
@@ -103,31 +98,15 @@ exports.main = async (req, res) => {
 
     const threeJsInfo = await threeJsInfoPromise;
 
-    const dictHashV1 = req.headers['sec-available-dictionary'];
     const dictHashV2 = req.headers['available-dictionary'];
     const acceptEncodings = (req.headers['accept-encoding'] || '').split(',').map(s => s.trim());
 
-    const sbrSupported = acceptEncodings.includes('sbr');
-    const szstSupported = acceptEncodings.includes('zstd-d');
     const dcbSupported = acceptEncodings.includes('dcb');
     const dczSupported = acceptEncodings.includes('dcz');
 
     let sent = false;
 
-    if (dictHashV1 && (sbrSupported || szstSupported) &&
-        threeJsInfo.deltaMap[dictHashV1] &&
-        threeJsInfo.deltaMap[dictHashV1][ver]) {
-      const delta = threeJsInfo.deltaMap[dictHashV1][ver];
-      if (szstSupported) {
-        res.setHeader('Content-Encoding', 'zstd-d');
-        res.end(delta.szst);
-        sent = true;
-      } else {
-        res.setHeader('Content-Encoding', 'sbr');
-        res.end(delta.sbr);
-        sent = true;
-      }
-    } else if (dictHashV2 && (sbrSupported || szstSupported || dcbSupported || dczSupported) &&
+    if (dictHashV2 && (dcbSupported || dczSupported || dcbSupported || dczSupported) &&
                threeJsInfo.deltaMap[dictHashV2] &&
                threeJsInfo.deltaMap[dictHashV2][ver]) {
       res.setHeader('Content-Dictionary', dictHashV2);
@@ -135,19 +114,11 @@ exports.main = async (req, res) => {
       const delta = deltaMap[ver];
       if (dczSupported) {
         res.setHeader('Content-Encoding', 'dcz');
-        res.end(Buffer.concat([DCZ_MAGIC, deltaMap.hash, delta.szst]));
+        res.end(Buffer.concat([DCZ_MAGIC, deltaMap.hash, delta.dcz]));
         sent = true;
       } else if (dcbSupported) {
         res.setHeader('Content-Encoding', 'dcb');
-        res.end(Buffer.concat([DCB_MAGIC, deltaMap.hash, delta.sbr]));
-        sent = true;
-      } else if (szstSupported) {
-        res.setHeader('Content-Encoding', 'zstd-d');
-        res.end(delta.szst);
-        sent = true;
-      } else if (sbrSupported) {
-        res.setHeader('Content-Encoding', 'br-d');
-        res.end(delta.sbr);
+        res.end(Buffer.concat([DCB_MAGIC, deltaMap.hash, delta.dcb]));
         sent = true;
       }
     }

@@ -16,14 +16,7 @@
 <div>
   To try this demo, please follow these instructions:
   <ol>
-    <li>Use Chrome Canary or Dev (version &gt; 117.0.5906.0).</li>
-    <li>
-      Enable both <a
-        href="chrome://flags/#enable-compression-dictionary-transport">chrome://flags/#enable-compression-dictionary-transport</a>
-      and
-      <a
-        href="chrome://flags/#enable-compression-dictionary-transport-backend">chrome://flags/#enable-compression-dictionary-transport-backend</a>
-    </li>
+    <li>Use Chrome version &gt; 130.</li>
     <li>
       Open DevTools (Windows: F12 key, Mac: Command + Option + I), and select the Network tab.
     </li>
@@ -53,13 +46,13 @@
         <li>
           When you click "152.js", you can see this new request header:
           <pre>Available-Dictionary: :epjv6NymTtsZ63DPEBkyCVCh7ZlGicsjTPkBUvSQ9G4=:</pre>
-          Also you can see new "br-d" and "zstd-d" Accept-Encoding types:
-          <pre>Accept-Encoding: gzip, deflate, br, zstd, br-d, zstd-d</pre>
+          Also you can see new "dcb" and "dcz" Accept-Encoding types:
+          <pre>Accept-Encoding: gzip, deflate, br, zstd, dcb, dcz</pre>
           This request header means that the browser has a dictionary with the hash, and can use Shared Brotli
           compression.
         </li>
         <li>
-          And the response header has <pre>Content-Encoding: zstd-d</pre> and <pre>Content-Dictionary: :epjv6NymTtsZ63DPEBkyCVCh7ZlGicsjTPkBUvSQ9G4=:</pre> headers.
+          And the response header has <pre>Content-Encoding: dcz</pre> and <pre>Content-Dictionary: :epjv6NymTtsZ63DPEBkyCVCh7ZlGicsjTPkBUvSQ9G4=:</pre> headers.
           This means that the response is compressed using the dictionary.
         </li>
         <li>
@@ -86,6 +79,8 @@
 </div>
 <div>
   The source code of this demo is available at <a
+    href="https://github.com/GoogleChromeLabs/web-perf-demos/compression-dictionary-transport-threejs-demo">GitHub</a>
+  And was based on the original demo at <a
     href="https://github.com/horo-t/compression-dictionary-transport-threejs-demo">GitHub</a>.
 </div>
 </html>
