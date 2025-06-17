@@ -1,0 +1,82 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <script>
+      function log(txt) {
+        const disp = document.getElementById("disp");
+        disp.appendChild(document.createTextNode(txt + "\n"));
+      }
+      function getRevision() {
+        const revisionString = new URL(location.href).searchParams.get('r');
+        const parsed = parseInt(revisionString, 10);
+        if (isNaN(parsed)) { return 153; }
+        return parsed;
+      }
+      const revision = getRevision();
+      const moduleUrl = new URL(`js/${revision}.js`, location.href);
+      const observer = new PerformanceObserver((list) => {
+        list.getEntries().forEach((entry) => {
+          if (entry.name == moduleUrl) {
+            const timeToFetch = entry.responseEnd - entry.fetchStart;
+            log(`Time to load three.module.js: ${timeToFetch} ms`);
+          }
+        });
+      });
+
+      observer.observe({ type: "resource", buffered: true });
+      document.addEventListener('DOMContentLoaded', () => {
+        const importmapContent = `
+          {
+            "imports": {
+              "three": "${moduleUrl}"
+            }
+          }
+        `;
+        const moduleContent = `
+          import * as THREE from 'three';
+          log('THREE.REVISION : ' + THREE.REVISION);
+          const width = 640;
+          const height = 480;
+          const scene = new THREE.Scene();
+          const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
+          const renderer = new THREE.WebGLRenderer({
+                  canvas: document.getElementById('canvas')
+                });
+          renderer.setSize( width, height );
+          document.body.appendChild(renderer.domElement);
+
+          const geometry = new THREE.BoxGeometry(1, 1, 1);
+          const material = new THREE.MeshNormalMaterial({ color: 0x00ff00 });
+          const cube = new THREE.Mesh(geometry, material);
+          scene.add( cube );
+
+          camera.position.z = 5;
+
+          function animate() {
+            requestAnimationFrame( animate );
+
+            cube.rotation.x += 0.01;
+            cube.rotation.y += 0.01;
+
+            renderer.render( scene, camera );
+          }
+
+          animate();
+        `;
+        const importmap = document.createElement('script');
+        importmap.type = 'importmap';
+        importmap.appendChild(document.createTextNode(importmapContent));
+        const module = document.createElement('script');
+        module.type = 'module';
+        module.appendChild(document.createTextNode(moduleContent));
+        document.head.appendChild(importmap);
+        document.head.appendChild(module);
+      });
+    </script>
+  </head>
+  <body>
+    <div><pre id="disp"></pre></div>
+    <canvas id="canvas"></canvas>
+  </body>
+</html>
+

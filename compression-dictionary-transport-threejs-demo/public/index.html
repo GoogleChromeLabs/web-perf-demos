@@ -1,0 +1,92 @@
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Compression dictionary transport demo - static resources flow</title>
+</head>
+<div>
+  <h3>
+    Three JS demo (<a href="https://github.com/WICG/compression-dictionary-transport">compression dictionary
+      transport</a> feature static resources flow)
+  </h3>
+</div>
+<div>
+  This demo describes how the <a href="https://github.com/WICG/compression-dictionary-transport">Compression Dictionary
+    Transport</a> feature can be used for delta updating static JavaScript libraries.
+</div>
+<div>
+  To try this demo, please follow these instructions:
+  <ol>
+    <li>Use Chrome Canary or Dev (version &gt; 117.0.5906.0).</li>
+    <li>
+      Enable both <a
+        href="chrome://flags/#enable-compression-dictionary-transport">chrome://flags/#enable-compression-dictionary-transport</a>
+      and
+      <a
+        href="chrome://flags/#enable-compression-dictionary-transport-backend">chrome://flags/#enable-compression-dictionary-transport-backend</a>
+    </li>
+    <li>
+      Open DevTools (Windows: F12 key, Mac: Command + Option + I), and select the Network tab.
+    </li>
+    <li>
+      Go to <a href="/demo.html?r=151">demo.html?r=151</a>
+      <ul>
+        <li>This page is using Three.js (revision 151).</li>
+        <li>You can see "191kB" in the network column of "151.js".</li>
+        <li>The file is compressed using normal Brotli (1,198,641 bytes =&gt; 190,163 bytes) </li>
+        <li>
+          When you click "151.js", you can see this new response header:
+          <pre>Use-As-Dictionary: match="/js/*"</pre>
+          This response header means that the content of "151.js" can be used as a shared dictionary for fetching
+          resources under "/js/".
+        </li>
+        <li>In <a href="chrome://net-internals/#sharedDictionary">chrome://net-internals/#sharedDictionary</a>, you can
+          see the registered dictionary information.</li>
+      </ul>
+    </li>
+    <li>
+      Go to <a href="/demo.html?r=152">demo.html?r=152</a>
+      <ul>
+        <li>This page is using Three.js (revision 152).</li>
+        <li>You can see "5.9 KB" in the network column of "152.js".</li>
+        <li>This is compressed using Shared Brotli using the content of "151.js" as a dictionary. The original size of
+          "152.js" is 1,208,641 bytes. And the compressed data size is 5,612bytes.</li>
+        <li>
+          When you click "152.js", you can see this new request header:
+          <pre>Available-Dictionary: :epjv6NymTtsZ63DPEBkyCVCh7ZlGicsjTPkBUvSQ9G4=:</pre>
+          Also you can see new "br-d" and "zstd-d" Accept-Encoding types:
+          <pre>Accept-Encoding: gzip, deflate, br, zstd, br-d, zstd-d</pre>
+          This request header means that the browser has a dictionary with the hash, and can use Shared Brotli
+          compression.
+        </li>
+        <li>
+          And the response header has <pre>Content-Encoding: zstd-d</pre> and <pre>Content-Dictionary: :epjv6NymTtsZ63DPEBkyCVCh7ZlGicsjTPkBUvSQ9G4=:</pre> headers.
+          This means that the response is compressed using the dictionary.
+        </li>
+        <li>
+          Also, the response header contains the "Use-As-Dictionary" header.
+          <pre>Use-As-Dictionary: match="/js/*"</pre>
+          So the content of "152.js" will be used as a shared dictionary for fetching resources under "/js/".
+        </li>
+        <li>In <a href="chrome://net-internals/#sharedDictionary">chrome://net-internals/#sharedDictionary</a>, you can
+          see the updated dictionary information.</li>
+      </ul>
+    </li>
+    <li>
+      Go to <a href="/demo.html?r=153">/demo.html?r=153</a>
+      <ul>
+        <li>This page is using Three.js (revision 153).</li>
+        <li>You can see "4.3 KB" in the network column of "153.js".</li>
+        <li>This is compressed using Shared Brotli using the content of "152.js" as a dictionary. The original size of
+          "153.js" is 1,223,960 bytes. And the compressed data size is 4,077 bytes.</li>
+        <li>In <a href="chrome://net-internals/#sharedDictionary">chrome://net-internals/#sharedDictionary</a>, you can
+          see the updated dictionary information.</li>
+      </ul>
+    </li>
+  </ol>
+</div>
+<div>
+  The source code of this demo is available at <a
+    href="https://github.com/horo-t/compression-dictionary-transport-threejs-demo">GitHub</a>.
+</div>
+</html>
+

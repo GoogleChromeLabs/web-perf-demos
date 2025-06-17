@@ -1,0 +1,27 @@
+{
+  "name": "compression_dictionary_transport_threejs_demo",
+  "version": "0.1.0",
+  "description": "A demo Node app of Compression Dictionary Transport",
+  "main": "index.js",
+  "scripts": {
+    "deploy": "gcloud functions deploy compression_dictionary_transport_threejs_demo --runtime nodejs20 --trigger-http --entry-point main --allow-unauthenticated",
+    "start": "npx functions-framework --target=main --port 8080"
+  },
+  "dependencies": {
+    "@google-cloud/functions-framework": "^4.0.0",
+    "buffer": "^6.0.3",
+    "crypto": "^1.0.1",
+    "fs": "^0.0.1-security",
+    "mime-types": "^3.0.1",
+    "path": "^0.12.7"
+  },
+  "engines": {
+    "node": "14.x"
+  },
+  "license": "MIT",
+  "keywords": [
+    "brotli",
+    "shared brotli",
+    "compression dictionary transport"
+  ]
+}
