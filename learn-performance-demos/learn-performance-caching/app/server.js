@@ -2,6 +2,9 @@ const { createHash } = require("crypto");
 const path = require("path");
 const fs = require("fs");
 const Handlebars = require("handlebars");
+const fastify = require("fastify")({
+  logger: false,
+});
 
 const { delay, getTime, generateRandomString } = require("./utils");
 
@@ -10,54 +13,65 @@ const md5 = (input) => createHash("md5").update(input).digest("hex");
 // total number of steps in this demo
 const MAX_STEP = 4;
 
-/** start: configure fastify **/
-const fastify = require("fastify")({
-  logger: false,
-});
-
-// replaced @fastify/static with a custom get handler which delays the response by N milliseconds
-fastify.get("/:file(.+).:ext(css|js)", async function (request, reply) {
-  await delay(request.query["delay"] || 0);
-  const content = fs.readFileSync(
-    `./public/${request.params["file"]}.${request.params["ext"]}`,
-    "utf-8"
-  );
-
-  switch (request.params["ext"]) {
-    case "css":
-      reply.type("text/css");
-      break;
-    case "js":
-      reply.type("text/javascript");
-      break;
-    default:
-      reply.type("text/plain");
-  }
-
-  return content;
-});
-
+// Register Handlebars helpers
 Handlebars.registerHelper(require("./helpers.js"));
 
+// Configure Fastify View with Handlebars
 fastify.register(require("@fastify/view"), {
   engine: {
     handlebars: Handlebars,
   },
+  // Paths are relative to the root of your deployed Cloud Function
   layout: "/src/partials/layout.hbs",
   options: {
     partials: {
       nav: "/src/partials/nav.hbs",
       footer: "/src/partials/footer.hbs",
       heading: "/src/partials/heading.hbs",
-    },        
+    },
   },
   defaultContext: {
     maxStep: MAX_STEP
   }
 });
-/** end: configure fastly **/
 
-const scripts = ``;
+// Custom handler for static files (CSS/JS/PNG)
+fastify.get("/:file(.+).:ext(css|js|png)", async function (request, reply) {
+  await delay(request.query["delay"] || 0);
+
+  const contentPath = path.join(__dirname, `public/${request.params["file"]}.${request.params["ext"]}`);
+  let content;
+  try {
+    content = request.params["ext"] === "png"
+      ? fs.readFileSync(contentPath)
+      : fs.readFileSync(contentPath, "utf-8");
+  } catch (error) {
+    reply.statusCode = 404;
+    return "File not found";
+  }
+
+  switch (request.params["ext"]) {
+    case "css":
+      reply.type("text/css; charset=utf-8");
+      reply.headers({"cache-control": "max-age=300"});
+      break;
+    case "js":
+      reply.type("text/javascript; charset=utf-8");
+      reply.headers({"cache-control": "max-age=300"});
+      break;
+    case "png":
+      reply.type("image/png");
+      reply.headers({"cache-control": "max-age=1800"});
+      break;
+    default:
+      reply.type("text/plain; charset=utf-8");
+      reply.headers({"cache-control": "max-age=300"});
+  }
+
+  return content;
+});
+
+const scripts = ``; // This seems to be an empty string in your original code.
 
 /** start: routes **/
 
@@ -66,10 +80,8 @@ fastify.get("/", function (request, reply) {
   let params = {
     title: "Welcome",
   };
-
+  // Path relative to the root of your deployed Cloud Function
   reply.view("/src/pages/index.hbs", params);
-
-  return reply;
 });
 
 /** start: demo routes **/
@@ -77,7 +89,7 @@ fastify.get("/1", function (request, reply) {
   let params = {
     step: 1,
     title: "no-store",
-    data: generateRandomString(100, 200),    
+    data: generateRandomString(100, 200),
     time: getTime(new Date()),
     scripts
   };
@@ -86,8 +98,6 @@ fastify.get("/1", function (request, reply) {
     "cache-control": "no-store",
   });
   reply.view("/src/pages/1.hbs", params);
-
-  return reply;
 });
 
 fastify.get("/2", function (request, reply) {
@@ -111,8 +121,6 @@ fastify.get("/2", function (request, reply) {
     });
     reply.view("/src/pages/2.hbs", params);
   }
-
-  return reply;
 });
 
 fastify.get("/3", function (request, reply) {
@@ -136,8 +144,6 @@ fastify.get("/3", function (request, reply) {
     });
     reply.view("/src/pages/3.hbs", params);
   }
-
-  return reply;
 });
 
 fastify.get("/4", function (request, reply) {
@@ -161,22 +167,10 @@ fastify.get("/4", function (request, reply) {
     });
     reply.view("/src/pages/4.hbs", params);
   }
-
-  return reply;
 });
 /** end: demo routes **/
 
-/** end: routes **/
-
-// start the fastify server
-fastify.listen(
-  { port: process.env.PORT, host: "0.0.0.0" },
-  function (err, address) {
-    if (err) {
-      fastify.log.error(err);
-      process.exit(1);
-    }
-    console.log(`Your app is listening on ${address}`);
-    fastify.log.info(`server listening on ${address}`);
-  }
-);
+exports.learn_performance_caching = async (request, response) => {
+  await fastify.ready(); // Ensure Fastify plugins and routes are loaded
+  fastify.server.emit('request', request, response);
+};
