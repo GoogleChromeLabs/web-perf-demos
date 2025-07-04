@@ -17,9 +17,9 @@
     "node": "14.x"
   },
   "repository": {
-    "url": "https://glitch.com/edit/#!/learn-performance-prefetch-prerender"
+    "url": "https://github.com/GoogleChromeLabs/web-perf-demos/learn-performance-demos/learn-performance-prefetch-prerender"
   },
-  "license": "MIT",
+  "license": "Apache-2.0",
   "keywords": [
     "node",
     "glitch",
