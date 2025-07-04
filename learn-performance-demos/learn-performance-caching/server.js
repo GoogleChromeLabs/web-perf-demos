@@ -37,7 +37,7 @@ fastify.register(require("@fastify/view"), {
 
 // Custom handler for static files (CSS/JS/PNG)
 fastify.get("/:file(.+).:ext(css|js|png)", async function (request, reply) {
-  await delay(request.query["delay"] || 0);
+  await delay(parseInt(request.query["delay"], 10) || 0);
 
   const contentPath = path.join(__dirname, `public/${request.params["file"]}.${request.params["ext"]}`);
   let content;

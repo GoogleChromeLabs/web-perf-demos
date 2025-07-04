@@ -13,30 +13,31 @@ const fastify = require("fastify")({
   logger: false,
 });
 
-// create a proxy to direct requests from /images to cdn.glitch.global
-fastify.register(require("@fastify/http-proxy"), {
-  upstream: "https://cdn.glitch.global/850a76f6-ed10-4120-9f3c-4628563dd9d2",
-  prefix: "/images",
-  disableCache: false,
-});
-
 // replaced @fastify/static with a custom get handler which delays the response by N milliseconds
-fastify.get("/:file(.+).:ext(css|js)", async function (request, reply) {
-  await delay(request.query["delay"] || 0);
-  const content = fs.readFileSync(
-    `./public/${request.params["file"]}.${request.params["ext"]}`,
-    "utf-8"
-  );
+fastify.get("/:file(.+).:ext(css|js|png)", async function (request, reply) {
+  await delay(parseInt(request.query["delay"], 10) || 0);
+  const content = request.params["ext"] === "png"
+    ? fs.readFileSync(
+    `./public/${request.params["file"]}.${request.params["ext"]}`)
+    : fs.readFileSync(
+    `./public/${request.params["file"]}.${request.params["ext"]}`,"utf-8");
 
   switch (request.params["ext"]) {
     case "css":
-      reply.type("text/css");
+      reply.type("text/css; charset=utf-8");
+      reply.headers({"cache-control": "max-age=300"});
       break;
     case "js":
-      reply.type("text/javascript");
+      reply.type("text/javascript; charset=utf-8");
+      reply.headers({"cache-control": "max-age=300"});
+      break;
+    case "png":
+      reply.type("image/png");
+      reply.headers({"cache-control": "max-age=1800"});
       break;
     default:
-      reply.type("text/plain");
+      reply.type("text/plain; charset=utf-8");
+      reply.headers({"cache-control": "max-age=300"});
   }
 
   return content;

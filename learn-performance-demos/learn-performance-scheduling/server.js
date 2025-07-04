@@ -15,13 +15,6 @@ const fastify = require("fastify")({
 
 Handlebars.registerHelper(require("./helpers.js"));
 
-// create a proxy to direct requests to /images to cdn.glitch.global
-fastify.register(require("@fastify/http-proxy"), {
-  upstream: "https://cdn.glitch.global/64728001-8411-4e75-95b3-99288bcd6141",
-  prefix: "/images",
-  disableCache: true,
-});
-
 fastify.register(require("@fastify/static"), {
   root: path.join(__dirname, "public"),
 });

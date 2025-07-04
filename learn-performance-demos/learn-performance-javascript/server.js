@@ -14,22 +14,30 @@ const fastify = require("fastify")({
 });
 
 // replaced @fastify/static with a custom get handler which delays the response by N milliseconds
-fastify.get("/:file(.+).:ext(css|js)", async function (request, reply) {
-  await delay(request.query["delay"] || 0);
-  const content = fs.readFileSync(
-    `./public/${request.params["file"]}.${request.params["ext"]}`,
-    "utf-8"
-  );
+fastify.get("/:file(.+).:ext(css|js|png)", async function (request, reply) {
+  await delay(parseInt(request.query["delay"], 10) || 0);
+  const content = request.params["ext"] === "png"
+    ? fs.readFileSync(
+    `./public/${request.params["file"]}.${request.params["ext"]}`)
+    : fs.readFileSync(
+    `./public/${request.params["file"]}.${request.params["ext"]}`,"utf-8");
 
   switch (request.params["ext"]) {
     case "css":
-      reply.type("text/css");
+      reply.type("text/css; charset=utf-8");
+      reply.headers({"cache-control": "max-age=300"});
       break;
     case "js":
-      reply.type("text/javascript");
+      reply.type("text/javascript; charset=utf-8");
+      reply.headers({"cache-control": "max-age=300"});
+      break;
+    case "png":
+      reply.type("image/png");
+      reply.headers({"cache-control": "max-age=1800"});
       break;
     default:
-      reply.type("text/plain");
+      reply.type("text/plain; charset=utf-8");
+      reply.headers({"cache-control": "max-age=300"});
   }
 
   return content;
@@ -61,7 +69,7 @@ fastify.register(require("@fastify/view"), {
 fastify.get("/", function (request, reply) {
   let params = {
     title: "Welcome",
-    head: `<link rel="stylesheet" href="/style.css" />`,
+    head: `<link rel="stylesheet" href="./style.css" />`,
   };
 
   reply.view("/src/pages/index.hbs", params);
@@ -75,7 +83,7 @@ fastify.get("/1", function (request, reply) {
     step: 1,
     title: "blocking - head",
     head: `<script src="./script.js?delay=1000"></script>
-<link rel="stylesheet" href="/style.css" />`,
+<link rel="stylesheet" href="./style.css" />`,
   };
 
   reply.view("/src/pages/1.hbs", params);
@@ -104,7 +112,7 @@ fastify.get("/2", function (request, reply) {
     console.log("setTimeout");
   }, 1000);
 </script>
-<link rel="stylesheet" href="/style.css" />`,
+<link rel="stylesheet" href="./style.css" />`,
   };
 
   reply.view("/src/pages/2.hbs", params);
@@ -116,7 +124,7 @@ fastify.get("/3", function (request, reply) {
   let params = {
     step: 3,
     title: "blocking - inverted",
-    head: `<link rel="stylesheet" href="/style.css" />
+    head: `<link rel="stylesheet" href="./style.css" />
 <script>
   // block main thread for N milliseconds
   function sleep(n) {
@@ -145,7 +153,7 @@ fastify.get("/4", function (request, reply) {
   let params = {
     step: 4,
     title: "blocking - body",
-    head: `<link rel="stylesheet" href="/style.css" />`,
+    head: `<link rel="stylesheet" href="./style.css" />`,
     data: generateRandomString(500, 500),
     scripts: `<script src="./script.js?delay=1000"></script>`
   };
@@ -159,7 +167,7 @@ fastify.get("/5", function (request, reply) {
   let params = {
     step: 5,
     title: "async",
-    head: `<link rel="stylesheet" href="/style.css" />
+    head: `<link rel="stylesheet" href="./style.css" />
 <script src="./script.js?delay=500" async></script>`,
     data: generateRandomString(2000, 2000),
   };
@@ -173,7 +181,7 @@ fastify.get("/6", function (request, reply) {
   let params = {
     step: 6,
     title: "defer",
-    head: `<link rel="stylesheet" href="/style.css" />
+    head: `<link rel="stylesheet" href="./style.css" />
 <script src="./script.js?delay=1000" async></script>`,
     data: generateRandomString(500, 500),
   };
@@ -187,7 +195,7 @@ fastify.get("/7", function (request, reply) {
   let params = {
     step: 7,
     title: "module",
-    head: `<link rel="stylesheet" href="/style.css" />
+    head: `<link rel="stylesheet" href="./style.css" />
 <script src="./module.js?delay=1000" type="module"></script>`,
     data: generateRandomString(500, 500),
   };
@@ -201,7 +209,7 @@ fastify.get("/8", function (request, reply) {
   let params = {
     step: 8,
     title: "module - import",
-    head: `<link rel="stylesheet" href="/style.css" />
+    head: `<link rel="stylesheet" href="./style.css" />
 <script src="./module-import.js?delay=1000" type="module"></script>`,
     data: generateRandomString(500, 500),
   };
@@ -215,7 +223,7 @@ fastify.get("/9", function (request, reply) {
   let params = {
     step: 9,
     title: "module - async",
-    head: `<link rel="stylesheet" href="/style.css" />
+    head: `<link rel="stylesheet" href="./style.css" />
 <script src="./module.js?delay=10" type="module" async></script>`,
     data: generateRandomString(2000, 2000),
   };
