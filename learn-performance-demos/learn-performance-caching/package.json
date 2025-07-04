@@ -4,7 +4,6 @@
   "description": "Demo of etag, last-modified, and cache-control headers.",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
     "deploy": "gcloud functions deploy learn_performance_caching --runtime nodejs22 --trigger-http",
     "permission": "gcloud functions add-invoker-policy-binding learn_performance_caching --member='allUsers'"
   },
@@ -17,7 +16,7 @@
   "repository": {
     "url": "https://github.com/GoogleChromeLabs/web-perf-demos/learn-performance-demos/learn-performance-caching"
   },
-  "license": "MIT",
+  "license": "Apache",
   "keywords": [
     "node",
     "express"

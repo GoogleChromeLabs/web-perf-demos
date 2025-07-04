@@ -1,27 +1,24 @@
 {
-  "name": "learn-performance-caching",
+  "name": "learn-performance-css",
   "version": "0.1.0",
   "description": "Demo of etag, last-modified, and cache-control headers.",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "deploy": "gcloud functions deploy learn_performance_css --runtime nodejs22 --trigger-http",
+    "permission": "gcloud functions add-invoker-policy-binding learn_performance_css --member='allUsers'"
   },
   "dependencies": {
-    "fastify": "^4.4.0",
-    "handlebars": "^4.7.7",
-    "@fastify/view": "^7.1.0",
-    "@fastify/static": "^6.5.0"
-  },
-  "engines": {
-    "node": "14.x"
+    "fastify": "^5.4.0",
+    "handlebars": "^4.7.8",
+    "@fastify/view": "^11.1.0",
+    "@fastify/static": "^8.2.0"
   },
   "repository": {
     "url": "https://glitch.com/edit/#!/learn-performance-caching"
   },
-  "license": "MIT",
+  "license": "Apache",
   "keywords": [
     "node",
-    "glitch",
     "express"
   ]
 }
