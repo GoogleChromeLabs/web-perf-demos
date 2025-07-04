@@ -77,7 +77,7 @@ fastify.get("/1", function (request, reply) {
     step: 1,
     title: "preconnect",
     head: `<link rel="stylesheet" href="/style.css?delay=1000" />
-<script src="/gallery.js?delay=1000" defer></script>`,
+<script src="./gallery.js?delay=1000" defer></script>`,
     data: generateRandomString(2000, 2000),
   };
 
@@ -91,7 +91,7 @@ fastify.get("/2", function (request, reply) {
     step: 2,
     title: "HTTP headers",
     head: `<link rel="stylesheet" href="/style.css?delay=1000" />
-<script src="/gallery.js?delay=1000" defer></script>`,
+<script src="./gallery.js?delay=1000" defer></script>`,
     data: generateRandomString(2000, 2000),
   };
 
@@ -108,7 +108,7 @@ fastify.get("/3", function (request, reply) {
     head: `<link rel="stylesheet" href="/style.css?delay=1000" />
 <link rel="stylesheet" href="/background-image.css?delay=1000" />
 <link rel="preload" href="https://cdn.glitch.global/db01a8e4-9230-4c5c-977d-85d0e0c3e74c/image-1.jpg?v=1669198400523" as="image" />
-<script src="/gallery.js?delay=1000" defer></script>`,
+<script src="./gallery.js?delay=1000" defer></script>`,
     data: generateRandomString(2000, 2000),
   };
 
@@ -123,7 +123,7 @@ fastify.get("/4", function (request, reply) {
     title: "preload - img",
     head: `<link rel="stylesheet" href="/style.css?delay=1000" />
 <link rel="preload" href="https://cdn.glitch.global/db01a8e4-9230-4c5c-977d-85d0e0c3e74c/image-1.jpg?v=1669198400523" as="image" />
-<script src="/gallery.js?delay=1000" defer></script>`,
+<script src="./gallery.js?delay=1000" defer></script>`,
     data: generateRandomString(2000, 2000),
   };
 
@@ -138,7 +138,7 @@ fastify.get("/5", function (request, reply) {
     title: "fetchpriority",
     head: `<link rel="stylesheet" href="/style.css?delay=1000" />
 <link rel="preload" href="https://cdn.glitch.global/db01a8e4-9230-4c5c-977d-85d0e0c3e74c/image-1.jpg?v=1669198400523" as="image" fetchpriority="high" />
-<script src="/gallery.js?delay=1000" defer></script>`,
+<script src="./gallery.js?delay=1000" defer></script>`,
     data: generateRandomString(2000, 2000),
   };
 
@@ -149,15 +149,14 @@ fastify.get("/5", function (request, reply) {
 
 /** end: routes **/
 
-// start the fastify server
-fastify.listen(
-  { port: process.env.PORT, host: "0.0.0.0" },
-  function (err, address) {
-    if (err) {
-      fastify.log.error(err);
-      process.exit(1);
-    }
-    console.log(`Your app is listening on ${address}`);
-    fastify.log.info(`server listening on ${address}`);
-  }
-);
+/**
+ * This is the entry point for your Google Cloud Function.
+ * It uses Fastify to handle the routing internally.
+ */
+exports.learn_performance_resource_hints = async (request, response) => {
+  // Ensure Fastify's routes and plugins are ready before handling the request
+  await fastify.ready();
+  // Pass the incoming request and response objects to Fastify's internal server handler
+  fastify.server.emit('request', request, response);
+};
+

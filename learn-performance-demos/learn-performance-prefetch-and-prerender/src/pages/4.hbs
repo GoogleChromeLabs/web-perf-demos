@@ -9,7 +9,7 @@
     when the user hovers over the link for 200ms—indicating an intent to click.
   </p>
   <p>
-    <a href="/4-prerender" style="font-size:1.25rem;font-weight:600;">Go to
+    <a href="./4-prerender?noslash" style="font-size:1.25rem;font-weight:600;">Go to
       prerendered page</a>
   </p>
   <p>
@@ -57,7 +57,7 @@
   {{! prettier-ignore }}
   <p>
     <details>
-      <summary>View Source Code</summary>      
+      <summary>View Source Code</summary>
       <pre><code>function isSameOrigin(origin, path) {
   if (path.indexOf(&quot;http&quot;) !== 0) {
     return true;
@@ -119,7 +119,7 @@ document.querySelectorAll(&quot;a[href]&quot;).forEach(n =&gt; {
     const url = new URL(path);
     return url.origin === origin;
   }
-  
+
   function addSpeculationRules(target) {
     const specScript = document.createElement("script");
     specScript.type = "speculationrules";
@@ -134,7 +134,7 @@ document.querySelectorAll(&quot;a[href]&quot;).forEach(n =&gt; {
       }`;
     document.body.appendChild(specScript);
   }
-  
+
   const handleMouseOver = (n) => (m) => {
     const targetUrl = m.target.getAttribute("href");
 
@@ -154,7 +154,7 @@ document.querySelectorAll(&quot;a[href]&quot;).forEach(n =&gt; {
       }
     }, { once: true });
   }
-            
+
   // add speculationrules if the user hovers over a link element
   document.querySelectorAll("a[href]").forEach(n => {
     n.addEventListener("mouseover", handleMouseOver(n), { once: true });

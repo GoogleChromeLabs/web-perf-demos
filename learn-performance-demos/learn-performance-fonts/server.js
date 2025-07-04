@@ -42,7 +42,7 @@ fastify.register(require("@fastify/http-proxy"), {
   upstream: "https://cdn.glitch.global/b6592dee-457d-4490-b17e-3afa965ee9ee/",
   prefix: "/fonts",
   disableCache: true,
-  
+
   // add a 500 millisecond delay
   preHandler: async function (_req, _res, next) {
     await delay(1000);
@@ -414,7 +414,7 @@ table tbody td:nth-child(2n) {
     background-color: #1f1f1f;
     color: #fafafa;
   }
-  
+
   a {
     color: #ffffff;
   }
@@ -459,7 +459,7 @@ fastify.get("/5", function (request, reply) {
 }
 </style>
 <link rel="stylesheet" href="/style.css?delay=300">
-<script src="/script.js?delay=600"></script>`    
+<script src="./script.js?delay=600"></script>`
   };
 
   reply.view(`/src/pages/${params.step}.hbs`, params);
@@ -483,7 +483,7 @@ fastify.get("/6", function (request, reply) {
   }
 </style>
 <link rel="stylesheet" href="/style.css?delay=300">
-<script src="/script.js?delay=600"></script>`    
+<script src="./script.js?delay=600"></script>`
   };
 
   reply.view(`/src/pages/${params.step}.hbs`, params);
@@ -556,15 +556,14 @@ fastify.get("/10", function (request, reply) {
 });
 /** end: routes **/
 
-// start the fastify server
-fastify.listen(
-  { port: process.env.PORT, host: "0.0.0.0" },
-  function (err, address) {
-    if (err) {
-      fastify.log.error(err);
-      process.exit(1);
-    }
-    console.log(`Your app is listening on ${address}`);
-    fastify.log.info(`server listening on ${address}`);
-  }
-);
+/**
+ * This is the entry point for your Google Cloud Function.
+ * It uses Fastify to handle the routing internally.
+ */
+exports.learn_performance_fonts = async (request, response) => {
+  // Ensure Fastify's routes and plugins are ready before handling the request
+  await fastify.ready();
+  // Pass the incoming request and response objects to Fastify's internal server handler
+  fastify.server.emit('request', request, response);
+};
+

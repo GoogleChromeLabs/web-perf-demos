@@ -107,7 +107,7 @@ fastify.get("/2-prefetch", function (request, reply) {
   let params = {
     step: 2,
     title: "Prefetch documents",
-    head: `<script src="/2-prefetch.js"></script>`,
+    head: `<script src="./2-prefetch.js"></script>`,
   };
 
   reply.view(`/src/pages/${params.step}-prefetch.hbs`, params);
@@ -130,7 +130,7 @@ fastify.get("/3-prefetch", function (request, reply) {
   let params = {
     step: 3,
     title: "Speculation rules",
-    head: `<script src="/3-prefetch.js"></script>`,
+    head: `<script src="./3-prefetch.js"></script>`,
   };
 
   reply.view(`/src/pages/${params.step}-prefetch.hbs`, params);
@@ -153,7 +153,7 @@ fastify.get("/4-prerender", function (request, reply) {
   let params = {
     step: 4,
     title: "Prerender",
-    head: `<script src="/4-prerender.js"></script>`,
+    head: `<script src="./4-prerender.js"></script>`,
   };
 
   reply.view(`/src/pages/${params.step}-prerender.hbs`, params);
@@ -163,15 +163,14 @@ fastify.get("/4-prerender", function (request, reply) {
 
 /** end: routes **/
 
-// start the fastify server
-fastify.listen(
-  { port: process.env.PORT, host: "0.0.0.0" },
-  function (err, address) {
-    if (err) {
-      fastify.log.error(err);
-      process.exit(1);
-    }
-    console.log(`Your app is listening on ${address}`);
-    fastify.log.info(`server listening on ${address}`);
-  }
-);
+/**
+ * This is the entry point for your Google Cloud Function.
+ * It uses Fastify to handle the routing internally.
+ */
+exports.learn_performance_prefetch_and_prerender = async (request, response) => {
+  // Ensure Fastify's routes and plugins are ready before handling the request
+  await fastify.ready();
+  // Pass the incoming request and response objects to Fastify's internal server handler
+  fastify.server.emit('request', request, response);
+};
+

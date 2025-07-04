@@ -2,13 +2,13 @@
   <p>
     It is also possible to prefetch documents that the user is likely to
     navigate to in the near future. This page contains a
-    <code>&lt;link rel="prefetch" as="document" href="/2-prefetch"&gt;</code>,
+    <code>&lt;link rel="prefetch" as="document" href="./2-prefetch?noslash"&gt;</code>,
     hinting the browser to prefetch
     <code>/2-prefetch</code>
     once it is idle.
   </p>
   <p>
-    <a href="/2-prefetch" style="font-size:1.25rem;font-weight:600;">Go to
+    <a href="./2-prefetch?noslash" style="font-size:1.25rem;font-weight:600;">Go to
       prefetched page</a>
   </p>
   <p>
@@ -34,7 +34,7 @@
   {{! prettier-ignore }}
   <p>
     <details>
-      <summary>View Source Code</summary>      
+      <summary>View Source Code</summary>
       <pre><code>&lt;link rel=&quot;prefetch&quot; as=&quot;document&quot; href=&quot;/2-prefetch&quot;&gt;
 </code></pre>
     </details>

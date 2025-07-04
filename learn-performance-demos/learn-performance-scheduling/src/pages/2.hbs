@@ -1,7 +1,7 @@
 <div>
   <p>
     This demo extends on the
-    <a href="/1">previous demo</a>
+    <a href="./1?noslash">previous demo</a>
     but yields to the main thread after each
     <code>keyup</code>
     event by wrapping the
@@ -73,7 +73,7 @@
   {{! prettier-ignore }}
   <p>
     <details>
-      <summary>View Source Code</summary>      
+      <summary>View Source Code</summary>
       <pre><code>document.getElementById(&quot;search&quot;).addEventListener(&quot;keyup&quot;, (e) =&gt; {
   const value = e.target.value.toLowerCase();
 

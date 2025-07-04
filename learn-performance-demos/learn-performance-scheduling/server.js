@@ -149,15 +149,14 @@ fastify.get("/8", function (request, reply) {
 });
 /** end: routes **/
 
-// start the fastify server
-fastify.listen(
-  { port: process.env.PORT, host: "0.0.0.0" },
-  function (err, address) {
-    if (err) {
-      fastify.log.error(err);
-      process.exit(1);
-    }
-    console.log(`Your app is listening on ${address}`);
-    fastify.log.info(`server listening on ${address}`);
-  }
-);
+/**
+ * This is the entry point for your Google Cloud Function.
+ * It uses Fastify to handle the routing internally.
+ */
+exports.learn_performance_scheduling = async (request, response) => {
+  // Ensure Fastify's routes and plugins are ready before handling the request
+  await fastify.ready();
+  // Pass the incoming request and response objects to Fastify's internal server handler
+  fastify.server.emit('request', request, response);
+};
+

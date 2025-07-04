@@ -76,7 +76,7 @@ fastify.get("/1", function (request, reply) {
     title: "Conditional import()",
     scripts: `<script type="module">
   const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-  if (!mediaQuery.matches) { 
+  if (!mediaQuery.matches) {
     await import("./canvas-confetti.js?delay=1000");
     document.getElementById("clickMe").addEventListener("click", () => {
       confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
@@ -102,8 +102,8 @@ fastify.get("/2", function (request, reply) {
         const form = input.closest("form");
         const { validate } = await import("./form-validation.js?delay=1000");
 
-        form.querySelector("[type=submit]").removeAttribute("disabled");              
-        form.addEventListener("submit", validate(form));        
+        form.querySelector("[type=submit]").removeAttribute("disabled");
+        form.addEventListener("submit", validate(form));
       },
       { once: true }
     );
@@ -117,15 +117,14 @@ fastify.get("/2", function (request, reply) {
 });
 /** end: routes **/
 
-// start the fastify server
-fastify.listen(
-  { port: process.env.PORT, host: "0.0.0.0" },
-  function (err, address) {
-    if (err) {
-      fastify.log.error(err);
-      process.exit(1);
-    }
-    console.log(`Your app is listening on ${address}`);
-    fastify.log.info(`server listening on ${address}`);
-  }
-);
+/**
+ * This is the entry point for your Google Cloud Function.
+ * It uses Fastify to handle the routing internally.
+ */
+exports.learn_performance_dynamic_import = async (request, response) => {
+  // Ensure Fastify's routes and plugins are ready before handling the request
+  await fastify.ready();
+  // Pass the incoming request and response objects to Fastify's internal server handler
+  fastify.server.emit('request', request, response);
+};
+

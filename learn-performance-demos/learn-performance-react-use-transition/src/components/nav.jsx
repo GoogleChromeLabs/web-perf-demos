@@ -11,22 +11,22 @@ export default function Nav() {
     <nav className="drawer">
       <ol>
         <li className={isHomeActive ? "selected" : undefined}>
-          <Link href="/">
-            <a href="/">
+          <Link href="./">
+            <a href="./">
               <span className="step">Welcome</span>
             </a>
           </Link>
         </li>
         <li className={isOneActive ? "selected" : undefined}>
-          <Link href="/1">
-            <a href="/1">
+          <Link href="./1?noslash">
+            <a href="./1?noslash">
               <span className="step">Blocking</span>
             </a>
           </Link>
         </li>
         <li className={isTwoActive ? "selected" : undefined}>
-          <Link href="/2">
-            <a href="/2">
+          <Link href="./2?noslash">
+            <a href="./2?noslash">
               <span className="step">
                 <code>useTransition</code>
               </span>
@@ -34,8 +34,8 @@ export default function Nav() {
           </Link>
         </li>
         <li className={isThreeActive ? "selected" : undefined}>
-          <Link href="/3">
-            <a href="/3">
+          <Link href="./3?noslash">
+            <a href="./3?noslash">
               <span className="step">
                 <code>Yielding</code>
               </span>

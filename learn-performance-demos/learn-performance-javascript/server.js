@@ -74,7 +74,7 @@ fastify.get("/1", function (request, reply) {
   let params = {
     step: 1,
     title: "blocking - head",
-    head: `<script src="/script.js?delay=1000"></script>
+    head: `<script src="./script.js?delay=1000"></script>
 <link rel="stylesheet" href="/style.css" />`,
   };
 
@@ -147,7 +147,7 @@ fastify.get("/4", function (request, reply) {
     title: "blocking - body",
     head: `<link rel="stylesheet" href="/style.css" />`,
     data: generateRandomString(500, 500),
-    scripts: `<script src="/script.js?delay=1000"></script>`
+    scripts: `<script src="./script.js?delay=1000"></script>`
   };
 
   reply.view("/src/pages/4.hbs", params);
@@ -160,7 +160,7 @@ fastify.get("/5", function (request, reply) {
     step: 5,
     title: "async",
     head: `<link rel="stylesheet" href="/style.css" />
-<script src="/script.js?delay=500" async></script>`,
+<script src="./script.js?delay=500" async></script>`,
     data: generateRandomString(2000, 2000),
   };
 
@@ -174,7 +174,7 @@ fastify.get("/6", function (request, reply) {
     step: 6,
     title: "defer",
     head: `<link rel="stylesheet" href="/style.css" />
-<script src="/script.js?delay=1000" async></script>`,
+<script src="./script.js?delay=1000" async></script>`,
     data: generateRandomString(500, 500),
   };
 
@@ -188,7 +188,7 @@ fastify.get("/7", function (request, reply) {
     step: 7,
     title: "module",
     head: `<link rel="stylesheet" href="/style.css" />
-<script src="/module.js?delay=1000" type="module"></script>`,
+<script src="./module.js?delay=1000" type="module"></script>`,
     data: generateRandomString(500, 500),
   };
 
@@ -202,7 +202,7 @@ fastify.get("/8", function (request, reply) {
     step: 8,
     title: "module - import",
     head: `<link rel="stylesheet" href="/style.css" />
-<script src="/module-import.js?delay=1000" type="module"></script>`,
+<script src="./module-import.js?delay=1000" type="module"></script>`,
     data: generateRandomString(500, 500),
   };
 
@@ -216,7 +216,7 @@ fastify.get("/9", function (request, reply) {
     step: 9,
     title: "module - async",
     head: `<link rel="stylesheet" href="/style.css" />
-<script src="/module.js?delay=10" type="module" async></script>`,
+<script src="./module.js?delay=10" type="module" async></script>`,
     data: generateRandomString(2000, 2000),
   };
 
@@ -227,15 +227,14 @@ fastify.get("/9", function (request, reply) {
 
 /** end: routes **/
 
-// start the fastify server
-fastify.listen(
-  { port: process.env.PORT, host: "0.0.0.0" },
-  function (err, address) {
-    if (err) {
-      fastify.log.error(err);
-      process.exit(1);
-    }
-    console.log(`Your app is listening on ${address}`);
-    fastify.log.info(`server listening on ${address}`);
-  }
-);
+/**
+ * This is the entry point for your Google Cloud Function.
+ * It uses Fastify to handle the routing internally.
+ */
+exports.learn_performance_javascript = async (request, response) => {
+  // Ensure Fastify's routes and plugins are ready before handling the request
+  await fastify.ready();
+  // Pass the incoming request and response objects to Fastify's internal server handler
+  fastify.server.emit('request', request, response);
+};
+

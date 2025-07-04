@@ -86,7 +86,7 @@ fastify.get("/1", function (request, reply) {
   let params = {
     step: 1,
     title: "The <img> element",
-    head: `<script src="/script.js" defer></script>`
+    head: `<script src="./script.js" defer></script>`
   };
 
   reply.view("/src/pages/1.hbs", params);
@@ -98,7 +98,7 @@ fastify.get("/2", function (request, reply) {
   let params = {
     step: 2,
     title: "srcset",
-    head: `<script src="/script.js" defer></script>`
+    head: `<script src="./script.js" defer></script>`
   };
 
   reply.view("/src/pages/2.hbs", params);
@@ -110,7 +110,7 @@ fastify.get("/3", function (request, reply) {
   let params = {
     step: 3,
     title: "sizes",
-    head: `<script src="/script.js" defer></script>`
+    head: `<script src="./script.js" defer></script>`
   };
 
   reply.view("/src/pages/3.hbs", params);
@@ -122,7 +122,7 @@ fastify.get("/4", function (request, reply) {
   let params = {
     step: 4,
     title: "Lossy compression",
-    head: `<script src="/script.js" defer></script>`
+    head: `<script src="./script.js" defer></script>`
   };
 
   reply.view("/src/pages/4.hbs", params);
@@ -134,7 +134,7 @@ fastify.get("/5", function (request, reply) {
   let params = {
     step: 5,
     title: "Lossless compression",
-    head: `<script src="/script.js" defer></script>`
+    head: `<script src="./script.js" defer></script>`
   };
 
   reply.view("/src/pages/5.hbs", params);
@@ -146,7 +146,7 @@ fastify.get("/6", function (request, reply) {
   let params = {
     step: 6,
     title: "The picture element",
-    head: `<script src="/script.js" defer></script>`
+    head: `<script src="./script.js" defer></script>`
   };
 
   reply.view("/src/pages/6.hbs", params);
@@ -158,7 +158,7 @@ fastify.get("/7", function (request, reply) {
   let params = {
     step: 7,
     title: "The picture element and srcset",
-    head: `<script src="/script.js" defer></script>`
+    head: `<script src="./script.js" defer></script>`
   };
 
   reply.view("/src/pages/7.hbs", params);
@@ -170,7 +170,7 @@ fastify.get("/8", function (request, reply) {
   let params = {
     step: 8,
     title: "Accept header",
-    head: `<script src="/script.js" defer></script>`
+    head: `<script src="./script.js" defer></script>`
   };
 
   reply.view("/src/pages/8.hbs", params);
@@ -179,15 +179,14 @@ fastify.get("/8", function (request, reply) {
 });
 /** end: routes **/
 
-// start the fastify server
-fastify.listen(
-  { port: process.env.PORT, host: "0.0.0.0" },
-  function (err, address) {
-    if (err) {
-      fastify.log.error(err);
-      process.exit(1);
-    }
-    console.log(`Your app is listening on ${address}`);
-    fastify.log.info(`server listening on ${address}`);
-  }
-);
+/**
+ * This is the entry point for your Google Cloud Function.
+ * It uses Fastify to handle the routing internally.
+ */
+exports.learn_performance_images = async (request, response) => {
+  // Ensure Fastify's routes and plugins are ready before handling the request
+  await fastify.ready();
+  // Pass the incoming request and response objects to Fastify's internal server handler
+  fastify.server.emit('request', request, response);
+};
+
