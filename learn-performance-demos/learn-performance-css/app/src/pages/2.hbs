@@ -1,0 +1,52 @@
+<div>
+  <p>
+    By placing your stylesheets in the
+    <code>&lt;head&gt;</code>
+    of your page, you can avoid a Flash of Unstyled Content (FOUC). On the
+    downside, this blocks the HTML parser from rendering the rest of the HTML.
+  </p>
+  <p>
+    This demo contains a stylesheet with the most critical styles in the
+    <code>&lt;head&gt;</code>
+    and another stylesheet with less critical CSS—in this example the heading
+    color—declared within the
+    <code>&lt;body&gt;</code>. You will notice that the page does not render
+    until the CSS has downloaded, eliminating the FOUC we had on the previous
+    demo. However, the page appears slower as nothing is shown to the user until
+    the CSS file has finished downloading. The heading color changes to pink
+    after the page has rendered as this stylesheet is placed inside the
+    <code>body</code>
+    and thus not render-blocking.
+  </p>
+  <p>
+    <strong>Note that styles applied after render may result in a
+      <a href="https://web.dev/cls/">layout-shift</a>.</strong>
+  </p>
+  <p>
+    <img
+      src="https://cdn.glitch.global/a78c1e1e-8e60-4115-96d8-efb06507f66f/partial-fouc.png?v=1668078879735"
+      alt="WebPageTest waterfall chart showing four resources. The Start Render mark appears at 2.2s"
+    />
+  </p>
+  <p>
+    If you observe the waterfall chart above, you should notice that the Start
+    Render mark has now shifted to 2.2s, shortly after the render-blocking
+    <code>style.css</code>
+    has finished downloading.
+  </p>
+  {{! prettier-ignore }}
+  <p>
+    <details>
+      <summary>View Source Code</summary>
+      <pre><code>&lt;head&gt;
+  &lt;link rel=&quot;stylesheet&quot; href=&quot;/style.css&quot; /&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;div class=&quot;content&quot;&gt;
+    &lt;!-- content --&gt;
+  &lt;/div&gt;
+  &lt;link rel=&quot;stylesheet&quot; href=&quot;/demo.css&quot; /&gt;
+&lt;/body&gt;</code></pre>
+    </details>
+  </p>
+</div>

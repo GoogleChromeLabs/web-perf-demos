@@ -1,0 +1,56 @@
+<div>
+  <p>
+    This page uses the web font
+    <i>Dancing Script</i>. The font file is self-hosted and the
+    <code>@font-face</code>
+    is declared in
+    <code>dancing-script.css</code>.
+  </p>
+  <p>
+    Each page in this demo contains a paragraph of text with the
+    <code>fancy</code>
+    CSS class. The
+    <code>fancy</code>
+    class is styled using
+    <code>font-family: "Dancing Script", sans-serif;</code>. We are instructing the
+    browser to use the
+    <i>Dancing Script</i>
+    web font and fall back to
+    <i>sans-serif</i>
+    if the font file cannot be downloaded.
+  </p>
+  <div class="fancy">
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ac orci
+      dictum, dictum augue nec, semper sapien. Etiam efficitur a nisl sed
+      semper. Nam et venenatis risus, eget consequat odio. Praesent at purus
+      ligula. Pellentesque tincidunt lorem at augue mattis blandit. Cras at
+      ipsum augue. Duis vestibulum, ex eu commodo tristique, sem dui cursus
+      lorem, quis sollicitudin leo sem et dui. Integer nec pellentesque nisi.
+      Aliquam fringilla quam neque, eget volutpat nisi pharetra ac. Pellentesque
+      habitant morbi tristique senectus et netus et malesuada fames ac turpis
+      egestas.
+    </p>
+  </div>
+  <p>
+    The font file is a late-discovered resource as the browser only begins
+    downloading it after having downloaded all render-blocking CSS for the page.
+    Notice how the paragraph is not rendered until the web font has finished
+    downloading. This is the default browser behavior.
+  </p>  
+  {{! prettier-ignore }}
+  <p>
+    <details>
+      <summary>View Source Code</summary>      
+      <pre><code>@font-face {
+  font-family: &quot;Dancing Script&quot;;
+  src: url(&quot;/fonts/DancingScript-Regular.woff2?v=1676325285146&quot;);
+}
+
+.fancy {
+  font-family: &quot;Dancing Script&quot;, sans-serif;
+}
+</code></pre>
+    </details>
+  </p>
+</div>

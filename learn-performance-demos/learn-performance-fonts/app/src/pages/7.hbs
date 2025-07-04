@@ -1,0 +1,45 @@
+<div>
+  <p>
+    This page uses the Google Fonts service to download the
+    <i>Dancing Script</i>
+    font.
+  </p>
+  <p>
+    The page references a CSS file which contains the
+    <code>@font-face</code>
+    declaration.
+  </p>
+  <div class="fancy">
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ac orci
+      dictum, dictum augue nec, semper sapien. Etiam efficitur a nisl sed
+      semper. Nam et venenatis risus, eget consequat odio. Praesent at purus
+      ligula. Pellentesque tincidunt lorem at augue mattis blandit. Cras at
+      ipsum augue. Duis vestibulum, ex eu commodo tristique, sem dui cursus
+      lorem, quis sollicitudin leo sem et dui. Integer nec pellentesque nisi.
+      Aliquam fringilla quam neque, eget volutpat nisi pharetra ac. Pellentesque
+      habitant morbi tristique senectus et netus et malesuada fames ac turpis
+      egestas.
+    </p>
+  </div>
+  <p>
+    Notice how the paragraph is not rendered until the web font has finished
+    downloading. This is not the default Google Font behaviour as we have
+    removed the
+    <code>&display=swap</code>
+    query string parameters from the Google Fonts URL. This is only done to keep
+    the example similar to the previous examples.
+  </p>
+  <p>
+    <i>Note that we unable to slow down the font files response time since the
+      files are hosted by a third-party, so this page might incorrectly seem
+      faster.</i>
+  </p>
+  {{! prettier-ignore }}
+  <p>
+    <details>
+      <summary>View Source Code</summary>      
+      <pre><code>&lt;link href=&quot;https://fonts.googleapis.com/css2?family=Dancing+Script&quot; rel=&quot;stylesheet&quot;&gt;</code></pre>
+    </details>
+  </p>
+</div>

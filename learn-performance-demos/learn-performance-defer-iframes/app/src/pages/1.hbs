@@ -1,0 +1,69 @@
+<div>
+  <p>
+    This demo contains two IFrames. One IFrame is within the initial viewport,
+    while the other is outside of the viewport. The IFrame outside of the
+    viewport has the
+    <code>loading=&quot;lazy&quot;</code>
+    attribute.
+  </p>
+  <div class="grid">
+    <iframe
+      title="Inline Frame Example"
+      width="800"
+      height="800"
+      src="/iframe-1.html?v=1"
+      class="iframe"
+    >
+    </iframe>
+    <iframe
+      title="Inline Frame Example"
+      width="800"
+      height="800"
+      src="/iframe-2.html?v=1"
+      class="iframe"
+      loading="lazy"
+    >
+    </iframe>
+  </div>
+  <p>
+    If you observe the network tab, you should notice that the IFrame with the
+    <code>loading=&quot;lazy&quot;</code>
+    attribute (and its subresources) is not requested immediately but begins
+    downloading as you scroll down and it approaches the viewport.
+  </p>
+  <p>
+    <img
+      src="https://cdn.glitch.global/c63d45a9-f674-4364-885a-a82fb87b8aa9/learn-performance-defer-iframes-lazy.png?v=1695898538622"
+      alt="Chrome DevTools Network panel showing 7 resources. The iframe within the viewport (row 4) and its subresources begin downloading immediately. The iframe outside of the viewport (row 7) starts downloading later."
+      width="1092"
+      height="473"
+      loading="lazy"
+    />
+  </p>
+  <p>
+    In the network panel above, the iframe
+    <code>iframe-1.html</code>
+    and its subresoures
+    <code>iframe.css</code>
+    and
+    <code>iframe.js</code>
+    are downloaded immediately. The lazy-loaded iframe
+    <code>iframe-2.html</code>
+    started downloading as the user scrolled down.
+  </p>
+  {{! prettier-ignore }}
+  <p>
+    <details>
+      <summary>View Source Code</summary>      
+      <pre><code>&lt;iframe
+  title=&quot;Inline Frame Example&quot;
+  width=&quot;800&quot;
+  height=&quot;800&quot;
+  src=&quot;/iframe-2.html?v=1&quot;
+  class=&quot;iframe&quot;
+  loading=&quot;lazy&quot;
+&gt;
+&lt;/iframe&gt;</code></pre>
+    </details>
+  </p>
+</div>

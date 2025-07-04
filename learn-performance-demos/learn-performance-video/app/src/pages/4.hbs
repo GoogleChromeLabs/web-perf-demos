@@ -1,0 +1,213 @@
+<div>
+  <p>
+    To avoid downloading all the videos on a page, it is possible to configure
+    an Intersection Observer to only download videos once they appear in the
+    viewport.
+  </p>
+  <p>
+    The
+    <code>&lt;video&gt;</code>
+    element uses the
+    <code>preload</code>
+    attribute to prevent the browser from downloading the file immediately. When
+    the
+    <code>video</code>
+    appears in the viewport, it is set then set to
+    <code>autoplay</code>
+    - at which point the video begins downloading.
+  </p>
+  <p>
+    The
+    <code>poster</code>
+    attribute is used to show the first frame of the video to improve the
+    perceived performance.
+  </p>
+  <div style="margin-bottom: 4rem">
+    <video
+      class="lazy"
+      preload="none"
+      muted
+      controls
+      loop
+      playsinline
+      width="640"
+      height="1138"
+      poster="https://cdn.glitch.global/97616b87-f930-4eb0-a8a0-84c6a73d97e7/gif-1.jpg?v=1671616580215"
+    >
+      <source
+        src="https://cdn.glitch.global/97616b87-f930-4eb0-a8a0-84c6a73d97e7/gif-1.webm?v=1671616580215"
+        type="video/webm"
+      />
+      <source
+        src="https://cdn.glitch.global/97616b87-f930-4eb0-a8a0-84c6a73d97e7/gif-1.mp4?v=1671616580215"
+        type="video/mp4"
+      />
+    </video>
+  </div>
+  <div style="margin-bottom: 4rem">
+    <video
+      class="lazy"
+      preload="none"
+      muted
+      controls
+      loop
+      playsinline
+      width="640"
+      height="1138"
+      poster="https://cdn.glitch.global/97616b87-f930-4eb0-a8a0-84c6a73d97e7/gif-2.jpg?v=1671616580215"
+    >
+      <source
+        src="https://cdn.glitch.global/97616b87-f930-4eb0-a8a0-84c6a73d97e7/gif-2.webm?v=1671616580215"
+        type="video/webm"
+      />
+      <source
+        src="https://cdn.glitch.global/97616b87-f930-4eb0-a8a0-84c6a73d97e7/gif-2.mp4?v=1671616580215"
+        type="video/mp4"
+      />
+    </video>
+  </div>
+  <div style="margin-bottom: 4rem">
+    <video
+      class="lazy"
+      preload="none"
+      muted
+      controls
+      loop
+      playsinline
+      width="640"
+      height="1138"
+      poster="https://cdn.glitch.global/97616b87-f930-4eb0-a8a0-84c6a73d97e7/gif-3.jpg?v=1671616580215"
+    >
+      <source
+        src="https://cdn.glitch.global/97616b87-f930-4eb0-a8a0-84c6a73d97e7/gif-3.webm?v=1671616580215"
+        type="video/webm"
+      />
+      <source
+        src="https://cdn.glitch.global/97616b87-f930-4eb0-a8a0-84c6a73d97e7/gif-3.mp4?v=1671616580215"
+        type="video/mp4"
+      />
+    </video>
+  </div>
+  <div style="margin-bottom: 4rem">
+    <video
+      class="lazy"
+      preload="none"
+      muted
+      controls
+      loop
+      playsinline
+      width="640"
+      height="1214"
+      poster="https://cdn.glitch.global/97616b87-f930-4eb0-a8a0-84c6a73d97e7/gif-4.jpg?v=1671616580215"
+    >
+      <source
+        src="https://cdn.glitch.global/97616b87-f930-4eb0-a8a0-84c6a73d97e7/gif-4.webm?v=1671616580215"
+        type="video/webm"
+      />
+      <source
+        src="https://cdn.glitch.global/97616b87-f930-4eb0-a8a0-84c6a73d97e7/gif-4.mp4?v=1671616580215"
+        type="video/mp4"
+      />
+    </video>
+  </div>
+  <div style="margin-bottom: 4rem">
+    <video
+      class="lazy"
+      preload="none"
+      muted
+      controls
+      loop
+      playsinline
+      width="640"
+      height="1138"
+      poster="https://cdn.glitch.global/97616b87-f930-4eb0-a8a0-84c6a73d97e7/gif-5.jpg?v=1671616580215"
+    >
+      <source
+        src="https://cdn.glitch.global/97616b87-f930-4eb0-a8a0-84c6a73d97e7/gif-5.webm?v=1671616580215"
+        type="video/webm"
+      />
+      <source
+        src="https://cdn.glitch.global/97616b87-f930-4eb0-a8a0-84c6a73d97e7/gif-5.mp4?v=1671616580215"
+        type="video/mp4"
+      />
+    </video>
+  </div>
+  {{! prettier-ignore }}
+  <p>
+    <details>
+      <summary>View Source Code</summary>      
+      <pre><code>// index.html
+&lt;video
+  class=&quot;lazy&quot;
+  preload=&quot;none&quot;
+  muted
+  controls
+  loop
+  playsinline
+  width=&quot;640&quot;
+  height=&quot;1138&quot;
+  poster=&quot;https://cdn.glitch.global/97616b87-f930-4eb0-a8a0-84c6a73d97e7/gif-1.jpg?v=1671616580215&quot;
+&gt;
+  &lt;source
+    src=&quot;https://cdn.glitch.global/97616b87-f930-4eb0-a8a0-84c6a73d97e7/gif-1.webm?v=1671616580215&quot;
+    type=&quot;video/webm&quot;
+  /&gt;
+  &lt;source
+    src=&quot;https://cdn.glitch.global/97616b87-f930-4eb0-a8a0-84c6a73d97e7/gif-1.mp4?v=1671616580215&quot;
+    type=&quot;video/mp4&quot;
+  /&gt;
+&lt;/video&gt;
+
+
+// script.js
+document.addEventListener(&quot;DOMContentLoaded&quot;, function () {
+  var lazyVideos = [].slice.call(document.querySelectorAll(&quot;video.lazy&quot;));
+  if (&quot;IntersectionObserver&quot; in window) {
+    var lazyVideoObserver = new IntersectionObserver(function (
+      entries,
+      observer
+    ) {
+      entries.forEach(function (video) {
+        if (video.isIntersecting) {
+          video.target.autoplay = true;
+          video.target.controls = false;
+          video.target.load();
+          lazyVideoObserver.unobserve(video.target);
+        }
+      });
+    });
+
+    lazyVideos.forEach(function (lazyVideo) {
+      lazyVideoObserver.observe(lazyVideo);
+    });
+  }
+});
+</code></pre>
+    </details>
+  </p>
+</div>
+{{! prettier-ignore }}
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    var lazyVideos = [].slice.call(document.querySelectorAll("video.lazy"));
+    if ("IntersectionObserver" in window) {
+      var lazyVideoObserver = new IntersectionObserver(function (
+        entries,
+        observer
+      ) {
+        entries.forEach(function (video) {
+          if (video.isIntersecting) {
+            video.target.autoplay = true;
+            video.target.controls = false;
+            video.target.load();
+            lazyVideoObserver.unobserve(video.target);
+          }
+        });
+      });
+
+      lazyVideos.forEach(function (lazyVideo) {
+        lazyVideoObserver.observe(lazyVideo);
+      });
+    }
+  });
+</script>

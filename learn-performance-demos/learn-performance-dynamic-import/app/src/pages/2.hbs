@@ -1,0 +1,44 @@
+<div>
+  <p>
+    Dynamic
+    <code>import()</code>
+    can be used to import a module after the user interacts with the page. This
+    page contains an inline script that downloads the
+    <code>form-validation.js</code>
+    module after the user interacts with the form elements.
+  </p>
+  <p>
+    This example uses
+    <a
+      href="https://developer.mozilla.org/en-US/docs/web/javascript/reference/statements/export"
+    >named exports</a>
+    instead of the
+    <code>default</code>
+    export used in the previous demo.
+  </p>
+  <div>
+    <form>
+      <input type="text" placeholder="Enter your name" />
+      <input type="submit" disabled value="Submit" />
+    </form>
+  </div>
+  {{! prettier-ignore }}
+  <p>
+    <details>
+      <summary>View Source Code</summary>      
+      <pre><code>document.querySelectorAll(&quot;form input&quot;).forEach((input) =&gt; {
+  input.addEventListener(
+    &quot;focus&quot;,
+    async () =&gt; {
+      const form = input.closest(&quot;form&quot;);
+      const { validate } = await import(&quot;./form-validation.js?delay=1000&quot;);
+
+      form.querySelector(&quot;[type=submit]&quot;).removeAttribute(&quot;disabled&quot;);              
+      form.addEventListener(&quot;submit&quot;, validate(form));        
+    },
+    { once: true }
+  );
+})</code></pre>
+    </details>
+  </p>
+</div>

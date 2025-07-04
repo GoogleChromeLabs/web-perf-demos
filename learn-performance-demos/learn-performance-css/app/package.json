@@ -1,0 +1,27 @@
+{
+  "name": "learn-performance-caching",
+  "version": "0.1.0",
+  "description": "Demo of etag, last-modified, and cache-control headers.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "fastify": "^4.4.0",
+    "handlebars": "^4.7.7",
+    "@fastify/view": "^7.1.0",
+    "@fastify/static": "^6.5.0"
+  },
+  "engines": {
+    "node": "14.x"
+  },
+  "repository": {
+    "url": "https://glitch.com/edit/#!/learn-performance-caching"
+  },
+  "license": "MIT",
+  "keywords": [
+    "node",
+    "glitch",
+    "express"
+  ]
+}

@@ -1,0 +1,23 @@
+<div>
+  <p>
+    If you observe the network tab after the navigation, you should notice that
+    the document is fetched instantly from the
+    <i>prefetch cache</i>. Additionally, if the user navigates to the prefetched
+    page before the request has completed, the browser reuses the partially
+    downloaded resource instead of opening a new connection.
+  </p>
+  <p>
+    <img
+      src="https://cdn.glitch.global/850a76f6-ed10-4120-9f3c-4628563dd9d2/learn-performance-prefetch-documents.png?v=1695999478268"
+      alt="Chrome DevTools Network panel showing 4 resources. The prefetched resource (row 1) is fetched from the cache."
+      width="938"
+      height="194"
+      loading="lazy"
+    />
+  </p>
+  <p>
+    In the network panel above, the prefetched document
+    <code>/2-prefetch</code>
+    is fetched instantly from prefetch cache.
+  </p>
+</div>

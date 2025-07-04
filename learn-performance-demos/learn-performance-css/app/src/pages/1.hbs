@@ -1,0 +1,56 @@
+<div>
+  <p>
+    A flash of unstyled content (FOUC) is when you see a brief flicker of the
+    page's content without any styles applied to it. Refresh this page in case
+    you missed it.
+  </p>
+  <p>
+    CSS is render-blocking by design. Placing any stylesheets in the
+    <code>&lt;head&gt;</code>
+    will block the HTML parser until the stylesheet is downloaded and parsed. In
+    this demo, the stylesheet is placed outside of the
+    <code>&lt;head&gt;</code>
+    and placed before the closing
+    <code>&lt;body&gt;</code>
+    tag. The browser discovers the CSS file
+    <i>after</i>
+    parsing and rendering the HTML, resulting in a FOUC.
+  </p>
+  <p>
+    <img
+      src="https://cdn.glitch.global/a78c1e1e-8e60-4115-96d8-efb06507f66f/fouc.png?v=1668081026820"
+      alt="WebPageTest waterfall chart showing three resources. The Start Render mark appears between 0.8 and 1.0 seconds while style.css is being downloaded."
+    />
+  </p>
+  <p>
+    The above image is taken from
+    <a
+      href="https://www.webpagetest.org/"
+      target="_blank"
+      rel="noreferrer noopener"
+    >WebPageTest</a>
+    and shows the resources loaded for this page. You should notice that the
+    Start Render mark—denoted by the dark green vertical line—appears
+    between 0.8s - 1.0s, before
+    <code>style.css</code>
+    has downloaded.
+  </p>
+  <p>
+    <i>Note that the resources in this demo include a
+      <code>delay</code>
+      query string parameter to exaggerate the server response times and make
+      the waterfall chart easier to follow.</i>
+  </p>
+  {{! prettier-ignore }}
+  <p>
+    <details>
+      <summary>View Source Code</summary>      
+      <pre><code>&lt;body&gt;
+  &lt;div class=&quot;content&quot;&gt;
+    &lt;!-- content --&gt;
+  &lt;/div&gt;
+  &lt;link rel=&quot;stylesheet&quot; href=&quot;/style.css&quot; /&gt;
+&lt;/body&gt;</code></pre>
+    </details>
+  </p>
+</div>

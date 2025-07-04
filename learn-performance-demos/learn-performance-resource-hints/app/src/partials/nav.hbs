@@ -1,0 +1,8 @@
+<ol>
+  <li {{#unless step}}selected{{/unless}}><a href="/"><span class="step">Welcome</span></a></li>
+  <li {{#ifeq step 1}}selected{{/ifeq}}><a href="/1"><span class="step">preconnect</span></a></li>
+  <li {{#ifeq step 2}}selected{{/ifeq}}><a href="/2"><span class="step">HTTP headers</span></a></li>
+  <li {{#ifeq step 3}}selected{{/ifeq}}><a href="/3"><span class="step">preload</span></a></li>
+  <li {{#ifeq step 4}}selected{{/ifeq}}><a href="/4"><span class="step">preload - img</span></a></li>
+  <li {{#ifeq step 5}}selected{{/ifeq}}><a href="/5"><span class="step">fetchpriority</span></a></li>
+</ol>

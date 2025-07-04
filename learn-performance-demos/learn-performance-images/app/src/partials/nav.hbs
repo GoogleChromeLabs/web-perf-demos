@@ -1,0 +1,11 @@
+<ol>
+  <li {{#unless step}}selected{{/unless}}><a href="/"><span class="step">Welcome</span></a></li>
+  <li {{#ifeq step 1}}selected{{/ifeq}}><a href="/1"><span class="step"><code>&lt;img&gt;</code></span></a></li>
+  <li {{#ifeq step 2}}selected{{/ifeq}}><a href="/2"><span class="step"><code>srcset</code></span></a></li>
+  <li {{#ifeq step 3}}selected{{/ifeq}}><a href="/3"><span class="step"><code>sizes</code></span></a></li>
+  <li {{#ifeq step 4}}selected{{/ifeq}}><a href="/4"><span class="step">Lossy compression</span></a></li>
+  <li {{#ifeq step 5}}selected{{/ifeq}}><a href="/5"><span class="step">Lossless compression</span></a></li>
+  <li {{#ifeq step 6}}selected{{/ifeq}}><a href="/6"><span class="step"><code>&lt;picture&gt;</code></span></a></li>
+  <li {{#ifeq step 7}}selected{{/ifeq}}><a href="/7"><span class="step"><code>&lt;picture&gt;</code>&nbsp;and&nbsp;<code>srcset</code></span></a></li>
+  <li {{#ifeq step 8}}selected{{/ifeq}}><a href="/8"><span class="step"><code>&quot;Accept&quot;</code>&nbsp;header</span></a></li>
+</ol>

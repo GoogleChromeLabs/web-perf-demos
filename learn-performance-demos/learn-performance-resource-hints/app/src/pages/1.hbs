@@ -1,0 +1,91 @@
+<div>
+  <p>
+    The
+    <code>preconnect</code>
+    resource hint tells the browser to open a connection to a domain or
+    subdomain. This is especially useful if you are unable to self-host critical
+    resources.
+  </p>
+  <p>
+    This demo includes a
+    <code>&lt;link rel=&quot;preconnect&quot;
+      href=&quot;https://cdn.glitch.global&quot;/&gt;</code>
+    in the page's markup. The
+    <code>https://cdn.glitch.global</code>
+    is used to serve the images in the grid below.
+  </p>
+  <p hidden>
+    {{{data}}}
+  </p>
+  <div class="gallery">
+    <div class="large">  
+      <img
+        src="https://cdn.glitch.global/db01a8e4-9230-4c5c-977d-85d0e0c3e74c/image-1.jpg?v=1669198400523"
+        alt="Image 1"
+        class="image"
+      />
+    </div>
+    <div class="thumbnails">
+      <img
+        src="https://cdn.glitch.global/db01a8e4-9230-4c5c-977d-85d0e0c3e74c/image-1.jpg?v=1669198400523"
+        alt="Image 1"
+        class="image"
+      />
+      <img
+        src="https://cdn.glitch.global/db01a8e4-9230-4c5c-977d-85d0e0c3e74c/image-2.jpg?v=1669198401407"
+        alt="Image 2"
+        class="image"
+      />
+      <img
+        src="https://cdn.glitch.global/db01a8e4-9230-4c5c-977d-85d0e0c3e74c/image-3.jpg?v=1669198402295"
+        alt="Image 3"
+        class="image"
+      />
+      <img
+        src="https://cdn.glitch.global/db01a8e4-9230-4c5c-977d-85d0e0c3e74c/image-4.jpg?v=1669198402935"
+        alt="Image 4"
+        class="image"
+      />
+    </div>
+  </div>
+  <p>
+    <img
+      src="https://cdn.glitch.global/db01a8e4-9230-4c5c-977d-85d0e0c3e74c/preconnect.png?v=1669249002348"
+      alt="WebPageTest waterfall chart showing seven resources. The connection for the fourth resource, image-1.jpg is opened before the image is discovered and requested."
+    />
+  </p>
+  <p>
+    The above image is taken from
+    <a
+      href="https://www.webpagetest.org/"
+      target="_blank"
+      rel="noreferrer noopener"
+    >WebPageTest</a>
+    and shows the resources loaded for this page. If you observe the chart
+    above, you will notice that the connection for the first image resource,
+    <code>image-1.jpg</code>
+    is opened before the image is discovered at 1.7s.
+  </p>
+  <p>
+    <img
+      src="https://cdn.glitch.global/db01a8e4-9230-4c5c-977d-85d0e0c3e74c/preconnect-before.png?v=1669249000700"
+      alt="WebPageTest waterfall chart showing seven resources. The connection for the fourth resource, image-1.jpg is opened once the image is discovered and requested."
+    />
+  </p>
+  <p>
+    The above waterfall shows the same page without the
+    <code>preconnect</code>
+    resource hint. If you compare the two waterfalls, the page with the
+    <code>preconnect</code>
+    hint begins downloading the image almost 500ms earlier.
+  </p>
+  {{! prettier-ignore }}
+  <p>
+    <details>
+      <summary>View Source Code</summary>      
+      <pre><code>&lt;head&gt;
+  &lt;link rel=&quot;preconnect&quot; href=&quot;https://cdn.glitch.global&quot; /&lt;
+&lt;/head&gt;</code></pre>
+    </details>
+  </p>
+</div>

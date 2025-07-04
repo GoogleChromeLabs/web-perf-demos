@@ -1,0 +1,65 @@
+<div>
+  <table>
+    <tr>
+      <td>
+        Data:
+      </td>
+      <td>
+        <strong>{{time}}</strong>
+      </td>
+    </tr>
+  </table>
+  <p>
+    This demo utilizes the
+    <code>Last-Modified</code>
+    response header to validate the freshness of the server response. Similarly
+    to the
+    <code>ETag</code>, the first time you visit this page, the browser receives
+    the full response from the server. The response includes the
+    <code>last-modified</code>
+    header containing the date when the response was generated. This should
+    match the timestamp shown above.
+  </p>
+  <p>
+    <img
+      width="927"
+      height="281"
+      src="https://cdn.glitch.global/1d17d497-a0db-4183-b4e9-1a5f350327b1/learn-performance-caching-3-2.png?v=1668007825077"
+      alt="Screenshot of Chrome DevTools showing response headers, including 'last-modified: Wed, 09 Nov 2022 13:37:00 GMT'."
+    />
+  </p>
+  <p>
+    The browser will store the received
+    <code>last-modified</code>
+    date and include it on every subsequent request using the
+    <code>if-modified-since</code>
+    header. If the data is older than the
+    <code>if-modified-since</code>
+    value, then the server will respond with a
+    <code>304</code>
+    status code and the browser can reuse the cached data.
+  </p>
+  {{! prettier-ignore }}
+  <p>
+    <details>
+      <summary>View Source Code</summary>
+      <pre><code>if (time &lt;= request.headers["if-modified-since"]) {
+  reply.statusCode = 304;
+  reply.send();
+} else {
+  reply.headers({
+    "cache-control": "no-cache",
+    "last-modified": time,
+  });
+  reply.view("/src/pages/3.hbs", params);
+}
+
+return reply;</code></pre>
+    </details>
+  </p>
+  <hr />
+  <details>
+    <summary>Lorem ipsum</summary>
+    {{{data}}}
+  </details>
+</div>

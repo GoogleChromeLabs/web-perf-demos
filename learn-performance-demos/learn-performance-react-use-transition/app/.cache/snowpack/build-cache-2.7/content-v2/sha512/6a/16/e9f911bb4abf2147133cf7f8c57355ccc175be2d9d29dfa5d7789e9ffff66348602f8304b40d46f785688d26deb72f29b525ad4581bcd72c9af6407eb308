@@ -1,0 +1,1 @@
+{".js":{"code":"import React from \"react\";\nimport ReactDOM from \"react-dom\";\nimport App from \"./App.jsx\";\nReactDOM.render(/* @__PURE__ */ React.createElement(React.StrictMode, null, /* @__PURE__ */ React.createElement(App, null)), document.getElementById(\"root\"));\nif (import.meta.hot) {\n  import.meta.hot.accept();\n}\n"}}

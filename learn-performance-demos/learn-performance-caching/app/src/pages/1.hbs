@@ -1,0 +1,49 @@
+<div>
+  <table>
+    <tr>
+      <td>
+        Data:
+      </td>
+      <td>
+        <strong>{{time}}</strong>
+      </td>
+    </tr>
+  </table>
+  <p>
+    This page returns a
+    <code>cache-control: no-store</code>
+    response header. This instructs the browser to not cache the response.
+  </p>
+  <p>
+    The timestamp above was generated on the server and shows the freshness of
+    the server's response. This value is updated once every 60 seconds. If you
+    refresh the page and 60 seconds have elapsed, this value will be updated
+    with the latest server time. Throughout this demo, it will be used to
+    demonstrate whether the server response is stale or fresh. On your website,
+    this is likely to be data retrieved by the server from a CMS or API.
+  </p>
+  <p>
+    <i>Note that The "Lorem ipsum" dummy text beneath the horizontal rule below
+      is only used to inflate the server's response size and may be ignored.</i>
+  </p>
+  <p>
+    <img
+      width="456"
+      height="116"
+      src="https://cdn.glitch.global/1d17d497-a0db-4183-b4e9-1a5f350327b1/learn-performance-caching-1-1.png?v=1668007827252"
+      alt="Screenshot of Chrome DevTools showing response headers, including 'cache-control: no-store'."
+    />
+  </p>
+  {{! prettier-ignore }}
+  <p>
+    <details>
+      <summary>View Source Code</summary>
+      <pre><code>reply.headers({ "cache-control": "no-store" });</code></pre>
+    </details>
+  </p>
+  <hr />
+  <details>
+    <summary>Lorem ipsum</summary>
+    {{{data}}}
+  </details>
+</div>

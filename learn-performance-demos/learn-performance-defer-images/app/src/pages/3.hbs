@@ -1,0 +1,103 @@
+<div>
+  <p>
+    Using
+    <code>loading=&quot;lazy&quot;</code>
+    does not alter the image's request priority. Images within the initial
+    viewport start with a
+    <i>Low</i>
+    priority before being increased to
+    <i>High</i>
+    after the
+    <i>Layout</i>
+    phase once the browser knows that the image is within the viewport.
+  </p>
+  <p>
+    You are able to change the default network priority using the
+    <code>fetchpriority</code>
+    attribute. This demo includes four images. The images outside of the initial
+    viewport (<code>image-3.jpg</code>
+    and
+    <code>image-4.jpg</code>) contain
+    <code>loading=&quot;lazy&quot;</code>. The first and third images contain
+    <code>fetchpriority=&quot;high&quot;</code>.
+  </p>
+  <div class="grid">
+    <img
+      alt="Photograph of a sandy landscape."
+      width="800"
+      height="600"
+      src="/images/image-1.jpg?v=4"
+      fetchpriority="high"
+    />
+    <img
+      alt="Photograph of a table and chairs in the foreground with the sea in the background."
+      width="800"
+      height="600"
+      src="/images/image-2.jpg?v=4"
+    />
+    <img
+      alt="Photograph of a blue shallow sea with four deckchairs and an umbrella in the foreground on the rocks."
+      width="800"
+      height="600"
+      src="/images/image-3.jpg?v=4"
+      loading="lazy"
+      fetchpriority="high"
+    />
+    <img
+      alt="Aerial photograph of a green body of water surrounded by rocks."
+      width="800"
+      height="600"
+      src="/images/image-4.jpg?v=4"
+      loading="lazy"
+    />
+  </div>
+  <p>
+    If you observe the network waterfall—even if the images on the left have
+    <code>fetchpriority=&quot;high&quot;</code>—they are still requested after
+    the images without the
+    <code>loading</code>
+    attribute.
+    <code>fetchpriority</code>
+    alters the priority of the image but does not change when the request is
+    initiated.
+  </p>
+  <p>
+    <img
+      src="https://cdn.glitch.global/64728001-8411-4e75-95b3-99288bcd6141/learn-performance-defer-images-priority-hints.png?v=1695733185597"
+      alt="Chrome DevTools Network panel showing 7 resources. The images with fetchpriority=high (rows 4 and 6) have an initial High priority."
+      loading="lazy"
+    />
+  </p>
+  <p>
+    In the network panel above, the images
+    <code>image-1.jpg</code>
+    and
+    <code>image-3.jpg</code>
+    start with an initial
+    <i>High</i>
+    priority.
+    <code>image-2.jpg</code>
+    starts with a
+    <i>Low</i>
+    priority that is increased to
+    <i>High</i>
+    as soon as the browser is aware it is within the initial viewport.
+    <code>image-4.jpg</code>
+    starts and remains with a
+    <i>Low</i>
+    priority.
+  </p>
+  {{! prettier-ignore }}
+  <p>
+    <details>
+      <summary>View Source Code</summary>      
+      <pre><code>&lt;img
+  alt=&quot;Photograph of a sandy landscape.&quot;
+  width=&quot;800&quot;
+  height=&quot;600&quot;
+  src=&quot;/images/image-1.jpg&quot;
+  fetchpriority=&quot;high&quot;
+/&gt;</code></pre>
+    </details>
+  </p>
+</div>

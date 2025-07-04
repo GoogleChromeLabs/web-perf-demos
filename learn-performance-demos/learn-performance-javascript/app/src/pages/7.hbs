@@ -1,0 +1,39 @@
+<div>
+  <p>
+    Modern browsers also support
+    <code>type=&quot;module&quot;</code>
+    which allows you to serve ES6 modules in the browser. Modules are deferred
+    by default and behave similarly to
+    <code>defer</code>. This makes them non render-blocking.
+  </p>
+  <p>
+    This demo imports a single JavaScript file using
+    <code>&lt;script src=&quot;/module.js&quot;
+      type=&quot;module&quot;&gt;&lt;/script&gt;</code>.
+  </p>
+  <p>
+    <img
+      src="https://cdn.glitch.global/7c5056ff-325f-4dc8-a476-6c0d355637c6/module.png?v=1668792215560"
+      alt="WebPageTest waterfall chart showing four resources. The Start Render mark appears at 2.2s."
+      width="1012"
+      height="312"
+    />
+  </p>
+  <p>
+    This waterfall chart resembles the one for the
+    <code>defer</code>
+    demo, where the script begins downloading immediately but is only executed
+    after the DOM is ready.
+  </p>
+  {{! prettier-ignore }}
+  <p>
+    <details>
+      <summary>View Source Code</summary>
+      <pre><code>&lt;head&gt;
+  &lt;link rel=&quot;stylesheet&quot; href=&quot;/style.css&quot;&gt;
+  &lt;script src=&quot;/module.js&quot; type=&quot;module&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+</code></pre>
+    </details>
+  </p>
+</div>

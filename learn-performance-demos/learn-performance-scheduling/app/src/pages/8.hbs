@@ -1,0 +1,137 @@
+<div>
+  <p>
+    This demo compares
+    <code>setTimeout</code>
+    and
+    <code>requestAnimationFrame</code>.
+  </p>
+  <p>
+    Press the
+    <i>Play</i>
+    button below to start each animation. In both examples, the circle is moved
+    <code>1px</code>
+    to the right on each callback.
+  </p>
+  <div class="circuit">
+    <div class="lane">
+      <span class="label">setTimeout</span>
+      <div class="track">
+        <div id="setTimeout" class="circle">
+        </div>
+      </div>
+      <button type="button" id="setTimeoutBtn">Play</button>
+    </div>
+    <div class="lane">
+      <span class="label">requestAnimationFrame</span>
+      <div class="track">
+        <div id="rAF" class="circle">
+        </div>
+      </div>
+      <button type="button" id="rAFBtn">Play</button>
+    </div>
+  </div>
+  <p>
+    You should notice that the
+    <code>setTimeout</code>
+    example moves much quicker. This is because
+    <code>requestAnimationFrame</code>
+    waits for each frame to be painted before executing the next callback. On a
+    display with a refresh rate of 60 Hz, the circle is moving at a maximum of
+    60 pixels per second.
+    <code>setTimeout</code>, on the otherhand may execute multiple times between
+    each frame.
+  </p>
+  <p>
+    <code>setTimeout</code>
+    and
+    <code>requestAnimationFrame</code>
+    are used to cover different use cases.
+  </p>
+  {{! prettier-ignore }}
+  <p>
+    <details>
+      <summary>View Source Code</summary>      
+      <pre><code>// setTimeout
+const callback = () =&gt; {
+    setTimeout(() =&gt; {
+      if (left &gt;= max) {
+        left = 0;
+      }
+      
+      left = left + 1;
+      moveElement(document.getElementById(&quot;setTimeout&quot;), left);
+      callback();
+    });
+  }
+
+  document.getElementById(&quot;setTimeoutBtn&quot;).addEventListener(&quot;click&quot;, () =&gt; {
+    callback();
+  }, { once: true })
+
+
+// requestAnimationFrame
+const callback = () =&gt; {
+    requestAnimationFrame(() =&gt; {
+      if (left &gt;= max) {
+        left = 0;
+      }
+
+      left = left + 1;
+      moveElement(document.getElementById(&quot;rAF&quot;), left);
+      callback();
+    });
+  }
+
+  document.getElementById(&quot;rAFBtn&quot;).addEventListener(&quot;click&quot;, () =&gt; {
+    callback();
+  }, { once: true });</code></pre>
+    </details>
+  </p>
+</div>
+{{! prettier-ignore }}
+<script>
+  let max = document.querySelector(".track").clientWidth;
+  const moveElement = (element, left) => {
+    element.style.left = `${left}px`;  
+  }
+</script>
+{{! prettier-ignore }}
+<script type="module">
+  let left = 0;
+
+  const callback = () => {
+    setTimeout(() => {
+      if (left >= max) {
+        left = 0;
+      }
+      
+      left = left + 1;
+      moveElement(document.getElementById("setTimeout"), left);
+      callback();
+    });
+  }
+
+  document.getElementById("setTimeoutBtn").addEventListener("click", () => {
+    callback();
+  }, { once: true });
+</script>
+{{! prettier-ignore }}
+<script type="module">
+  let left = 0;
+
+  const callback = () => {
+    requestAnimationFrame(() => {
+      if (left >= max) {
+        left = 0;
+      }
+
+      left = left + 1;
+      moveElement(document.getElementById("rAF"), left);
+      callback();
+    });
+  }
+
+  document.getElementById("rAFBtn").addEventListener("click", () => {
+    callback();
+  }, { once: true });
+</script>

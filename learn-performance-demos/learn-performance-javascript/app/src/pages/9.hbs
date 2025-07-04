@@ -1,0 +1,47 @@
+<div>
+  <p>
+    Modules can also be loaded using the
+    <code>async</code>
+    attribute, which would make them interrupt the HTML parser, similarly to
+    what we saw in the
+    <a href="/5">async</a>
+    demo.
+  </p>
+  <p>
+    This demo imports a JavaScript module asynchronously using the
+    <code>async</code>
+    attribute.
+  </p>
+  <p>
+    <img
+      src="https://cdn.glitch.global/7c5056ff-325f-4dc8-a476-6c0d355637c6/module-async.png?v=1669116197498"
+      alt="WebPageTest waterfall chart showing four resources. The Start Render mark appears at 2.0 seconds. The browser main thread flamechart has two large purple areas at 1.4 seconds and 4.0 seconds, with a grey area sandwiched between."
+      width="1012"
+      height="312"
+    />
+  </p>
+  <p>
+    In the waterfall above, the HTML parser is interrupted to parse and execute
+    <code>module.js</code>
+    as soon as it has finished downloading. In the
+    <i>Browser Main Thread</i>
+    flame chart, the layout (purple area) is interrupted by the module script
+    execution (grey area) before continuing.
+  </p>
+  {{! prettier-ignore }}
+  <p>
+    <details>
+      <summary>View Source Code</summary>
+      <pre><code>&lt;head&gt;
+  &lt;link rel=&quot;stylesheet&quot; href=&quot;/style.css&quot;&gt;
+  &lt;script src=&quot;/module.js&quot; type=&quot;module&quot; async &gt;&lt;/script&gt;
+&lt;/head&gt;
+</code></pre>
+    </details>
+  </p>
+</div>
+<hr />
+<details>
+  <summary>Lorem ipsum</summary>
+  {{{data}}}
+</details>

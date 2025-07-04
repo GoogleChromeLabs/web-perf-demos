@@ -1,0 +1,52 @@
+<div>
+  <p>
+    Similarly to
+    <code>async</code>, adding the
+    <code>defer</code>
+    attribute to your
+    <code>&lt;script&gt;</code>
+    tag will download the file without blocking the HTML parser. However, once
+    the script has been downloaded it will not execute immediately but wait
+    until the HTML parser has completed.
+  </p>
+  <p>
+    <i>Note that deferred scripts are executed in the order in which the appear
+      in the DOM.</i>
+  </p>
+  <p>
+    This demo includes a
+    <code>&lt;script src=&quot;/script.js&quot; defer&gt;&lt;/script&gt;</code>
+    element in the document
+    <code>&lt;head&gt;</code>.
+  </p>
+  <p>
+    <img
+      src="https://cdn.glitch.global/7c5056ff-325f-4dc8-a476-6c0d355637c6/defer.png?v=1668792214430"
+      alt="WebPageTest waterfall chart showing three resources. The Start Render mark appears at 1.80 seconds, before script.js is parsed and executed."
+      width="1012"
+      height="312"
+    />
+  </p>
+  <p>
+    In the above waterfall, the Start Render mark appears before JavaScript
+    execution while the JavaScript file begins downloading as soon as it is
+    discovered. The JavaScript file is only executed once the HTML parser has
+    completed and the DOM is ready.
+  </p>
+  {{! prettier-ignore }}
+  <p>
+    <details>
+      <summary>View Source Code</summary>
+      <pre><code>// index.html
+&lt;head&gt;
+  &lt;link rel=&quot;stylesheet&quot; href=&quot;/style.css&quot;&gt;
+  &lt;script src=&quot;/script.js&quot;&gt;&lt; defer /script&gt;
+&lt;/head&gt;</code></pre>
+    </details>
+  </p>
+</div>
+<hr />
+<details>
+  <summary>Lorem ipsum</summary>
+  {{{data}}}
+</details>

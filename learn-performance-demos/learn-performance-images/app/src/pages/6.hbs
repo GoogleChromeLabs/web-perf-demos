@@ -1,0 +1,126 @@
+<div>
+  <p>
+    In this demo we are using the
+    <code>&lt;picture&gt;</code>
+    element with a different
+    <code>&lt;source&gt;</code>
+    for AVIF and WebP. The
+    <code>&lt;img&gt;</code>
+    element uses a JPEG image as a fallback.
+  </p>
+  <p>
+    This demo uses the same image resolution for all devices as it does not use
+    any
+    <code>srcset</code>
+    or
+    <code>sizes</code>
+    attributes.
+  </p>
+  <div class="gallery">
+    <div class="large">
+      <picture>
+        <source type="image/avif" srcset="/images/image-1280-lossy.avif?v=6" />
+        <source type="image/webp" srcset="/images/image-1280-lossy.webp?v=6" />
+        <img
+          id="image"
+          alt="Photograph of a group of pedestrians crossing the street."
+          width="1280"
+          height="852"
+          src="/images/image-1280-lossy.jpg?v=6"
+        />
+      </picture>
+    </div>
+  </div>
+  <div>
+    <p>
+      <strong>Image details:</strong>
+    </p>
+    <table>
+      <tbody>
+        <tr>
+          <td>
+            File
+          </td>
+          <td id="currentSrc">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Size
+          </td>
+          <td id="decodedBodySize">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Intrinsic Width
+          </td>
+          <td id="naturalWidth">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Intrinsic Height
+          </td>
+          <td id="naturalHeight">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Display Width
+          </td>
+          <td id="clientWidth">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Display Height
+          </td>
+          <td id="clientHeight">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            DPR
+          </td>
+          <td id="dpr">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Percentage Used
+          </td>
+          <td id="usedPercentage">
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p>
+    When looking at the table above, which file type is the browser using? How
+    does this compare with the image's file size?
+  </p>
+  <p>
+    If you are using Google Chrome, you able to
+    <a
+      href="https://developer.chrome.com/blog/new-in-devtools-88/#emulate-image"
+    >Disable AVIF or WebP</a>
+    while testing to emulate unsupported types.
+  </p>
+  {{! prettier-ignore }}
+  <p>
+    <details>
+      <summary>View Source Code</summary>      
+      <pre><code>&lt;picture&gt;
+  &lt;source type=&quot;image/avif&quot; srcset=&quot;/images/image-1280-lossy.avif&quot; /&gt;
+  &lt;source type=&quot;image/avif&quot; srcset=&quot;/images/image-1280-lossy.webp&quot; /&gt;
+  &lt;img
+    alt=&quot;Photograph of a group of pedestrians crossing the street.&quot;
+    width=&quot;1280&quot;
+    height=&quot;852&quot;
+    src=&quot;/images/image-1280-lossy.jpg 1280w&quot;
+  /&gt;
+&lt;/picture&gt;</code></pre>
+    </details>
+  </p>
+</div>

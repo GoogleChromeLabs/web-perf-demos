@@ -1,0 +1,53 @@
+<div>
+  <p>
+    Modules are also able to import other modules using ES6 import / export
+    syntax. For example,
+    <code>import { sleep } from &quot;./sleep.js&quot;</code>. While this allows
+    you to keep your files modular, imported files are not discoverable by the
+    preload-scanner and can slow down your overall load time as the browser
+    needs to make a fetch request for each file.
+  </p>
+  <p>
+    This demo imports a JavaScript module using
+    <code>&lt;script src=&quot;/module-import.js&quot;
+      type=&quot;module&quot;&gt;&lt;/script&gt;</code>. This module then
+    imports
+    <code>sleep.js</code>.
+  </p>
+  <p>
+    <img
+      src="https://cdn.glitch.global/7c5056ff-325f-4dc8-a476-6c0d355637c6/module-import.png?v=1668792213259"
+      alt="WebPageTest waterfall chart showing four resources. The Start Render mark appears at 2.2s."
+      width="1012"
+      height="312"
+    />
+  </p>
+  <p>
+    In the waterfall above,
+    <code>sleep.js</code>
+    only begins downloading after
+    <code>module-import.js</code>
+    has finished downloading and parsing. While this does not affect your Start Render,
+    JavaScript begins executing later as it needs to wait for all
+    modules to finish importing.
+  </p>
+  {{! prettier-ignore }}
+  <p>
+    <details>
+      <summary>View Source Code</summary>
+      <pre><code>// index.html
+&lt;head&gt;
+  &lt;link rel=&quot;stylesheet&quot; href=&quot;/style.css&quot;&gt;
+  &lt;script src=&quot;/module-import.js&quot; type=&quot;module&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+
+// module-import.js
+import { sleep } from &quot;./sleep.js&quot;;
+
+// simulate CPU-intensive JavaScript execution
+sleep(2000);
+console.log(&quot;Hello world!&quot;);
+</code></pre>
+    </details>
+  </p>
+</div>

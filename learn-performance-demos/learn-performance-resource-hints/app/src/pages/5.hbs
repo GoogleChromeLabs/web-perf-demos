@@ -1,0 +1,87 @@
+<div>
+  <p>
+    Chromium-based browsers also support the
+    <code>fetchpriority</code>
+    attribute. This could be added to an image,
+    <code>link</code>
+    element, or XHR request to elevate (or reduce) its request priority.
+  </p>
+  <p>
+    This demo assigns a
+    <code>fetchpriority=&quot;high&quot;</code>
+    to the first, larger image, while a
+    <code>fetchpriority=&quot;low&quot;</code>
+    to the remaining images.
+  </p>
+  <p hidden>
+    {{{data}}}
+  </p>
+  <div class="gallery">
+    <div class="large">
+      <img
+        src="https://cdn.glitch.global/db01a8e4-9230-4c5c-977d-85d0e0c3e74c/image-1.jpg?v=1669198400523"
+        alt="Image 1"
+        class="image"
+        fetchpriority="high"
+      />
+    </div>
+    <div class="thumbnails">
+      <img
+        src="https://cdn.glitch.global/db01a8e4-9230-4c5c-977d-85d0e0c3e74c/image-1.jpg?v=1669198400523"
+        alt="Image 1"
+        class="image"
+        fetchpriority="high"
+      />
+      <img
+        src="https://cdn.glitch.global/db01a8e4-9230-4c5c-977d-85d0e0c3e74c/image-2.jpg?v=1669198401407"
+        alt="Image 2"
+        class="image"
+        fetchpriority="low"
+      />
+      <img
+        src="https://cdn.glitch.global/db01a8e4-9230-4c5c-977d-85d0e0c3e74c/image-3.jpg?v=1669198402295"
+        alt="Image 3"
+        class="image"
+        fetchpriority="low"
+      />
+      <img
+        src="https://cdn.glitch.global/db01a8e4-9230-4c5c-977d-85d0e0c3e74c/image-4.jpg?v=1669198402935"
+        alt="Image 4"
+        class="image"
+        fetchpriority="low"
+      />
+    </div>
+  </div>
+  <p>
+    <img
+      src="https://cdn.glitch.global/db01a8e4-9230-4c5c-977d-85d0e0c3e74c/fetchpriority.png?v=1669248998980"
+      alt="WebPageTest waterfall chart showing seven resources. The fourth resource, image-1.jpg is downloaded as it is discovered while other resources are delayed"
+    />
+  </p>
+  <p>
+    In the waterfall above, the
+    <code>image-1.jpg</code>
+    request is initiated and downloaded much earlier than the other images that
+    are assigned a lower priority.
+  </p>
+  <p>
+    <strong>Combining
+      <code>preload</code>
+      and
+      <code>fetchpriority</code>
+      can help you improve your Largest Contentful Paint. The
+      <code>preload</code>
+      will initiate the request as early as possible, while the
+      <code>fetchpriority</code>
+      will prioritize the request and download it earlier.</strong>
+  </p>
+  {{! prettier-ignore }}
+  <p>
+    <details>
+      <summary>View Source Code</summary>      
+      <pre><code>&lt;head&gt;
+  &lt;link rel=&quot;preload&quot; href=&quot;https://cdn.glitch.global/db01a8e4-9230-4c5c-977d-85d0e0c3e74c/image-1.jpg?v=1669198400523&quot; as=&quot;image&quot; /&gt;
+&lt;/head&gt;</code></pre>
+    </details>
+  </p>
+</div>

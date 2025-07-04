@@ -1,0 +1,41 @@
+<div>
+  <p>
+    This demo shows a
+    <code>&lt;video&gt;</code>
+    element with a highly compressed (2.6 MB) WebM source and an MP4 source. The
+    video's intrinsic resolution is 1920 x 1080.
+  </p>
+  <p>
+    The WebM source was compressed using the Best Quality (slowest) Recommended
+    Settings from Google's
+    <a
+      href="https://sites.google.com/a/webmproject.org/wiki/ffmpeg/vp9-encoding-guide"
+    >V9 encoding guide.</a>
+  </p>
+  <video controls width="1920" height="1080">
+    <source
+      type="video/webm"
+      src="https://cdn.glitch.global/97616b87-f930-4eb0-a8a0-84c6a73d97e7/video-1920.webm?v=1671553389855"
+    />
+    <source
+      type="video/mp4"
+      src="https://cdn.glitch.global/97616b87-f930-4eb0-a8a0-84c6a73d97e7/video-1920.mp4?v=1671553389855"
+    />
+  </video>
+  {{! prettier-ignore }}
+  <p>
+    <details>
+      <summary>View Source Code</summary>      
+      <pre><code>&lt;video controls width=&quot;1920&quot; height=&quot;1080&quot;&gt;
+    &lt;source
+    type=&quot;video/mp4&quot;
+    src=&quot;https://cdn.glitch.global/97616b87-f930-4eb0-a8a0-84c6a73d97e7/video-1920.mp4?v=1671553389855&quot;
+  /&gt;
+  &lt;source
+    type=&quot;video/webm&quot;
+    src=&quot;https://cdn.glitch.global/97616b87-f930-4eb0-a8a0-84c6a73d97e7/video-1920.webm?v=1671553389855&quot;
+  /&gt;
+&lt;/video&gt;</code></pre>
+    </details>
+  </p>
+</div>

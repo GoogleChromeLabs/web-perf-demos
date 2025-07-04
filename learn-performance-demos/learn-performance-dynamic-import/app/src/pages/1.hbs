@@ -1,0 +1,48 @@
+<div>
+  <p>
+    Dynamic
+    <code>import()</code>
+    allows you to conditionally download a JavaScript module. This page checks
+    the user's
+    <code>prefers-reduced-motion</code>
+    preference.
+  </p>
+  <ul>
+    <li>
+      If it is set to
+      <code>no-preference</code>
+      (default) then it will download
+      <code>canvas-confetti.js</code>
+      and attach an event listener to the button.
+    </li>
+    <li>If the user's preference is set to
+      <code>reduce</code>, this indicates that the page should minimize movement
+      and animation. Consequently,
+      <code>confetti.js</code>
+      will not be downloaded.</li>
+  </ul>
+  <p>
+    Note how the button is disabled until
+    <code>polyfill.js</code>
+    is downloaded and executed.
+  </p>
+  <div>
+    <button id="clickMe">
+      Click me!
+    </button>
+  </div>
+  {{! prettier-ignore }}
+  <p>
+    <details>
+      <summary>View Source Code</summary>      
+      <pre><code>const mediaQuery = window.matchMedia(&#39;(prefers-reduced-motion: reduce)&#39;);
+  if (!mediaQuery.matches) { 
+    await import(&quot;./canvas-confetti.js?delay=1000&quot;);
+    document.getElementById(&quot;clickMe&quot;).addEventListener(&quot;click&quot;, () =&gt; {
+      confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+    });
+  }
+</code></pre>
+    </details>
+  </p>
+</div>

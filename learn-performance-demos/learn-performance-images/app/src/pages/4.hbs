@@ -1,0 +1,119 @@
+<div>
+  <p>
+    This demo uses lossy compression (MozJPEG) to reduce the images' file size.
+    The
+    <code>&lt;img&gt;</code>
+    element uses the
+    <code>srcset</code>
+    and
+    <code>sizes</code>
+    attributes and each image was compressed manually with different settings
+    used for each.</p>
+  <p>I compressed the
+    <code>image-1920.jpg</code>
+    image with a quality of 50 and reduced the color palette slightly. The
+    <code>image-1280.jpg</code>
+    and
+    <code>image-640.jpg</code>
+    images were compressed with a quality of 80 without a reduced color palette.
+  </p>
+  <div class="gallery">
+    <div class="large">
+      <img
+        id="image"
+        alt="Photograph of a group of pedestrians crossing the street."
+        width="640"
+        height="426"
+        src="/images/image-640-lossy.jpg?v=4"
+        srcset="/images/image-640-lossy.jpg?v=4 640w, /images/image-1280-lossy.jpg?v=4 1280w, /images/image-1920-lossy.jpg?v=4 1920w"
+        sizes="(min-width: 540px) 640px, calc(100vw - 2rem)"
+      />
+    </div>
+  </div>
+  <div>
+    <p>
+      <strong>Image details:</strong>
+    </p>
+    <table>
+      <tbody>
+        <tr>
+          <td>
+            File
+          </td>
+          <td id="currentSrc">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Size
+          </td>
+          <td id="decodedBodySize">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Intrinsic Width
+          </td>
+          <td id="naturalWidth">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Intrinsic Height
+          </td>
+          <td id="naturalHeight">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Display Width
+          </td>
+          <td id="clientWidth">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Display Height
+          </td>
+          <td id="clientHeight">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            DPR
+          </td>
+          <td id="dpr">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Percentage Used
+          </td>
+          <td id="usedPercentage">
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p>
+    Compare the image's file size with the previous demo while also observing
+    the image quality. For example, the
+    <code>image-1280.jpg</code>
+    image was reduced from 1622 KB to 283 KB. That's more than 500% savings!
+    Are you able to see any compression artifacts? Does it still look good on
+    your current device?
+  </p>
+  {{! prettier-ignore }}
+  <p>
+    <details>
+      <summary>View Source Code</summary>      
+      <pre><code>&lt;img
+  alt=&quot;Photograph of a group of pedestrians crossing the street.&quot;
+  width=&quot;640&quot;
+  height=&quot;426&quot;
+  src=&quot;/images/image-640-lossy.jpg&quot;
+  srcset=&quot;/images/image-640-lossy.jpg, /images/image-1280-lossy.jpg 2x, /images/image-1920-lossy.jpg 3x&quot;
+/&gt;</code></pre>
+    </details>
+  </p>
+</div>

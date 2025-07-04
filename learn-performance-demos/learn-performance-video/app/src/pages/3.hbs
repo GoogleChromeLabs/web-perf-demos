@@ -1,0 +1,64 @@
+<div>
+  <p>
+    This demo shows a
+    <code>&lt;video&gt;</code>
+    element with the
+    <code>autoplay</code>
+    attribute.
+  </p>
+  <p>
+    The
+    <code>&lt;video&gt;</code>
+    element does not have a poster image and is therefore not considered an
+    LCP candidate.
+  </p>
+  <div style="position:relative;width:100%;height:24rem">
+    <video
+      autoplay
+      muted
+      playsinline
+      loop
+      style="position:absolute;object-fit:cover;height:100%;width:100%"
+    >
+      <source
+        type="video/webm"
+        src="https://cdn.glitch.global/97616b87-f930-4eb0-a8a0-84c6a73d97e7/video-1920.webm?v=1671553389855"
+      />
+      <source
+        type="video/mp4"
+        src="https://cdn.glitch.global/97616b87-f930-4eb0-a8a0-84c6a73d97e7/video-1920.mp4?v=1671553389855"
+      />
+    </video>
+  </div>
+  {{! prettier-ignore }}
+  <p>
+    <details>
+      <summary>View Source Code</summary>      
+      <pre><code>&lt;div style=&quot;position:relative;width:100%;height:24rem&quot;&gt;
+  &lt;video
+    autoplay
+    muted
+    playsinline
+    loop
+    style=&quot;position:absolute;object-fit:cover;height:100%;width:100%&quot;
+  &gt;
+    &lt;source
+      type=&quot;video/webm&quot;
+      src=&quot;https://cdn.glitch.global/97616b87-f930-4eb0-a8a0-84c6a73d97e7/video-1920.webm?v=1671553389855&quot;
+    /&gt;
+    &lt;source
+      type=&quot;video/mp4&quot;
+      src=&quot;https://cdn.glitch.global/97616b87-f930-4eb0-a8a0-84c6a73d97e7/video-1920.mp4?v=1671553389855&quot;
+    /&gt;
+  &lt;/video&gt;
+  &lt;div
+    style=&quot;background-color:rgba(0,0,0,0.33);position:absolute;top:0;right:0;bottom:0;left:0;display:flex;justify-content:center;text-align:center;flex-direction:column;color:#ffffff;z-index:1&quot;
+  &gt;
+    &lt;h1&gt;
+      AUTOPLAY
+    &lt;/h1&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+    </details>
+  </p>
+</div>

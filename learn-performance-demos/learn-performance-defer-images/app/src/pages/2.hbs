@@ -1,0 +1,76 @@
+<div>
+  <p>
+    This demo includes four images. Two of the images are within or close to the
+    viewport, while the remaining two are outside of the viewport. However
+    <i>all</i>
+    images have the
+    <code>loading=&quot;lazy&quot;</code>
+    attribute. This is an anti-pattern and can potentially delay the LCP image.
+  </p>
+  <div class="grid">
+    <img
+      alt="Photograph of a sandy landscape."
+      width="800"
+      height="600"
+      src="/images/image-1.jpg?v=3"
+      loading="lazy"
+    />
+    <img
+      alt="Photograph of a table and chairs in the foreground with the sea in the background."
+      width="800"
+      height="600"
+      src="/images/image-2.jpg?v=3"
+      loading="lazy"
+    />
+    <img
+      alt="Photograph of a blue shallow sea with four deckchairs and an umbrella in the foreground on the rocks."
+      width="800"
+      height="600"
+      src="/images/image-3.jpg?v=3"
+      loading="lazy"
+    />
+    <img
+      alt="Aerial photograph of a green body of water surrounded by rocks."
+      width="800"
+      height="600"
+      src="/images/image-4.jpg?v=3"
+      loading="lazy"
+    />
+  </div>
+  <p>
+    If you observe the Chrome DevTools network panel, you should notice that the
+    images within the initial viewport do not start downloading until all CSS is
+    downloaded and parsed. This is because the browser does not know if the
+    image is within the viewport until after the layout phase.
+  </p>
+  <p>
+    <img
+      src="https://cdn.glitch.global/64728001-8411-4e75-95b3-99288bcd6141/learn-performance-defer-images-lazy-lcp.png?v=1695731521900"
+      alt="Chrome DevTools Network panel showing 5 resources. The images (bottom two rows) begin downloading after style.css has finished downloading."
+      loading="lazy"
+    />
+  </p>
+  <p>
+    In the network panel above, the images
+    <code>image-1.jpg</code>
+    and
+    <code>image-2.jpg</code>
+    do not start downloading until
+    <code>style.css</code>
+    has finished downloading. Contrast this with the previous demo where the LCP
+    image was downloaded immediately.
+  </p>
+  {{! prettier-ignore }}
+  <p>
+    <details>
+      <summary>View Source Code</summary>      
+      <pre><code>&lt;img
+  alt=&quot;Photograph of a sandy landscape.&quot;
+  width=&quot;800&quot;
+  height=&quot;600&quot;
+  src=&quot;/images/image-1.jpg&quot;
+  loading=&quot;lazy&quot;
+/&gt;</code></pre>
+    </details>
+  </p>
+</div>

@@ -1,0 +1,49 @@
+<div>
+  <p>
+    Stylesheets loaded using
+    <code>@import</code>
+    negatively affect your rendering performance as they are not caught by the
+    preload scanner and are a late-discovered resource.
+  </p>
+  <p>
+    In this demo, we are loading
+    <code>import.css</code>
+    in the document's
+    <code>&lt;head&gt;</code>. This stylesheet includes
+    <code>@import url(./vars.css);</code>
+    —where we define our CSS variables.
+  </p>
+  <p>
+    <img
+      src="https://cdn.glitch.global/a78c1e1e-8e60-4115-96d8-efb06507f66f/import.png?v=1668084740368"
+      alt="WebPageTest waterfall chart showing four resources. The Start Render mark appears at 3.2s."
+    />
+  </p>
+  <p>
+    As you can see in the waterfall chart, the Start Render mark is delayed
+    until the render-blocking
+    <code>vars.css</code>
+    has downloaded.
+    Additionally, <code>vars.css</code>
+    is downloaded in sequence, after
+    <code>import.css</code>
+    finishes downloading.
+  </p>
+  {{! prettier-ignore }}
+  <p>
+    <details>
+      <summary>View Source Code</summary>
+      <pre><code>/* index.html */
+&lt;head&gt;
+  &lt;link rel=&quot;stylesheet&quot; href=&quot;/import.css&quot; /&gt;
+&lt;/head&gt;
+
+
+/* import.css */
+@import url(./vars.css);
+// style rules...
+
+</code></pre>
+    </details>
+  </p>
+</div>

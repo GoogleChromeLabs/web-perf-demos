@@ -1,0 +1,218 @@
+<div>
+  <p>
+    This demo uses the
+    <a
+      href="https://developer.mozilla.org/en-US/docs/Web/API/Scheduler/postTask"
+    ><code>scheduler.postTask()</code></a>
+    API to schedule tasks and prioritize critical user interactions.</p>
+  <p>This demo uses a
+    <code>TaskController</code>
+    to abort the
+    <code>filterResults</code>
+    task if the user updates the search term before the previous task completes.
+  </p>
+  <p id="browser-support-warning">
+    This demo requires
+    <a href="https://caniuse.com/mdn-api_scheduler_posttask">support for
+      <code>scheduler.postTask</code></a>.
+  </p>
+  <div class="demo">
+    <div class="input-pane">
+      <input
+        id="search"
+        type="text"
+        placeholder="Search..."
+        autocomplete="off"
+      />
+      <img
+        id="animation"
+        src="https://cdn.glitch.global/51cfd243-2e84-482b-86d1-b78a29ac1698/spinner.svg?v=1708439812353"
+        width="24"
+        height="24"
+        class="spinner"
+      />
+      <label><input id="hide-animation" type="checkbox" />Hide animation</label>
+    </div>
+    <div class="results-pane">
+      <ul id="list"></ul>
+    </div>
+  </div>
+  <p>
+    If you observe the performance tab, you can notice that
+    <code>filterResults</code>
+    is invoked by
+    <code>scheduler.postTask</code>. You should also notice that the browser may
+    paint a visual update between
+    <code>filterResults</code>
+    and
+    <code>renderList</code>.
+  </p>
+  <p>
+    <img
+      src="https://cdn.glitch.global/51cfd243-2e84-482b-86d1-b78a29ac1698/Learn%20Performance%20-%20Scheduling%20-%20postTask.png?v=1708690704366"
+      alt="Chrome DevTools Performance panel showing four tasks. filterResults is invoked by scheduler.postTask and the browser paints a UI update before renderList."
+      width="1019"
+      height="236"
+      loading="lazy"
+    />
+  </p>
+  <p>
+    In the preceding screenshot, the browser paints a visual update between
+    <code>filterResults</code>
+    and
+    <code>renderList</code>
+    as shown by the purple and green areas. Consequently, the presentation delay
+    for the user interaction is small and scores a good INP.
+  </p>
+  {{! prettier-ignore }}
+  <p>
+    <details>
+      <summary>View Source Code</summary>      
+      <pre><code></code></pre>
+    </details>
+  </p>
+</div>
+{{! prettier-ignore }}
+<script>
+  if ("scheduler" in this && scheduler.postTask) {
+    document.getElementById("browser-support-warning").insertAdjacentHTML("afterbegin", "✅")
+  } else {
+    document.getElementById("browser-support-warning").insertAdjacentHTML("afterbegin", "🛑")
+  }
+</script>
+{{! prettier-ignore }}
+<script>
+  document.getElementById("hide-animation").addEventListener("change", () => {
+    document.getElementById("animation").classList.toggle("hide");
+  });
+</script>
+{{! prettier-ignore }}
+<script type="module">
+  // fetch and store the data in memory
+  const initial = await fetch(
+      "https://cdn.glitch.global/51cfd243-2e84-482b-86d1-b78a29ac1698/data.json?v=1708550781857",
+      {
+          method: "GET",
+          headers: {
+              Accept: "application/json"
+          }
+      }
+  ).then(response => response.json());
+
+  // compare similarity between two strings
+  // source: https://github.com/stephenjjbrown/string-similarity-js
+  const stringSimilarity = (str1, str2, substringLength = 2, caseSensitive = false) => {
+      if (!caseSensitive) {
+          str1 = str1.toLowerCase();
+          str2 = str2.toLowerCase();
+      }
+
+      if (str1.length < substringLength || str2.length < substringLength) return 0;
+
+      const map = new Map();
+      for (let i = 0; i < str1.length - (substringLength - 1); i++) {
+          const substr1 = str1.substr(i, substringLength);
+          map.set(substr1, map.has(substr1) ? map.get(substr1) + 1 : 1);
+      }
+
+      let match = 0;
+      for (let j = 0; j < str2.length - (substringLength - 1); j++) {
+          const substr2 = str2.substr(j, substringLength);
+          const count = map.has(substr2) ? map.get(substr2) : 0;
+          if (count > 0) {
+              map.set(substr2, count - 1);
+              match++;
+          }
+      }
+
+      return (match * 2) / (str1.length + str2.length - (substringLength - 1) * 2);
+  };
+
+  // sort the results by relevance to the search term
+  // ATTN: insertion sort has a time complexity of O(n^2)
+  const sort = data => {
+      for (let i = 1; i < data.length; i++) {
+          const key = data[i];
+          let j;
+
+          for (j = i - 1; j >= 0 && data[j].relevance < key.relevance; j--) {
+              data[j + 1] = data[j];
+          }
+
+          data[j + 1] = key;
+      }
+
+      return data;
+  };
+
+  // filter the results
+  const filterResults = (data, searchTerm, limit) => {
+      const relevanceArray = data.map(n => ({
+          ...n,
+          relevance: stringSimilarity(`${n.firstName} ${n.lastName}`, searchTerm)
+      }));
+
+      const results = sort(relevanceArray);
+      return results.slice(0, limit);
+  };
+
+  // render the HTML
+  const renderList = (root, data) => {
+      let itemsHTML = "";
+      // clear the list
+      root.innerHTML = "";
+      for (let i = 0; i < data.length; i++) {
+          // create the HTML for each li
+          itemsHTML += `<li>${data[i].firstName} ${data[i].lastName}</li>`;
+      }
+
+      root.innerHTML = itemsHTML;
+  };
+
+  let previousValue = "";
+  let controller;
+
+  document.getElementById("search").addEventListener("keyup", async e => {
+      const value = e.target.value.toLowerCase();
+
+      // avoid updating if the value remains unchanged (ex: left/right arrow)
+      if (value !== previousValue) {
+          previousValue = value;
+
+          document.querySelector(".results-pane").classList.add("loading");
+
+          try {
+              // search term has changed, abort the filterResults task
+              if (controller) {
+                  controller.abort();
+              }
+
+              // create a new Task Controller with user-visible priority
+              controller = new TaskController({priority: "user-visible"});
+
+              // schedule a task to filter results
+              const filteredResults = await scheduler.postTask(
+                  async () => {
+                      return await filterResults(initial, value, 500);
+                  },
+                  {
+                      signal: controller.signal
+                  }
+              );
+
+              // if the task was not aborted
+              if (filteredResults) {
+                  // schedule a "user-blocking" task to update the UI
+                  scheduler.postTask(() => {
+                      renderList(document.getElementById("list"), filteredResults);
+                      document.querySelector(".results-pane").classList.remove("loading");
+                  }, {
+                    priority: "user-blocking"
+                  });
+              }
+          } catch {
+              document.querySelector(".results-pane").classList.remove("loading");
+          }
+      }
+  });
+</script>

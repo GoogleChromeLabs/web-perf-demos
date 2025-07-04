@@ -1,0 +1,52 @@
+<div>
+  <p>
+    If you are unable to remove the
+    <code>@import</code>
+    (for example when loading a third-party stylesheet), then you can preload the imported CSS
+    file using the
+    <code>link rel=&quot;preload&quot;</code>
+    resource hint.
+  </p>
+  <p>
+    In addition to the
+    <code>import.css</code>
+    stylesheet in the document's
+    <code>&lt;head&gt;</code>, this page also contains
+    <code>&lt;link rel=&quot;preload&quot; href=&quot;vars.css&quot; as=&quot;style&quot;&gt;</code>. The
+    <code>link rel=&quot;preload&quot;</code>
+    resource hint informs the browser to download the resource immediately,
+    without waiting for the CSS parser to discover it.
+  </p>
+  <p>
+    <strong>Note that
+      <code>preload</code>
+      should be used sparsely and only for late-discovered resources. Overusing the preload resource hint can deviate network bandwidth to less-critical resources.</strong>
+  </p>
+  <p>
+    <img
+      src="https://cdn.glitch.global/a78c1e1e-8e60-4115-96d8-efb06507f66f/import-preload.png?v=1668086598145"
+      alt="WebPageTest waterfall chart showing four resources. The Start Render mark appears at 2.2s."
+    />
+  </p>
+  <p>
+    This waterfall chart resembles the one in the previous demo where both
+    stylesheets are downloaded in parallel.
+  </p>
+  {{! prettier-ignore }}
+  <p>
+    <details>
+      <summary>View Source Code</summary>
+      <pre><code>/* index.html */
+&lt;head&gt;
+  &lt;link rel=&quot;preload&quot; href=&quot;/vars.css&quot; as=&quot;style&quot; /&gt;
+  &lt;link rel=&quot;stylesheet&quot; href=&quot;/import.css&quot; /&gt;
+&lt;/head&gt;
+
+
+/* import.css */
+@import url(./vars.css);
+// style rules...
+</code></pre>
+    </details>
+  </p>
+</div>

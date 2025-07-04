@@ -1,0 +1,27 @@
+.large .image {
+  height: 320px;
+}
+
+.thumbnails .image {
+  height: 50px;
+}
+
+.image-1 {
+  background: url(https://cdn.glitch.global/db01a8e4-9230-4c5c-977d-85d0e0c3e74c/image-1.jpg?v=1669198400523) no-repeat center;
+  background-size: cover;
+}
+
+.image-2 {
+  background: url(https://cdn.glitch.global/db01a8e4-9230-4c5c-977d-85d0e0c3e74c/image-2.jpg?v=1669198401407) no-repeat center;
+  background-size: cover;
+}
+
+.image-3 {
+  background: url(https://cdn.glitch.global/db01a8e4-9230-4c5c-977d-85d0e0c3e74c/image-3.jpg?v=1669198402295) no-repeat center;
+  background-size: cover;
+}
+
+.image-4 {
+  background: url(https://cdn.glitch.global/db01a8e4-9230-4c5c-977d-85d0e0c3e74c/image-4.jpg?v=1669198402935) no-repeat center;
+  background-size: cover;
+}

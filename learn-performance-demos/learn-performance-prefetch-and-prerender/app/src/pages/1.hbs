@@ -1,0 +1,74 @@
+<div>
+  <p>
+    Prefetching resources can improve the user experience as the user does not
+    need to wait for resources to be fetched. This page contains a date picker
+    that requires
+    <code>jquery.js</code>,
+    <code>jquery-ui.js</code>
+    and
+    <code>jquery-ui.css</code>
+    to be downloaded before it can be rendered. These resources are not required for the page to render and are deferred to
+    when the user interacts with the datepicker. Adding <code>link rel="prefetch"</code> informs the browser to download them once idle.
+  </p>
+  <input type="text" id="datepicker" autocomplete="off" placeholder="Select date..." />
+  <p>
+    If you observe the network tab, you should notice that the resources
+    required to render the datepicker are prefetched after the page has
+    downloaded the critical resources required to render the page. These are
+    assigned the
+    <i>Lowest</i>
+    network priority. When the resources are eventually needed, they are fetched
+    from the
+    <i>prefetch cache</i>.
+  </p>
+  <p>
+    <img
+      src="https://cdn.glitch.global/850a76f6-ed10-4120-9f3c-4628563dd9d2/learn-performance-prefetch-resources.png?v=1695987651779"
+      alt="Chrome DevTools Network panel showing 9 resources. The prefetched resources (rows 4-6) are fetched with the Lowest priority before being retrieved from the cache (rows 7-9)."
+      width="936"
+      height="443"
+      loading="lazy"
+    />
+  </p>
+  <p>
+    In the network panel above, the prefetched resources
+    <code>jquery.js</code>,
+    <code>jquery-ui.js</code>
+    and
+    <code>jquery-ui.css</code>
+    are downloaded with the
+    <i>Lowest</i>
+    network priority before being fetched instantly from prefetch cache.
+  </p>
+  {{! prettier-ignore }}
+  <p>
+    <details>
+      <summary>View Source Code</summary>      
+      <pre><code>&lt;link rel=&quot;prefetch&quot; as=&quot;script&quot; href=&quot;/jquery.js&quot; /&gt;
+&lt;link rel=&quot;prefetch&quot; as=&quot;script&quot; href=&quot;/jquery-ui.js&quot; /&gt;
+&lt;link rel=&quot;prefetch&quot; as=&quot;style&quot; href=&quot;/jquery-ui.css&quot; /&gt;
+</code></pre>
+    </details>
+  </p>
+</div>
+<script>
+  document.querySelectorAll("input").forEach((input) => {
+    input.addEventListener(
+      "focus",
+      async () => {
+        await import("/jquery.js");
+        const [,cssModule] = await Promise.all([
+          import("/jquery-ui.js"), 
+          import("/jquery-ui.css", {
+            assert: { type: 'css' }
+          })
+        ]);
+        document.adoptedStyleSheets = [cssModule.default];
+        
+        $("#datepicker").datepicker({ dateFormat: 'yy-mm-dd' });
+        $("#datepicker").datepicker("show");
+      },
+      { once: true }
+    );
+  });
+</script>

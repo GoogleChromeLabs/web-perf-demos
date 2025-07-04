@@ -1,0 +1,58 @@
+<div>
+  <p>
+    When the browser encounters a
+    <code>&lt;script&gt;</code>
+    tag without the
+    <code>defer</code>
+    or
+    <code>async</code>
+    attribute, the browser blocks parsing and rendering until the script file is
+    downloaded, parsed and executed. This is by design, as your JavaScript may
+    modify or access the DOM.
+  </p>
+  <p>
+    This demo includes a
+    <code>&lt;script src=&quot;/script.js&quot;/&gt;</code>
+    element in the
+    <code>&lt;head&gt;</code>.
+  </p>
+  <p>
+    <img
+      src="https://cdn.glitch.global/7c5056ff-325f-4dc8-a476-6c0d355637c6/blocking-head.png?v=1668792222029"
+      alt="WebPageTest waterfall chart showing three resources. The Start Render mark appears after 4.0 seconds, after script.js is being downloaded, parsed and executed."
+      width="1012"
+      height="312"
+    />
+  </p>
+  <p>
+    The above image is taken from
+    <a
+      href="https://www.webpagetest.org/"
+      target="_blank"
+      rel="noreferrer noopener"
+    >WebPageTest</a>
+    and shows the resources loaded for this page. You should notice that the
+    Start Render mark—denoted by the dark green vertical line—appears after
+    4.0s, after the
+    <code>script.js</code>
+    file is downloaded, parsed and executed. JavaScript parsing and execution is
+    illustrated by the pink bar.
+  </p>
+  {{! prettier-ignore }}
+  <p>
+    <details>
+      <summary>View Source Code</summary>      
+      <pre><code>// index.html
+&lt;head&gt;
+  &lt;link rel=&quot;stylesheet&quot; href=&quot;/style.css&quot;&gt;
+  &lt;script src=&quot;/script.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+
+// script.js
+// simulate CPU intensive JavaScript execution
+sleep(2000);
+console.log(&quot;Hello world!&quot;)
+</code></pre>
+    </details>
+  </p>
+</div>

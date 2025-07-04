@@ -1,0 +1,48 @@
+<div>
+  <p>
+    Adding the
+    <code>async</code>
+    attribute to your
+    <code>&lt;script&gt;</code>
+    tag will download the file without blocking the HTML parser, but pause the
+    HTML parser to execute the script once it has finished download.
+  </p>
+  <p>
+    This demo includes a
+    <code>&lt;script src=&quot;/script.js&quot; async&gt;&lt;/script&gt;</code>
+    element in the
+    <code>&lt;head&gt;</code>.
+  </p>
+  <p>
+    <img
+      src="https://cdn.glitch.global/7c5056ff-325f-4dc8-a476-6c0d355637c6/async.png?v=1668792249855"
+      alt="WebPageTest waterfall chart showing four resources. The Start Render mark appears at 2.0 seconds. The browser main thread flamechart has two large purple areas at 1.4 seconds and 4.0 seconds, with a yellow area sandwiched between."
+      width="1012"
+      height="312"
+    />
+  </p>
+  <p>
+    In the above waterfall, the Start Render mark appears before JavaScript begins
+    executing. The HTML parser is paused until the JavaScript file is executed.
+    This can be seen clearly in the "Browser Main Thread" flame chart above. The
+    purple areas denote layout and the orange areas refer to JavaScript execution. In the example above, the initial layout
+    chunk is interrupted by a large orange chunk before resuming layout once
+    the main thread has been freed.
+  </p>
+  {{! prettier-ignore }}
+  <p>
+    <details>
+      <summary>View Source Code</summary>
+      <pre><code>// index.html
+&lt;head&gt;
+  &lt;link rel=&quot;stylesheet&quot; href=&quot;/style.css&quot;&gt;
+  &lt;script src=&quot;/script.js?delay=10&quot;&gt;&lt; async /script&gt;
+&lt;/head&gt;</code></pre>
+    </details>
+  </p>
+</div>
+<hr />
+<details>
+  <summary>Lorem ipsum</summary>
+  {{{data}}}
+</details>

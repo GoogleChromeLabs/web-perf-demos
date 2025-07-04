@@ -1,0 +1,98 @@
+<div>
+  <p>
+    This demo uses lossless compression (OxiPNG) to reduce the image size. The
+    image was compressed using a maximum effort of 3.
+  </p>
+  <p>To demonstrate lossless compression we are using an image which features
+    sharp edges - such as text. Lossless compression does not perform well on
+    photographs as these tend to have a high frequency and many colors.
+  </p>
+  <div class="gallery">
+    <div class="large">
+      <img
+        id="image"
+        alt="web.dev logo"
+        width="1200"
+        height="1200"
+        src="/images/image-1200-lossless.png?v=5"
+      />
+    </div>
+  </div>
+  <div>
+    <p>
+      <strong>Image details:</strong>
+    </p>
+    <table>
+      <tbody>
+        <tr>
+          <td>
+            File
+          </td>
+          <td id="currentSrc">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Size
+          </td>
+          <td id="decodedBodySize">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Intrinsic Width
+          </td>
+          <td id="naturalWidth">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Intrinsic Height
+          </td>
+          <td id="naturalHeight">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Display Width
+          </td>
+          <td id="clientWidth">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Display Height
+          </td>
+          <td id="clientHeight">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            DPR
+          </td>
+          <td id="dpr">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Percentage Used
+          </td>
+          <td id="usedPercentage">
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  {{! prettier-ignore }}
+  <p>
+    Lossless compression preserves the image quality and does not create any artifacts.
+  </p>
+  <p>
+    <details>
+      <summary>View Source Code</summary>
+      <pre><code>&lt;img alt=&quot;web.dev logo&quot; width=&quot;1200&quot;
+          height=&quot;1200&quot;
+          src=&quot;/images/image-1200-lossless.png&quot; /&gt;</code></pre>
+    </details>
+  </p>
+</div>

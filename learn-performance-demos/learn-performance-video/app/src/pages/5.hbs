@@ -1,0 +1,48 @@
+<div>
+  <p>
+    This demo shows a YouTube embed using an
+    <code>iframe</code>.
+  </p>
+  <iframe
+    width="560"
+    height="315"
+    src="https://www.youtube-nocookie.com/embed/CWTm0ccfZe4?controls=0"
+    title="YouTube video player"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen
+  ></iframe>
+  <p>
+    The below waterfall illustrates the resources required to render this page.
+  </p>
+  <p>
+    <img
+      src="https://cdn.glitch.global/97616b87-f930-4eb0-a8a0-84c6a73d97e7/youtube.png?v=1671622156330"
+      alt="Waterfall chart showing 17 resources."
+      width="1012"
+      height="533"
+    />
+  </p>
+  <p>
+    There are a total of 17 requests, 15 of which are to the third party. Of
+    these, 4 of the requests are render-blocking. As a result, the poster image
+    of the YouTube embed is only visible at 5.6 seconds, once the
+    <code>maxresdefault.jpg</code>
+    image has finished downloading.
+  </p>
+  {{! prettier-ignore }}
+  <p>
+    <details>
+      <summary>View Source Code</summary>      
+      <pre><code>&lt;iframe
+  width=&quot;560&quot;
+  height=&quot;315&quot;
+  src=&quot;https://www.youtube-nocookie.com/embed/CWTm0ccfZe4?controls=0&quot;
+  title=&quot;YouTube video player&quot;
+  frameborder=&quot;0&quot;
+  allow=&quot;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture&quot;
+  allowfullscreen
+&gt;&lt;/iframe&gt;</code></pre>
+    </details>
+  </p>
+</div>

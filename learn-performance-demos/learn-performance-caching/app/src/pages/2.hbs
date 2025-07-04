@@ -1,0 +1,107 @@
+<div>
+  <table>
+    <tr>
+      <td>
+        Data:
+      </td>
+      <td>
+        <strong>{{time}}</strong>
+      </td>
+    </tr>
+  </table>
+  <p>
+    This demo utilizes an
+    <code>ETag</code>
+    to check the freshness of the server response. The page response will
+    include an
+    <code>ETag</code>
+    header which the browser will store locally and include in successive
+    responses through the
+    <code>If-None-Match</code>
+    header.
+  </p>
+  <p>
+    The first time you visit this page, the browser does not have an
+    <code>ETag</code>
+    value stored locally and therefore receives the full response from the
+    server—including the
+    <code>ETag</code>
+    value. The
+    <code>ETag</code>value is unique for this response and in our example, it
+    changes every 60 seconds—whenever the server time is updated.
+  </p>
+  <p>
+    <i>Note that we also include the
+      <code>cache-control: no-cache</code>
+      response header. This instructs the browser that it may store the response
+      in the cache, but it must check the validity of the cached data with the
+      origin server before reusing it.</i>
+  </p>
+  <p>
+    <img
+      width="927"
+      height="281"
+      src="https://cdn.glitch.global/1d17d497-a0db-4183-b4e9-1a5f350327b1/learn-performance-caching-2-3.png?v=1668007823453"
+      alt="Screenshot of Chrome DevTools showing response headers, including 'etag: 3ec343...'."
+    />
+  </p>
+  <p>
+    The browser will store the received
+    <code>ETag</code>
+    and every subsequent request will send the
+    <code>ETag</code>
+    value in the
+    <code>If-None-Match</code>
+    header. If the
+    <code>If-None-Match</code>
+    header sent by the browser matches the ETag value generated on the server,
+    then the server will respond with a
+    <code>304</code>
+    status code.
+  </p>
+  <p>
+    <img
+      width="938"
+      height="464"
+      src="https://cdn.glitch.global/1d17d497-a0db-4183-b4e9-1a5f350327b1/learn-performance-caching-2-2.png?v=1668007824274"
+      alt="Screenshot of Chrome DevTools showing request headers, including 'if-none-match: 3ec343...'."
+    />
+  </p>
+  <p>
+    The response size is also reduced from more than 30 KB to approximately 34
+    bytes—the size of the response headers.
+  </p>
+  <p>
+    <img
+      width="925"
+      height="43"
+      src="https://cdn.glitch.global/1d17d497-a0db-4183-b4e9-1a5f350327b1/learn-performance-caching-2-1.png?v=1668007822519"
+      alt="Screenshot of Chrome DevTools showing 304 status code and reduced response size."
+    />
+  </p>
+  {{! prettier-ignore }}
+  <p>
+    <details>
+      <summary>View Source Code</summary>
+      <pre><code>const etag = md5(getTime(new Date()));
+
+if (etag === request.headers["if-none-match"]) {
+  reply.statusCode = 304;
+  reply.send();
+} else {
+  reply.headers({
+    "cache-control": "no-cache",
+    etag,
+  });
+  reply.view("/src/pages/2.hbs", params);
+}
+
+return reply;</code></pre>
+    </details>
+  </p>
+  <hr />
+  <details>
+    <summary>Lorem ipsum</summary>
+    {{{data}}}
+  </details>
+</div>

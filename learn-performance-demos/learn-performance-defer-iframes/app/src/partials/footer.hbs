@@ -1,0 +1,16 @@
+{{#if step}}
+  <div class="prev">
+    <a class="nav-button" href="/" id="home-step" aria-hidden="" tabindex="-1" {{#ifneq step 1}}disappear{{/ifneq}}>Home</a>    
+    <a class="nav-button" href="/{{add step -1}}" id="previous-step" aria-hidden="" tabindex="-1" {{#ifeq step 1}}disappear{{/ifeq}}>Back</a>
+  </div>
+{{/if}}
+{{#unless step}}
+  <div class="next">
+    <a class="nav-button" href="/1" id="next-step">Start</a>
+  </div>
+{{/unless}}
+{{#if step}}
+  <div class="next">
+    <a class="nav-button" href="/{{add step 1}}" id="next-step" {{#ifeq step maxStep}}disappear{{/ifeq}}>Next</a>  
+  </div>
+{{/if}}

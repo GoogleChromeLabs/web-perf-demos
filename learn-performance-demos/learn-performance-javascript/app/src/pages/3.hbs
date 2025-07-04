@@ -1,0 +1,42 @@
+<div>
+  <p>
+    In the previous demo, the inline
+    <code>&lt;script&gt;</code>
+    tag was placed above the
+    <code>&lt;stylesheet&gt;</code>. What would happen if we inverted the order?
+  </p>
+  <p>
+    <img
+      src="https://cdn.glitch.global/7c5056ff-325f-4dc8-a476-6c0d355637c6/blocking-inverted.png?v=1668792219669"
+      alt="WebPageTest waterfall chart showing two resources. The Start Render mark appears after 3.0 seconds, after JavaScript execution."
+      width="1012"
+      height="312"
+    />
+  </p>
+  <p>
+    You should notice that the JavaScript execution is delayed until after the
+    stylesheet has finished downloading. Consequently, our Start Render is
+    delayed even further. This is because render-blocking CSS blocks JavaScript
+    execution. This is by design, in case the script makes references to the
+    style. For example when using
+    <code>getComputedStyle</code>.
+  </p>
+  <p>
+    <strong>It is recommended to place render-blocking scripts before any
+      render-blocking stylesheets.</strong>
+  </p>
+  {{! prettier-ignore }}
+  <p>
+    <details>
+      <summary>View Source Code</summary>
+      <pre><code>&lt;head&gt;
+  &lt;style rel=&quot;stylesheet&quot; href=&quot;./style.css&quot; /&gt;
+  &lt;script&gt;
+    // simulate CPU intensive JavaScript execution
+    sleep(2000);
+    console.log(&quot;Hello world!&quot;)
+  &lt;/script&gt;
+&lt;/head&gt;</code></pre>
+    </details>
+  </p>
+</div>

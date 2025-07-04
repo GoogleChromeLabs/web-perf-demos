@@ -1,0 +1,76 @@
+<div>
+  <p>
+    This demo includes four images. Two of the images are within or close to the
+    viewport, while the remaining two are outside of the viewport. The images
+    outside of the viewport have the
+    <code>loading=&quot;lazy&quot;</code>
+    attribute.
+  </p>
+  <div class="grid">
+    <img
+      alt="Photograph of a sandy landscape."
+      width="800"
+      height="600"
+      src="/images/image-1.jpg?v=2"
+    />
+    <img
+      alt="Photograph of a table and chairs in the foreground with the sea in the background."
+      width="800"
+      height="600"
+      src="/images/image-2.jpg?v=2"
+    />
+    <img
+      alt="Photograph of a blue shallow sea with four deckchairs and an umbrella in the foreground on the rocks."
+      width="800"
+      height="600"
+      src="/images/image-3.jpg?v=2"
+      loading="lazy"
+    />
+    <img
+      alt="Aerial photograph of a green body of water surrounded by rocks."
+      width="800"
+      height="600"
+      src="/images/image-4.jpg?v=2"
+      loading="lazy"
+    />
+  </div>
+  <p>
+    If you observe the network tab, you should notice that the images with the
+    <code>loading=&quot;lazy&quot;</code>
+    attribute are not requested immediately but begin downloading as you scroll
+    down and they approach the viewport.
+  </p>
+  <p>
+    <img
+      src="https://cdn.glitch.global/64728001-8411-4e75-95b3-99288bcd6141/learn-performance-defer-images-lazy.png?v=1695732143278"
+      alt="Chrome DevTools Network panel showing 7 resources. The images within the viewport (rows 4 and 5) begin downloading immediately while the images outside of the viewport (rows 6 and 7) start downloading later."
+      width="1096"
+      height="394"
+      loading="lazy"
+    />
+  </p>
+  <p>
+    In the network panel above, the images
+    <code>image-1.jpg</code>
+    and
+    <code>image-2.jpg</code>
+    are downloaded immediately while
+    <code>image-3.jpg</code>
+    and
+    <code>image-4.jpg</code>
+    started downloading as the user scrolled down.
+  </p>
+  {{! prettier-ignore }}
+  <p>
+    <details>
+      <summary>View Source Code</summary>      
+      <pre><code>&lt;img
+  alt=&quot;Photograph of a sandy landscape.&quot;
+  width=&quot;800&quot;
+  height=&quot;600&quot;
+  src=&quot;/images/image-1.jpg&quot;
+  loading=&quot;lazy&quot;
+/&gt;</code></pre>
+    </details>
+  </p>
+</div>

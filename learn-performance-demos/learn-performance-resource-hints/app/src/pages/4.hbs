@@ -1,0 +1,75 @@
+<div>
+  <p>
+    This demo includes the same
+    <code>preload</code>
+    hint as the previous example, but uses regular
+    <code>img</code>
+    elements to render the image grid.
+  </p>
+  <p hidden>
+    {{{data}}}
+  </p>
+  <div class="gallery">
+    <div class="large">
+      <img
+        src="https://cdn.glitch.global/db01a8e4-9230-4c5c-977d-85d0e0c3e74c/image-1.jpg?v=1669198400523"
+        alt="Image 1"
+        class="image"
+      />
+    </div>
+    <div class="thumbnails">
+      <img
+        src="https://cdn.glitch.global/db01a8e4-9230-4c5c-977d-85d0e0c3e74c/image-1.jpg?v=1669198400523"
+        alt="Image 1"
+        class="image"
+      />
+      <img
+        src="https://cdn.glitch.global/db01a8e4-9230-4c5c-977d-85d0e0c3e74c/image-2.jpg?v=1669198401407"
+        alt="Image 2"
+        class="image"
+      />
+      <img
+        src="https://cdn.glitch.global/db01a8e4-9230-4c5c-977d-85d0e0c3e74c/image-3.jpg?v=1669198402295"
+        alt="Image 3"
+        class="image"
+      />
+      <img
+        src="https://cdn.glitch.global/db01a8e4-9230-4c5c-977d-85d0e0c3e74c/image-4.jpg?v=1669198402935"
+        alt="Image 4"
+        class="image"
+      />
+    </div>
+  </div>
+  <p>
+    <img
+      src="https://cdn.glitch.global/db01a8e4-9230-4c5c-977d-85d0e0c3e74c/preload-after.png?v=1669249007236"
+      alt="WebPageTest waterfall chart showing seven resources. The fourth resource, image-1.jpg is downloaded as it is discovered."
+    />
+  </p>
+  <p>
+    The above chart shows the loading times for this page. The first image download is initiated using <code>link rel="preload"</code>.
+  </p>
+  <p>
+    <img
+      src="https://cdn.glitch.global/db01a8e4-9230-4c5c-977d-85d0e0c3e74c/preload-before.png?v=1669249005608"
+      alt="WebPageTest waterfall chart showing seven resources. The fourth resource, image-1.jpg is downloaded as it is discovered but has a longer download time than some other image resources."
+    />
+  </p>
+  <p>
+    When comparing the two charts, there is little or no improvement. This is
+    because the
+    <code>img</code>&#39;s
+    <code>src</code>
+    attribute is discoverable by the preload scanner and it is not a
+    late-discovered resource.
+  </p>
+  {{! prettier-ignore }}
+  <p>
+    <details>
+      <summary>View Source Code</summary>      
+      <pre><code>&lt;head&gt;
+  &lt;link rel=&quot;preload&quot; href=&quot;https://cdn.glitch.global/db01a8e4-9230-4c5c-977d-85d0e0c3e74c/image-1.jpg?v=1669198400523&quot; as=&quot;image&quot; /&gt;
+&lt;/head&gt;</code></pre>
+    </details>
+  </p>
+</div>

@@ -1,0 +1,223 @@
+<div>
+  <p>
+    In this demo we extend the
+    <code>&lt;picture&gt;</code>
+    element by combining
+    <code>type</code>
+    to serve modern image formats and
+    <code>media</code>,
+    <code>srcset</code>
+    , and
+    <code>sizes</code>
+    to recommend the best image resolution and quality.
+  </p>
+  <pre><code>&lt;source media=&quot;(min-width: 560px) and
+      (-webkit-min-device-pixel-ratio: 1.5)&quot; type=&quot;image/avif&quot;
+      srcset=&quot;/images/image-1280-lossy.avif?v=7 1280w,
+      /images/image-1920-lossy.avif?v=7 1920w&quot; sizes=&quot;(min-width:
+      540px) 640px, calc(100vw - 2rem)&quot; /&gt;</code></pre>
+  <p>
+    The
+    <code>media</code>
+    attribute is used to distinguish between small viewports and larger
+    viewports. We are also combining this with the
+    <code>-webkit-min-device-pixel-ratio</code>
+    to only use these images on devices with a DPR that is at least 1.5x. We are
+    using these rules to avoid serving large, high quality images on mobile
+    devices since the human eye is not able to recognize details at such a small
+    size. This gives us the possibilty to heavily compress images that will only
+    be used on small viewports.
+  </p>
+  <p><strong>
+    Note that the
+    <code>media</code>
+    attribute is not a hint and must be followed by the browser.</strong>
+  </p>
+  <div class="gallery">
+    <div class="large">
+      <picture>
+        <source
+          media="(min-width: 560px) and (-webkit-min-device-pixel-ratio: 1.5)"
+          type="image/avif"
+          srcset="/images/image-1280-lossy.avif?v=7 1280w, /images/image-1920-lossy.avif?v=7 1920w"
+          sizes="(min-width: 540px) 640px, calc(100vw - 2rem)"
+        />
+        <source
+          media="(max-width: 560px) and (-webkit-min-device-pixel-ratio: 1.5)"
+          type="image/avif"
+          srcset="/images/image-1280-lossy-sm.avif?v=7 1280w, /images/image-1920-lossy-sm.avif?v=7 1920w"
+          sizes="(min-width: 540px) 640px, calc(100vw - 2rem)"
+        />
+        <source
+          type="image/avif"
+          srcset="/images/image-640-lossy.avif?v=7"
+          sizes="(min-width: 540px) 640px, calc(100vw - 2rem)"
+        />
+        <source
+          media="(min-width: 560px) and (-webkit-min-device-pixel-ratio: 1.5)"
+          type="image/webp"
+          srcset="/images/image-1280-lossy.webp?v=7 1280w, /images/image-1920-lossy.webp?v=7 1920w"
+          sizes="(min-width: 540px) 640px, calc(100vw - 2rem)"
+        />
+        <source
+          media="(max-width: 560px) and (-webkit-min-device-pixel-ratio: 1.5)"
+          type="image/webp"
+          srcset="/images/image-1280-lossy-sm.webp?v=7 1280w, /images/image-1920-lossy-sm.webp?v=7 1920w"
+          sizes="(min-width: 540px) 640px, calc(100vw - 2rem)"
+        />
+        <source
+          type="image/webp"
+          srcset="/images/image-640-lossy.webp?v=7 640w"
+          sizes="(min-width: 540px) 640px, calc(100vw - 2rem)"
+        />
+        <source
+          media="(min-width: 560px) and (-webkit-min-device-pixel-ratio: 1.5)"
+          srcset="/images/image-1280-lossy.jpg?v=7 1280w, /images/image-1920-lossy.jpg?v=7 1920w"
+          sizes="(min-width: 540px) 640px, calc(100vw - 2rem)"
+        />
+        <source
+          media="(max-width: 560px) and (-webkit-min-device-pixel-ratio: 1.5)"
+          srcset="/images/image-1280-lossy-sm.jpg?v=7 1280w, /images/image-1920-lossy-sm.jpg?v=7 1920w"
+          sizes="(min-width: 540px) 640px, calc(100vw - 2rem)"
+        />
+        <img
+          id="image"
+          alt="Photograph of a group of pedestrians crossing the street."
+          width="640"
+          height="426"
+          src="/images/image-640-lossy.jpg?v=7"
+        />
+      </picture>
+    </div>
+  </div>
+  <div>
+    <p>
+      <strong>Image details:</strong>
+    </p>
+    <table>
+      <tbody>
+        <tr>
+          <td>
+            File
+          </td>
+          <td id="currentSrc">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Size
+          </td>
+          <td id="decodedBodySize">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Intrinsic Width
+          </td>
+          <td id="naturalWidth">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Intrinsic Height
+          </td>
+          <td id="naturalHeight">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Display Width
+          </td>
+          <td id="clientWidth">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Display Height
+          </td>
+          <td id="clientHeight">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            DPR
+          </td>
+          <td id="dpr">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Percentage Used
+          </td>
+          <td id="usedPercentage">
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p>
+    If the file name ends with
+    <code>-sm</code>, such as
+    <code>image-1280-lossy-sm.avif?v=7</code>, then we are using a heavily
+    compressed image that is suitable for small viewports devices. Are you able
+    to distinguish this from the less compressed image?
+  </p>
+  {{! prettier-ignore }}
+  <p>
+    <details>
+      <summary>View Source Code</summary>      
+      <pre><code>&lt;picture&gt;
+  &lt;source
+    media=&quot;(min-width: 560px) and (-webkit-min-device-pixel-ratio: 1.5)&quot;
+    type=&quot;image/avif&quot;
+    srcset=&quot;/images/image-1280-lossy.avif 1280w, /images/image-1920-lossy.avif 1920w&quot;
+    sizes=&quot;(min-width: 540px) 640px, calc(100vw - 2rem)&quot;
+  /&gt;
+  &lt;source
+    media=&quot;(max-width: 560px) and (-webkit-min-device-pixel-ratio: 1.5)&quot;
+    type=&quot;image/avif&quot;
+    srcset=&quot;/images/image-1280-lossy-sm.avif 1280w, /images/image-1920-lossy-sm.avif 1920w&quot;
+    sizes=&quot;(min-width: 540px) 640px, calc(100vw - 2rem)&quot;
+  /&gt;
+  &lt;source
+    type=&quot;image/avif&quot;
+    srcset=&quot;/images/image-640-lossy.avif&quot;
+    sizes=&quot;(min-width: 540px) 640px, calc(100vw - 2rem)&quot;
+  /&gt;
+  &lt;source
+    media=&quot;(min-width: 560px) and (-webkit-min-device-pixel-ratio: 1.5)&quot;
+    type=&quot;image/webp&quot;
+    srcset=&quot;/images/image-1280-lossy.webp 1280w, /images/image-1920-lossy.webp 1920w&quot;
+    sizes=&quot;(min-width: 540px) 640px, calc(100vw - 2rem)&quot;
+  /&gt;
+  &lt;source
+    media=&quot;(max-width: 560px) and (-webkit-min-device-pixel-ratio: 1.5)&quot;
+    type=&quot;image/webp&quot;
+    srcset=&quot;/images/image-1280-lossy-sm.webp 1280w, /images/image-1920-lossy-sm.webp 1920w&quot;
+    sizes=&quot;(min-width: 540px) 640px, calc(100vw - 2rem)&quot;
+  /&gt;
+  &lt;source
+    type=&quot;image/webp&quot;
+    srcset=&quot;/images/image-640-lossy.webp 640w&quot;
+    sizes=&quot;(min-width: 540px) 640px, calc(100vw - 2rem)&quot;
+  /&gt;
+  &lt;source
+    media=&quot;(min-width: 560px) and (-webkit-min-device-pixel-ratio: 1.5)&quot;
+    srcset=&quot;/images/image-1280-lossy.jpg 1280w, /images/image-1920-lossy.jpg 1920w&quot;
+    sizes=&quot;(min-width: 540px) 640px, calc(100vw - 2rem)&quot;
+  /&gt;
+  &lt;source
+    media=&quot;(max-width: 560px) and (-webkit-min-device-pixel-ratio: 1.5)&quot;
+    srcset=&quot;/images/image-1280-lossy-sm.jpg 1280w, /images/image-1920-lossy-sm.jpg 1920w&quot;
+    sizes=&quot;(min-width: 540px) 640px, calc(100vw - 2rem)&quot;
+  /&gt;
+  &lt;img
+    alt=&quot;Photograph of a group of pedestrians crossing the street.&quot;
+    width=&quot;640&quot;
+    height=&quot;426&quot;
+    src=&quot;/images/image-640-lossy.jpg&quot;
+  /&gt;
+&lt;/picture&gt;</code></pre>
+    </details>
+  </p>
+</div>

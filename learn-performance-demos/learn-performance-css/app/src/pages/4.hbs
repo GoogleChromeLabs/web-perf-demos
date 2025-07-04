@@ -1,0 +1,41 @@
+<div>
+  <p>
+    If you can replace the
+    <code>@import</code>
+    with a regular
+    <code>&lt;link rel=&quot;stylesheet&quot; &gt;</code>, the preload scanner
+    will pick up the CSS files and download them in parallel, resulting in an
+    improved Start Render.
+  </p>
+  <p>
+    On this page, we are loading
+    <code>vars.css</code>
+    and
+    <code>import-link.css</code>
+    using
+    <code>link rel=&quot;stylesheet&quot;</code>
+    in the document's
+    <code>&lt;head&gt;</code>.
+  </p>
+  <p>
+    <img
+      src="https://cdn.glitch.global/a78c1e1e-8e60-4115-96d8-efb06507f66f/import-link.png?v=1668086576001"
+      alt="WebPageTest waterfall chart showing four resources. The Start Render mark appears at 2.1s."
+    />
+  </p>
+  <p>
+    Both render-blocking stylesheets are downloaded in parallel and the Start
+    Render time is significantly better.
+  </p>
+  {{! prettier-ignore }}
+  <p>
+    <details>
+      <summary>View Source Code</summary>
+      <pre><code>&lt;head&gt;
+  &lt;link rel=&quot;stylesheet&quot; href=&quot;/vars.css&quot; /&gt;
+  &lt;link rel=&quot;stylesheet&quot; href=&quot;/import-link.css&quot; /&gt;
+&lt;/head&gt;
+</code></pre>
+    </details>
+  </p>
+</div>

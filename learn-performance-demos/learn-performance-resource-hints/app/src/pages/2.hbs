@@ -1,0 +1,69 @@
+<div>
+  <p>
+    Resource hints may also be sent in the HTTP response headers using the
+    <code>Link</code>
+    header. This works similarly to placing the
+    <code>&lt;link&gt;</code>
+    in the markup.
+  </p>
+  <p>
+    This demo includes a
+    <code>Link, &lt;https://cdn.glitch.global&gt;; rel=preconnect;</code>
+    response header.
+  </p>
+  <p hidden>
+    {{{data}}}
+  </p>
+  <div class="gallery">
+    <div class="large">
+      <img
+        src="https://cdn.glitch.global/db01a8e4-9230-4c5c-977d-85d0e0c3e74c/image-1.jpg?v=1669198400523"
+        alt="Image 1"
+        class="image"
+      />
+    </div>
+    <div class="thumbnails">
+      <img
+        src="https://cdn.glitch.global/db01a8e4-9230-4c5c-977d-85d0e0c3e74c/image-1.jpg?v=1669198400523"
+        alt="Image 1"
+        class="image"
+      />
+      <img
+        src="https://cdn.glitch.global/db01a8e4-9230-4c5c-977d-85d0e0c3e74c/image-2.jpg?v=1669198401407"
+        alt="Image 2"
+        class="image"
+      />
+      <img
+        src="https://cdn.glitch.global/db01a8e4-9230-4c5c-977d-85d0e0c3e74c/image-3.jpg?v=1669198402295"
+        alt="Image 3"
+        class="image"
+      />
+      <img
+        src="https://cdn.glitch.global/db01a8e4-9230-4c5c-977d-85d0e0c3e74c/image-4.jpg?v=1669198402935"
+        alt="Image 4"
+        class="image"
+      />
+    </div>
+  </div>
+  <p>
+    <img
+      src="https://cdn.glitch.global/db01a8e4-9230-4c5c-977d-85d0e0c3e74c/preconnect-http-headers.png?v=1669249003991"
+      alt="WebPageTest waterfall chart showing seven resources. The connection for the fourth resource, image-1.jpg is opened before the image is discovered and requested."
+    />
+  </p>
+  <p>
+    Similarly to the
+    <a href="/1">preconnect example</a>, the connection for the first image
+    resource,
+    <code>image-1.jpg</code>
+    is opened before the image is discovered.
+  </p>
+  {{! prettier-ignore }}
+  <p>
+    <details>
+      <summary>View Source Code</summary>      
+      <pre><code>// server.js
+reply.header(&quot;Link&quot;, &quot;&lt;https://cdn.glitch.global&gt;; rel=preconnect;&quot;);</code></pre>
+    </details>
+  </p>
+</div>

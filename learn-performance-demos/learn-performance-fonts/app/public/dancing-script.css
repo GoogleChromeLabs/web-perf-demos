@@ -1,0 +1,8 @@
+@font-face {
+  font-family: "Dancing Script";
+  src: url("/fonts/DancingScript-Regular.woff2?v=1676325285146");
+}
+
+.fancy {
+  font-family: "Dancing Script", sans-serif;
+}

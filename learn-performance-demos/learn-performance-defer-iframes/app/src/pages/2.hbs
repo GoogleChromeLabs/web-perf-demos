@@ -1,0 +1,77 @@
+<div>
+  <p>
+    This demo contains two IFrames. One IFrame is has a width and height of
+    <code>800</code>
+    while the other is a hidden IFrame (similar to what is used for tracking
+    or analytics) with a width and height of
+    <code>0</code>, and
+    <code>display:none</code>. The hidden IFrame is placed outside the viewport
+    and has the
+    <code>loading=&quot;lazy&quot;</code>
+    attribute.
+  </p>
+  <p>
+    <strong>Hidden IFrames that are lazy-loaded might not load correctly and it
+      is not advisable to use
+      <code>loading="lazy"</code>
+      on hidden IFrames.</strong>
+  </p>
+  <div class="grid">
+    <iframe
+      title="Inline Frame Example"
+      width="800"
+      height="800"
+      src="/iframe-1.html?v=2"
+      class="iframe"
+    >
+    </iframe>
+    <iframe
+      title="Hidden IFrame"
+      src="/iframe-2.html?v=2"
+      height="0"
+      width="0"
+      style="visibility:hidden;display:none"
+      loading="lazy"
+    ></iframe>
+  </div>
+  <p>
+    If you observe the network tab, you should notice that the IFrame with the
+    <code>loading=&quot;lazy&quot;</code>
+    attribute (and its subresources) are requested immediately while the Hidden
+    IFrame is never requested.
+  </p>
+  <p>
+    <img
+      src="https://cdn.glitch.global/c63d45a9-f674-4364-885a-a82fb87b8aa9/learn-performance-defer-iframes-lazy-hidden.png?v=1696329699060"
+      alt="Chrome DevTools Network panel showing 6 resources. The iframe within the viewport (row 4) and its subresources begin downloading immediately. The hidden iframe is not downloaded."
+      width="922"
+      height="274"
+      loading="lazy"
+    />
+  </p>
+  <p>
+    In the network panel above, the iframe
+    <code>iframe-1.html</code>
+    and its subresoures
+    <code>iframe.css</code>
+    and
+    <code>iframe.js</code>
+    are downloaded immediately. The lazy-loaded hidden IFrame
+    <code>iframe-2.html</code>
+    does not get downloaded—even after scrolling down—as it has the
+    <code>display:none</code> CSS property.
+  </p>
+  {{! prettier-ignore }}
+  <p>
+    <details>
+      <summary>View Source Code</summary>      
+      <pre><code>&lt;iframe
+  title=&quot;Hidden IFrame&quot;
+  src=&quot;/iframe-2.html?v=2&quot;
+  height=&quot;0&quot;
+  width=&quot;0&quot;
+  loading=&quot;lazy&quot;
+&gt;&lt;/iframe&gt;</code></pre>
+    </details>
+  </p>
+</div>

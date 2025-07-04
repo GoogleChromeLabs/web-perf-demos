@@ -1,0 +1,37 @@
+<div>
+  <p>
+    This demo uses the YouTube facade
+    <a href="https://github.com/paulirish/lite-youtube-embed"><code
+      >lite-youtube-embed</code></a>.
+  </p>
+  <p>No requests are done to the third party until the user interacts with the
+    video and initiates playback.
+  </p>
+  <lite-youtube
+    videoid="CWTm0ccfZe4"
+    playlabel="Google I/O ‘22 in Under 12 Minutes"
+  ></lite-youtube>
+  <p>
+    The below waterfall illustrates the resources required to render this page.
+  </p>
+  <p>
+    <img
+      src="https://cdn.glitch.global/97616b87-f930-4eb0-a8a0-84c6a73d97e7/lite-youtube-embed.png?v=1671622156330"
+      alt="Waterfall chart showing 5 resources."
+      width="1012"
+      height="329"
+    />
+  </p>
+  <p>
+    There are a total of 5 requests, only one of which is to the third party -
+    the poster image
+    <code>hqdefault.jpg</code>. The poster image is visible at 2.2 seconds, at least twice as fast as the YouTube embed.
+  </p>
+  {{! prettier-ignore }}
+  <p>
+    <details>
+      <summary>View Source Code</summary>      
+      <pre><code>&lt;lite-youtube videoid=&quot;CWTm0ccfZe4&quot; playlabel=&quot;Google I/O ‘22 in Under 12 Minutes&quot;&gt;&lt;/lite-youtube&gt;</code></pre>
+    </details>
+  </p>
+</div>

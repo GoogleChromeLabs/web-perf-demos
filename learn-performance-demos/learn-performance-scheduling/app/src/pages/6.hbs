@@ -1,0 +1,244 @@
+<div>
+  <p>
+    Finally, we can improve the previous example by reducing the number of times
+    we call the expensive
+    <code>filterResults</code>
+    function by validating the user input and using a
+    <code>debounce</code>
+    function.
+  </p>
+  {{! prettier-ignore }}
+  <pre><code>function debounce(callback, delay) {
+  let timer;
+  return (...args) =&gt; {
+    clearTimeout(timer);
+    timer = setTimeout(() =&gt; {
+      callback.apply(this, args);
+    }, delay);
+  };
+}</code></pre>
+  <p>
+    A debounce function will only execute the
+    <code>callback</code>
+    function if there are no subsequent events for
+    <code>timeout</code>
+    milliseconds. This simple implementation creates a timer using
+    <code>setTimeout</code>. If there is a successive call before the timer is
+    fired, then the timer is cleared using
+    <code>clearTimeout</code>
+    and a new one is initiated.
+  </p>
+  <p>
+    This demo also includes sublte visual improvements to the results pane to
+    indicate to the user that the data is loading.
+  </p>
+  <div class="demo">
+    <div class="input-pane">
+      <input
+        id="search"
+        type="text"
+        placeholder="Search..."
+        autocomplete="off"
+      />
+      <img
+        id="animation"
+        src="https://cdn.glitch.global/51cfd243-2e84-482b-86d1-b78a29ac1698/spinner.svg?v=1708439812353"
+        width="24"
+        height="24"
+        class="spinner"
+      />
+      <label><input id="hide-animation" type="checkbox" />Hide animation</label>
+    </div>
+    <div class="results-pane">
+      <ul id="list"></ul>
+    </div>
+  </div>
+  {{! prettier-ignore }}
+  <p>
+    <details>
+      <summary>View Source Code</summary>      
+      <pre><code>function debounce(func, timeout = 200) {
+  let timer;
+  return (...args) =&gt; {
+    clearTimeout(timer);
+    timer = setTimeout(() =&gt; {
+      func.apply(this, args);
+    }, timeout);
+  };
+}
+
+const handleKeyUp = debounce(async (value) =&gt; {
+  // yield to main thread
+  await yieldToMain();
+  const filteredResults = await filterResults(initial, value, 500);
+
+  // yield to main thread
+  await yieldToMain();
+  renderList(document.getElementById(&quot;list&quot;), filteredResults);
+  document.querySelector(&quot;.results-pane&quot;).classList.remove(&quot;loading&quot;);
+});
+
+let previousValue = &quot;&quot;;
+
+document.getElementById(&quot;search&quot;).addEventListener(&quot;keyup&quot;, (e) =&gt; {
+  const value = e.target.value.toLowerCase();
+  if (value !== previousValue) {
+    // avoid updating if the value remains unchanged (ex: left/right arrow)
+    previousValue = value;
+    // show a loading state on the results
+    document.querySelector(&quot;.results-pane&quot;).classList.add(&quot;loading&quot;);
+    // call the debounced function
+    handleKeyUp(value);
+  }
+});</code></pre>
+    </details>
+  </p>
+</div>
+{{! prettier-ignore }}
+<script>
+  document.getElementById("hide-animation").addEventListener("change", () => {
+    document.getElementById("animation").classList.toggle("hide");
+  });
+</script>
+{{! prettier-ignore }}
+<script type="module">
+  function yieldToMain() {
+    return new Promise((resolve) => {
+      setTimeout(resolve, 0);
+    });
+  }
+
+  // fetch and store the data in memory
+  const initial = await fetch(
+    "https://cdn.glitch.global/51cfd243-2e84-482b-86d1-b78a29ac1698/data.json?v=1708550781857",
+    {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+      },
+    }
+  ).then((response) => response.json());
+
+  // compare similarity between two strings
+  // source: https://github.com/stephenjjbrown/string-similarity-js
+  const stringSimilarity = (
+    str1,
+    str2,
+    substringLength = 2,
+    caseSensitive = false
+  ) => {
+    if (!caseSensitive) {
+      str1 = str1.toLowerCase();
+      str2 = str2.toLowerCase();
+    }
+
+    if (str1.length < substringLength || str2.length < substringLength)
+      return 0;
+
+    const map = new Map();
+    for (let i = 0; i < str1.length - (substringLength - 1); i++) {
+      const substr1 = str1.substr(i, substringLength);
+      map.set(substr1, map.has(substr1) ? map.get(substr1) + 1 : 1);
+    }
+
+    let match = 0;
+    for (let j = 0; j < str2.length - (substringLength - 1); j++) {
+      const substr2 = str2.substr(j, substringLength);
+      const count = map.has(substr2) ? map.get(substr2) : 0;
+      if (count > 0) {
+        map.set(substr2, count - 1);
+        match++;
+      }
+    }
+
+    return (
+      (match * 2) / (str1.length + str2.length - (substringLength - 1) * 2)
+    );
+  };
+
+  // sort the results by relevance to the search term
+  // ATTN: insertion sort has a time complexity of O(n^2)
+  const sort = async (data) => {
+    // set a 50ms deadline
+    let deadline = performance.now() + 50;
+    
+    for (let i = 1; i < data.length; i++) {
+      if (performance.now() >= deadline) {
+        // update the deadline
+        deadline = performance.now() + 50;
+        await yieldToMain();
+      }
+      
+      const key = data[i];
+      let j;
+
+      for (j = i - 1; j >= 0 && data[j].relevance < key.relevance; j--) {
+        data[j + 1] = data[j];
+      }
+
+      data[j + 1] = key;
+    }
+
+    return data;
+  }
+
+  // filter the results
+  const filterResults = async (data, searchTerm, limit) => {
+    const relevanceArray = data.map((n) => ({
+      ...n,
+      relevance: stringSimilarity(`${n.firstName} ${n.lastName}`, searchTerm),
+    }));
+    
+    await yieldToMain();
+
+    const results =  await sort(relevanceArray);
+    return results.slice(0, limit);
+  };
+
+  // render the HTML
+  const renderList = async (root, data) => {
+    let itemsHTML = "";
+    // clear the list
+    root.innerHTML = "";
+    
+    let index = 0;
+    const BATCH_SIZE = 100;
+    
+    // iterate the data array in batches of 100
+    while (index < data.length) {
+      for (let i = index; i < Math.min(index + BATCH_SIZE, data.length); i++) {
+        // create the HTML for each li
+        root.insertAdjacentHTML("beforeend", `<li>${data[i].firstName} ${data[i].lastName}</li>`);      
+      }
+      index += BATCH_SIZE;
+      await yieldToMain();
+    }
+  };
+
+
+  let previousValue = "";
+  let timer = 0;
+
+  document.getElementById("search").addEventListener("keyup", async (e) => {
+    clearTimeout(timer);
+    setTimeout(async () => {
+      const value = e.target.value.toLowerCase();
+    
+      // avoid updating if the value remains unchanged (ex: left/right arrow)
+      if (value !== previousValue) {
+        previousValue = value;
+
+        // show a loading state on the results
+        document.querySelector(".results-pane").classList.add("loading");
+          // yield to main thread
+        await yieldToMain();
+        const filteredResults = await filterResults(initial, value, 500);
+
+        // yield to main thread
+        await yieldToMain();
+        renderList(document.getElementById("list"), filteredResults);
+        document.querySelector(".results-pane").classList.remove("loading");
+      }
+    }, 200);    
+  });
+</script>

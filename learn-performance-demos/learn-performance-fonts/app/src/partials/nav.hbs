@@ -1,0 +1,13 @@
+<ol>
+  <li {{#unless step}}selected{{/unless}}><a href="/"><span class="step">Welcome</span></a></li>
+  <li {{#ifeq step 1}}selected{{/ifeq}}><a href="/1"><span class="step">Web fonts</span></a></li>
+  <li {{#ifeq step 2}}selected{{/ifeq}}><a href="/2"><span class="step"><code>preload</code></span></a></li>
+  <li {{#ifeq step 3}}selected{{/ifeq}}><a href="/3"><span class="step">Unused&nbsp;<code>preload</code></span></a></li>
+  <li {{#ifeq step 4}}selected{{/ifeq}}><a href="/4"><span class="step">Inline&nbsp;<code>@font-face</code></span></a></li>
+  <li {{#ifeq step 5}}selected{{/ifeq}}><a href="/5"><span class="step">Render-blocking CSS</span></a></li>
+  <li {{#ifeq step 6}}selected{{/ifeq}}><a href="/6"><span class="step">Inline and&nbsp;<code>preload</code></span></a></li>
+  <li {{#ifeq step 7}}selected{{/ifeq}}><a href="/7"><span class="step">Google Fonts</span></a></li>
+  <li {{#ifeq step 8}}selected{{/ifeq}}><a href="/8"><span class="step"><code>preconnect</code></span></a></li>
+  <li {{#ifeq step 9}}selected{{/ifeq}}><a href="/9"><span class="step"><code>font-display: swap</code></span></a></li>
+  <li {{#ifeq step 10}}selected{{/ifeq}}><a href="/10"><span class="step"><code>font-display: optional</code></span></a></li>
+</ol>

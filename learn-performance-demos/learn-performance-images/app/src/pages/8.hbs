@@ -1,0 +1,134 @@
+<div>
+  <p>
+    In this demo we are using the same
+    <code>&lt;picture&gt;</code>
+    element as in the previous example, but instead of defining the different
+    image formats in the HTML, the server is selecting the image based on the
+    <code>Accept</code>
+    request header.
+  </p>
+  <p>
+    This makes it seamless to the user, while making the HTML markup much
+    smaller and easier to write. Many image optimization services use this
+    technique.
+  </p>
+  <div class="gallery">
+    <div class="large">
+      <picture>
+        <source
+          media="(min-width: 560px) and (-webkit-min-device-pixel-ratio: 1.5)"
+          srcset="/images-accept/image-1280-lossy.jpg?v=8 1280w, /images-accept/image-1920-lossy.jpg?v=8 1920w"
+          sizes="(min-width: 540px) 640px, calc(100vw - 2rem)"
+        />
+        <source
+          media="(max-width: 560px) and (-webkit-min-device-pixel-ratio: 1.5)"
+          srcset="/images-accept/image-1280-lossy-sm.jpg?v=8 1280w, /images-accept/image-1920-lossy-sm.jpg?v=8 1920w"
+          sizes="(min-width: 540px) 640px, calc(100vw - 2rem)"
+        />
+        <img
+          id="image"
+          alt="Photograph of a group of pedestrians crossing the street."
+          width="640"
+          height="426"
+          src="/images-accept/image-640-lossy.jpg?v=8"
+        />
+      </picture>
+    </div>
+  </div>
+  <div>
+    <p>
+      <strong>Image details:</strong>
+    </p>
+    <table>
+      <tbody>
+        <tr>
+          <td>
+            File
+          </td>
+          <td id="currentSrc">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Size
+          </td>
+          <td id="decodedBodySize">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Intrinsic Width
+          </td>
+          <td id="naturalWidth">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Intrinsic Height
+          </td>
+          <td id="naturalHeight">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Display Width
+          </td>
+          <td id="clientWidth">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Display Height
+          </td>
+          <td id="clientHeight">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            DPR
+          </td>
+          <td id="dpr">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Percentage Used
+          </td>
+          <td id="usedPercentage">
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p>
+    If you observe the image request in your browser's DevTools and compare it
+    with the file name in the above table, you should be able to see that the
+    image type is AVIF or WebP even if the file URL ends in
+    <code>.jpg</code>
+  </p>
+  {{! prettier-ignore }}
+  <p>
+    <details>
+      <summary>View Source Code</summary>      
+      <pre><code>// index.html
+&lt;picture&gt;
+  &lt;source
+    media=&quot;(min-width: 560px) and (-webkit-min-device-pixel-ratio: 1.5)&quot;
+    srcset=&quot;/images-accept/image-1280-lossy.jpg 1280w, /images-accept/image-1920-lossy.jpg 1920w&quot;
+    sizes=&quot;(min-width: 540px) 640px, calc(100vw - 2rem)&quot;
+  /&gt;
+  &lt;source
+    media=&quot;(max-width: 560px) and (-webkit-min-device-pixel-ratio: 1.5)&quot;
+    srcset=&quot;/images-accept/image-1280-lossy-sm.jpg 1280w, /images-accept/image-1920-lossy-sm.jpg 1920w&quot;
+    sizes=&quot;(min-width: 540px) 640px, calc(100vw - 2rem)&quot;
+  /&gt;
+  &lt;img
+    alt=&quot;Photograph of a group of pedestrians crossing the street.&quot;
+    width=&quot;640&quot;
+    height=&quot;426&quot;
+    src=&quot;/images-accept/image-640-lossy.jpg&quot;
+  /&gt;
+&lt;/picture&gt;</code></pre>
+    </details>
+  </p>
+</div>

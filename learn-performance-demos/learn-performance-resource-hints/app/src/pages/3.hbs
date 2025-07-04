@@ -1,0 +1,106 @@
+<div>
+  <p>
+    The
+    <code>preload</code>
+    resource hint instructs the browser to initiate a request for a resource.
+    This is helpful when a critical resource is not immediately discoverable,
+    for example a
+    <code>background-image</code>
+    URL.
+  </p>
+  <p>
+    This demo uses uses CSS
+    <code>background-image</code>
+    to create the image grid below, as opposed to
+    <code>img</code>
+    elements. To download the first image quicker, the page includes a
+    <code>preload</code>
+    hint for the first image resource.
+  </p>
+  {{! prettier-ignore }}
+  <pre><code>&lt;link rel=&quot;preload&quot;
+      href=&quot;https://cdn.glitch.global/db01a8e4-9230-4c5c-977d-85d0e0c3e74c/image-1.jpg?v=1669198400523&quot;
+      as=&quot;image&quot; /&gt;</code></pre>
+  <p hidden>
+    {{{data}}}
+  </p>
+  <div class="gallery">
+    <div class="large">
+      <div
+        class="image"
+        alt="Image 1"
+        style="background-image: url(https://cdn.glitch.global/db01a8e4-9230-4c5c-977d-85d0e0c3e74c/image-1.jpg?v=1669198400523)"
+      ></div>
+    </div>
+    <div class="thumbnails">
+      <div
+        class="image image-1"
+        data-src="https://cdn.glitch.global/db01a8e4-9230-4c5c-977d-85d0e0c3e74c/image-1.jpg?v=1669198400523"
+        alt="Image 1"
+      ></div>
+      <div
+        class="image image-2"
+        data-src="https://cdn.glitch.global/db01a8e4-9230-4c5c-977d-85d0e0c3e74c/image-2.jpg?v=1669198401407"
+        alt="Image 2"
+      ></div>
+      <div
+        class="image image-3"
+        data-src="https://cdn.glitch.global/db01a8e4-9230-4c5c-977d-85d0e0c3e74c/image-3.jpg?v=1669198402295"
+        alt="Image 3"
+      ></div>
+      <div
+        class="image image-4"
+        data-src="https://cdn.glitch.global/db01a8e4-9230-4c5c-977d-85d0e0c3e74c/image-4.jpg?v=1669198402935"
+        alt="Image 4"
+      ></div>
+    </div>
+  </div>
+  <p>
+    <img
+      src="https://cdn.glitch.global/db01a8e4-9230-4c5c-977d-85d0e0c3e74c/preload-background-image-after.png?v=1669249008939"
+      alt="WebPageTest waterfall chart showing seven resources. The fourth resource, image-1.jpg begins downloading at the same time as the other critical resources."
+    />
+  </p>
+  <p>
+    Looking at the waterfall chart above, you should notice that
+    <code>image-1.jpg</code>
+    is requested at approximately the same time as the CSS and JavaScript files,
+    while the other images are requested after the CSS file is downloaded and
+    parsed.
+  </p>
+  <p>
+    <img
+      src="https://cdn.glitch.global/db01a8e4-9230-4c5c-977d-85d0e0c3e74c/preload-background-image-before.png?v=1669249010586"
+      alt="WebPageTest waterfall chart showing seven resources. The fourth resource, image-1.jpg is downloaded as it is discovered but has a longer download time than some other image resources."
+    />
+  </p>
+  <p>
+    If you remove the
+    <code>preload</code>
+    hint from the
+    <code>image-1.jpeg</code>, you can see that the image is requested a full
+    second later.
+  </p>
+  <p>
+    <strong>
+      Only use
+      <code>preload</code>
+      for late-discovered resources. The
+      <a href="/4"><code>next demo</code></a>
+      explains that using an
+      <code>img</code>
+      element would result in an equally fast experience since the image
+      <code>src</code>
+      is discovered by the preload scanner.
+    </strong>
+  </p>
+  {{! prettier-ignore }}
+  <p>
+    <details>
+      <summary>View Source Code</summary>      
+      <pre><code>&lt;head&gt;
+  &lt;link rel=&quot;preload&quot; href=&quot;https://cdn.glitch.global/db01a8e4-9230-4c5c-977d-85d0e0c3e74c/image-1.jpg?v=1669198400523&quot; as=&quot;image&quot; /&gt;
+&lt;/head&gt;</code></pre>
+    </details>
+  </p>
+</div>

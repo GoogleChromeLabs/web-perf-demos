@@ -1,0 +1,38 @@
+<div>
+  <p>
+    This demo uses the
+    <code>preload</code>
+    attribute to hint the browser to not preload the video. It also uses the
+    <code>poster</code>
+    attribute to show a highly compressed image until the user initiates playback.
+  </p>
+  <p>
+    <strong>Note that the poster image is considered an LCP candidate.</strong>
+  </p>
+  <video preload="none" poster="/images-accept/poster.jpg?v=1671553386107" controls width="1920" height="1080">
+    <source
+      type="video/webm"
+      src="https://cdn.glitch.global/97616b87-f930-4eb0-a8a0-84c6a73d97e7/video-1920.webm?v=1671553389855"
+    />
+    <source
+      type="video/mp4"
+      src="https://cdn.glitch.global/97616b87-f930-4eb0-a8a0-84c6a73d97e7/video-1920.mp4?v=1671553389855"
+    />
+  </video>
+  {{! prettier-ignore }}
+  <p>
+    <details>
+      <summary>View Source Code</summary>      
+      <pre><code>&lt;video preload=&quot;none&quot; poster=&quot;/images-accept/poster.jpg?v=1671553386107&quot; controls width=&quot;1920&quot; height=&quot;1080&quot;&gt;
+    &lt;source
+    type=&quot;video/mp4&quot;
+    src=&quot;https://cdn.glitch.global/97616b87-f930-4eb0-a8a0-84c6a73d97e7/video-1920.mp4?v=1671553389855&quot;
+  /&gt;
+  &lt;source
+    type=&quot;video/webm&quot;
+    src=&quot;https://cdn.glitch.global/97616b87-f930-4eb0-a8a0-84c6a73d97e7/video-1920.webm?v=1671553389855&quot;
+  /&gt;
+&lt;/video&gt;</code></pre>
+    </details>
+  </p>
+</div>

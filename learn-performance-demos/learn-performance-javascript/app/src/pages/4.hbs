@@ -1,0 +1,64 @@
+<div>
+  <p>
+    Placing render-blocking
+    <code>script</code>
+    tags before the closing
+    <code>body</code>
+    tag was a common practice before browsers supported the
+    <code>async</code>
+    and
+    <code>defer</code>
+    attributes.
+  </p>
+  <p>
+    This demo places the render-blocking
+    <code>&lt;script src=&quot;/script.js&quot;&gt;&lt;/script&gt;</code>
+    right before the closing
+    <code>&lt;body&gt;</code>
+    tag. As a result, the browser will render all of the page before it
+    encounters the render-blocking
+    <code>script</code>.
+  </p>
+  <p>
+    <img
+      src="https://cdn.glitch.global/7c5056ff-325f-4dc8-a476-6c0d355637c6/blocking-body.png?v=1668792218449"
+      alt="WebPageTest waterfall chart showing three resources. The Start Render mark appears after 4.0 seconds, after script.js is being downloaded, parsed and executed."
+      width="1012"
+      height="312"
+    />
+  </p>
+  <p>
+    This technique allows the browser to start rendering much earlier, without
+    having to wait for JavaScript to finish executing. Notice the Start Render
+    mark now appears at 1.6 seconds.</p>
+  <p>
+    The disadvantage with this approach is that JavaScript files are discovered
+    much later since they are found at the end of the HTML document. Notice how
+    <code>script.js</code>
+    (yellow) doesn't begin downloading until the HTML document (blue) has
+    finished. This solution can also delay interactivity and
+    <code>async</code>
+    or
+    <code>defer</code>
+    are likely a better solution.
+  </p>
+  {{! prettier-ignore }}
+  <p>
+    <details>
+      <summary>View Source Code</summary>      
+      <pre><code>&lt;head&gt;
+  &lt;style rel=&quot;stylesheet&quot; href=&quot;./style.css&quot; /&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  // ... content ...
+  &lt;script src=&quot;/script.js&quot; &gt;&lt;/script&gt;
+&lt;/body&gt;
+</code></pre>
+    </details>
+  </p>
+</div>
+<hr />
+<details>
+  <summary>Lorem ipsum</summary>
+  {{{data}}}
+</details>

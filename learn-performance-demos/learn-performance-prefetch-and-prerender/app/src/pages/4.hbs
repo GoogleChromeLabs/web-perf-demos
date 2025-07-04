@@ -1,0 +1,162 @@
+<div>
+  <p>
+    It is possible to prerender URLs using
+    <a
+      href="https://github.com/WICG/nav-speculation/blob/main/triggers.md#speculation-rules"
+    >speculation rules</a>. This page will add speculation rules to prerender
+    the URL
+    <code>/4-prerender</code>
+    when the user hovers over the link for 200ms—indicating an intent to click.
+  </p>
+  <p>
+    <a href="/4-prerender" style="font-size:1.25rem;font-weight:600;">Go to
+      prerendered page</a>
+  </p>
+  <p>
+    <i>
+      Note that this might not work on touch devices.
+    </i>
+  </p>
+  <p>
+    Prerendered resources are visible in Chrome DevTools network tab by changing
+    the renderer to the prerendered URL.
+  </p>
+  <p>
+    <img
+      src="https://cdn.glitch.global/850a76f6-ed10-4120-9f3c-4628563dd9d2/learn-performance-prerender-network.png?v=1696240271574"
+      alt="Chrome DevTools Network panel showing 4 resources for the prerendered document."
+      width="937"
+      height="377"
+      loading="lazy"
+    />
+  </p>
+  <p>
+    In the Network panel above, the resources required to prerender the URL
+    <code>4-prerender</code>
+    are visible in Chrome DevTools.
+  </p>
+  <p>
+    <a href="https://developer.chrome.com/blog/debugging-speculation-rules/">It is also possible to debug prerendered URLs using Chrome DevTools
+    Application panel</a>. On the left-hand side, there should be the option to
+    select Speculation Rules or Preloads.
+  </p>
+  <p>
+    <img
+      src="https://cdn.glitch.global/850a76f6-ed10-4120-9f3c-4628563dd9d2/learn-performance-prerender.png?v=1696240674110"
+      alt="Chrome DevTools Application panel showing a prerendered resources."
+      width="938"
+      height="658"
+      loading="lazy"
+    />
+  </p>
+  <p>
+    The above Application panel shows that the URL
+    <code>/4-prerender</code>
+    was prerendered and is available for navigation.
+  </p>
+  {{! prettier-ignore }}
+  <p>
+    <details>
+      <summary>View Source Code</summary>      
+      <pre><code>function isSameOrigin(origin, path) {
+  if (path.indexOf(&quot;http&quot;) !== 0) {
+    return true;
+  }
+
+  const url = new URL(path);
+  return url.origin === origin;
+}
+
+function addSpeculationRules(target) {
+  const specScript = document.createElement(&quot;script&quot;);
+  specScript.type = &quot;speculationrules&quot;;
+  specScript.textContent = `
+    {
+      &quot;prerender&quot;: [
+        {
+          &quot;source&quot;: &quot;list&quot;,
+          &quot;urls&quot;: [&quot;${target}&quot;]
+        }
+      ]
+    }`;
+  document.body.appendChild(specScript);
+}
+
+const handleMouseOver = (n) =&gt; (m) =&gt; {
+  const targetUrl = m.target.getAttribute(&quot;href&quot;);
+
+  let timeout = setTimeout(() =&gt; {
+    if (targetUrl &amp;&amp; isSameOrigin(location, targetUrl)){
+      addSpeculationRules(targetUrl);
+      timeout = 0;
+    }
+  }, 200);
+
+  // do not add spec rules if the cursor leaves before 200ms
+  n.addEventListener(&quot;mouseleave&quot;, () =&gt; {
+    if (timeout) {
+      clearTimeout(timeout);
+      // re-add the listener if the spec rule was not added
+      n.addEventListener(&quot;mouseover&quot;, handleMouseOver(n), { once: true });
+    }
+  }, { once: true });
+}
+
+// add speculationrules if the user hovers over a link element
+document.querySelectorAll(&quot;a[href]&quot;).forEach(n =&gt; {
+  n.addEventListener(&quot;mouseover&quot;, handleMouseOver(n), { once: true });
+});</code></pre>
+    </details>
+  </p>
+</div>
+{{! prettier-ignore }}
+<script>
+  function isSameOrigin(origin, path) {
+    if (path.indexOf("http") !== 0) {
+      return true;
+    }
+
+    const url = new URL(path);
+    return url.origin === origin;
+  }
+  
+  function addSpeculationRules(target) {
+    const specScript = document.createElement("script");
+    specScript.type = "speculationrules";
+    specScript.textContent = `
+      {
+        "prerender": [
+          {
+            "source": "list",
+            "urls": ["${target}"]
+          }
+        ]
+      }`;
+    document.body.appendChild(specScript);
+  }
+  
+  const handleMouseOver = (n) => (m) => {
+    const targetUrl = m.target.getAttribute("href");
+
+    let timeout = setTimeout(() => {
+      if (targetUrl && isSameOrigin(location, targetUrl)){
+        addSpeculationRules(targetUrl);
+        timeout = 0;
+      }
+    }, 200);
+
+    // do not add spec rules if the cursor leaves before 200ms
+    n.addEventListener("mouseleave", () => {
+      if (timeout) {
+        clearTimeout(timeout);
+        // re-add the listener if the spec rule was not added
+        n.addEventListener("mouseover", handleMouseOver(n), { once: true });
+      }
+    }, { once: true });
+  }
+            
+  // add speculationrules if the user hovers over a link element
+  document.querySelectorAll("a[href]").forEach(n => {
+    n.addEventListener("mouseover", handleMouseOver(n), { once: true });
+  });
+</script>

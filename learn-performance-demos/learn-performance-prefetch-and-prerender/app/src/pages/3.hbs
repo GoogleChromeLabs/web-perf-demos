@@ -1,0 +1,63 @@
+<div>
+  <p>
+    On Chromium-based browsers, it is also possible to prefetch resources or
+    documents using
+    <a
+      href="https://developer.chrome.com/blog/prerender-pages/#the-speculation-rules-api"
+    >speculation rules</a>. This page contains speculation rules to prefetch the
+    document
+    <code>3-prefetch</code>.
+  </p>
+  <p>
+    <a href="/3-prefetch" style="font-size:1.25rem;font-weight:600;">Go to
+      prefetched page</a>
+  </p>
+  <p>
+    Similarly to the previous demo, if you observe the network tab, you should
+    notice that the document is prefetched.
+  </p>
+  <p>
+    <img
+      src="https://cdn.glitch.global/850a76f6-ed10-4120-9f3c-4628563dd9d2/learn-performance-prefetch-speculation-rules.png?v=1696002076156"
+      alt="Chrome DevTools Network panel showing 4 resources. The prefetched document (row 4) is fetched with the Lowest priority."
+      width="938"
+      height="194"
+      loading="lazy"
+    />
+  </p>
+  <p>
+    In the network panel above, the prefetched document
+    <code>3-prefetch</code>
+    is downloaded with the
+    <i>Lowest</i>
+    priority.
+  </p>
+  {{! prettier-ignore }}
+  <p>
+    <details>
+      <summary>View Source Code</summary>      
+      <pre><code>&lt;script type=&quot;speculationrules&quot;&gt;
+  {
+    &quot;prefetch&quot;: [
+      {
+        &quot;source&quot;: &quot;list&quot;,
+        &quot;urls&quot;: [&quot;/3-prefetch&quot;]
+      }
+    ]
+  }
+&lt;/script&gt;
+</code></pre>
+    </details>
+  </p>
+</div>
+{{! prettier-ignore }}
+<script type="speculationrules">
+  {
+    "prefetch": [
+      {
+        "source": "list",
+        "urls": ["/3-prefetch"]
+      }
+    ]
+  }
+</script>

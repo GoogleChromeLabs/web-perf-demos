@@ -1,0 +1,41 @@
+<div>
+  <p>
+    Similarly to
+    <code>&lt;script&gt;</code>
+    tags found in the
+    <code>&lt;head&gt;</code>, inline scripts are also render-blocking. In this
+    case, the file doesn't need to be downloaded, but it still needs to be
+    parsed and executed.
+  </p>
+  <p>
+    This demo inlines a
+    <code>&lt;script&gt;</code>
+    element in the <code>&lt;head&gt;</code>. As soon as the script is
+    discovered by the HTML parser—almost immediately—the page stops rendering until the script is parsed
+    and executed.
+  </p>
+  <p>
+    <img
+      src="https://cdn.glitch.global/7c5056ff-325f-4dc8-a476-6c0d355637c6/blocking-inline.png?v=1668792220870"
+      alt="WebPageTest waterfall chart showing two resources. The Start Render mark appears after 3.0 seconds, after JavaScript execution."
+      width="1012"
+      height="312"
+    />
+  </p>
+  <p>
+    Observe how the Start Render mark—green vertical line—does not appear until the JavaScript is parsed and executed.
+  </p>
+  {{! prettier-ignore }}
+  <p>
+    <details>
+      <summary>View Source Code</summary>
+      <pre><code>&lt;head&gt;
+    // simulate CPU intensive JavaScript execution
+    sleep(2000);
+    console.log(&quot;Hello world!&quot;)
+  &lt;/script&gt;
+  &lt;style rel=&quot;stylesheet&quot; href=&quot;./style.css&quot; /&gt;
+&lt;/head&gt;</code></pre>
+    </details>
+  </p>
+</div>

@@ -1,0 +1,70 @@
+<div>
+  <p>
+    This demo uses
+    <code>fetchpriority</code>
+    to hint the browser to boost the priority of the poster image on the
+    <code>&lt;video&gt;</code>
+    element.
+  </p>
+  <video
+    poster="/images-accept/poster.jpg?v=1671553386107"
+    controls
+    width="1920"
+    height="1080"
+  >
+    <source
+      type="video/webm"
+      src="https://cdn.glitch.global/97616b87-f930-4eb0-a8a0-84c6a73d97e7/video-1920.webm?v=1671553389855"
+    />
+    <source
+      type="video/mp4"
+      src="https://cdn.glitch.global/97616b87-f930-4eb0-a8a0-84c6a73d97e7/video-1920.mp4?v=1671553389855"
+    />
+  </video>
+  <p>
+    The below chart compares the performance before and after the
+    <code>preload</code>
+    hint with
+    <code>fetchpriority=&quot;high&quot;</code>
+    was added.
+  </p>
+  <p>
+    <img
+      src="https://cdn.glitch.global/97616b87-f930-4eb0-a8a0-84c6a73d97e7/after.png?v=1671622156330"
+      alt="Waterfall chart showing four resources. The `poster.jpg` image starts downloading in parallel as the other resources and finishes between 1.2 and 1.3 seconds."
+      width="1012"
+      height="312"
+    />
+  </p>
+  <p>
+    In the waterfall above—which includes the
+    <code>fetchpriority</code>
+    hint—the
+    <code>poster.jpg</code>
+    image starts downloading in parallel with the other high priority resources
+    and finishes at 1.2 seconds.
+  </p>
+  <p>
+    <img
+      src="https://cdn.glitch.global/97616b87-f930-4eb0-a8a0-84c6a73d97e7/before.png?v=1671622156330"
+      alt="Waterfall chart showing four resources. The `poster.jpg` image starts downloading once `style.css` has finished downloading and finishes between 1.6 and 1.7 seconds."
+      width="1012"
+      height="312"
+    />
+  </p>
+  <p>
+    In the waterfall above, the
+    <code>poster.jpg</code>
+    image starts downloading once
+    <code>style.css</code>
+    has finished downloading and finishes at 1.7s. This
+    gives us a slower LCP at 1.7s.
+  </p>
+  {{! prettier-ignore }}
+  <p>
+    <details>
+      <summary>View Source Code</summary>      
+      <pre><code>&lt;link rel=&quot;preload&quot; as=&quot;image&quot; fetchpriority=&quot;high&quot; href=&quot;/images-accept/poster.jpg?v=1671553386107&quot;&gt;</code></pre>
+    </details>
+  </p>
+</div>

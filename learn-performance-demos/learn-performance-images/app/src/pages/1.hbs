@@ -1,0 +1,124 @@
+<div>
+  <p>
+    This demo includes an uncompressed image with an intrinsic width of 640px.
+    On a device with a viewport larger than 540px, the image is displayed at a
+    maximum of 640px. On devices with a smaller viewport, it is displayed at
+    <code>calc(100vw - 2rem)</code>.
+  </p>
+  <div class="gallery">
+    <div class="large">
+      <img
+        id="image"
+        alt="Photograph of a group of pedestrians crossing the street."
+        width="640"
+        height="426"
+        src="/images/image-640-uncompressed.jpg?v=1"
+      />
+    </div>
+  </div>
+  <p>
+    Each demo includes a script that updates the table below. The
+    <i>Percentage Used</i>
+    is calculated as:
+  </p>
+  {{! prettier-ignore }}
+  <pre><code>(Display Width * Display Height) * DPR^2 / Intrinsic Width *
+      Intrinsic Height</code></pre>
+  <p>
+    For the script to work it downloads the image an extra time. If you have
+    <i>Disable cache</i>
+    selected, you would see duplicate requests in the Network tab on
+    DevTools.
+  </p>
+  <div>
+    <p>
+      <strong>Image details:</strong>
+    </p>
+    <table>
+      <tbody>
+        <tr>
+          <td>
+            File
+          </td>
+          <td id="currentSrc">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Size
+          </td>
+          <td id="decodedBodySize">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Intrinsic Width
+          </td>
+          <td id="naturalWidth">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Intrinsic Height
+          </td>
+          <td id="naturalHeight">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Display Width
+          </td>
+          <td id="clientWidth">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Display Height
+          </td>
+          <td id="clientHeight">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            DPR
+          </td>
+          <td id="dpr">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Percentage Used
+          </td>
+          <td id="usedPercentage">
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p>
+    If you look at the table above, you could see that the image size is 445 KB
+    and it's resolution is 640px x 426px. The area it is displayed in, marked as
+    Display Width and Display Height is dependent on your device's viewport. The
+    DPR shows the device-pixel ratio of your device.
+  </p>
+  <p>
+    If the
+    <i>Percentage Used</i>
+    is greater than 100%, then the image is smaller than the area in which it is
+    rendered. If the
+    <i>Percentage Used</i>
+    is less than 100%, then the image is bigger than the area in which it is rendered.
+  </p>
+  {{! prettier-ignore }}
+  <p>
+    <details>
+      <summary>View Source Code</summary>      
+      <pre><code>&lt;img
+  alt=&quot;Photograph of a group of pedestrians crossing the street.&quot;
+  width=&quot;640&quot;
+  height=&quot;426&quot;
+  src=&quot;/images/image-640-uncompressed.jpg&quot;
+/&gt;</code></pre>
+    </details>
+  </p>
+</div>

@@ -1,0 +1,35 @@
+<div>
+  <p>
+    This page uses
+    <code>font-display: swap</code>
+    to instruct the browser to render the content using a fallback font until
+    the web font has downloaded. Once the web font has downloaded, the browser
+    will swap the fallback font with the web font, possibly causing a
+    layout-shift.
+  </p>
+  <div class="fancy">
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ac orci
+      dictum, dictum augue nec, semper sapien. Etiam efficitur a nisl sed
+      semper. Nam et venenatis risus, eget consequat odio. Praesent at purus
+      ligula. Pellentesque tincidunt lorem at augue mattis blandit. Cras at
+      ipsum augue. Duis vestibulum, ex eu commodo tristique, sem dui cursus
+      lorem, quis sollicitudin leo sem et dui. Integer nec pellentesque nisi.
+      Aliquam fringilla quam neque, eget volutpat nisi pharetra ac. Pellentesque
+      habitant morbi tristique senectus et netus et malesuada fames ac turpis
+      egestas.
+    </p>
+  </div>
+  {{! prettier-ignore }}
+  <p>
+    <details>
+      <summary>View Source Code</summary>      
+      <pre><code>@font-face {
+  font-family: &quot;Dancing Script&quot;;
+  src: url(&quot;/fonts/DancingScript-Regular.woff2?v=1676325285146&quot;);
+  font-display: swap;
+}
+</code></pre>
+    </details>
+  </p>
+</div>

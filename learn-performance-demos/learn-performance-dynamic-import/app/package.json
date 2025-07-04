@@ -1,0 +1,27 @@
+{
+  "name": "learn-performance-render-blocking-javascript",
+  "version": "0.1.0",
+  "description": "Part of the Learn Performance series.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "fastify": "^4.4.0",
+    "handlebars": "^4.7.7",
+    "@fastify/view": "^7.1.0",
+    "@fastify/static": "^6.5.0"
+  },
+  "engines": {
+    "node": "14.x"
+  },
+  "repository": {
+    "url": "https://glitch.com/edit/#!/learn-performance-dynamic-import"
+  },
+  "license": "MIT",
+  "keywords": [
+    "node",
+    "glitch",
+    "express"
+  ]
+}

@@ -1,0 +1,42 @@
+<div>
+  <p>
+    It is also possible to prefetch documents that the user is likely to
+    navigate to in the near future. This page contains a
+    <code>&lt;link rel="prefetch" as="document" href="/2-prefetch"&gt;</code>,
+    hinting the browser to prefetch
+    <code>/2-prefetch</code>
+    once it is idle.
+  </p>
+  <p>
+    <a href="/2-prefetch" style="font-size:1.25rem;font-weight:600;">Go to
+      prefetched page</a>
+  </p>
+  <p>
+    If you observe the network tab, you should notice that the document is
+    prefetched while subresources required on that page are not downloaded.
+  </p>
+  <p>
+    <img
+      src="https://cdn.glitch.global/850a76f6-ed10-4120-9f3c-4628563dd9d2/learn-performance-prefetch-document-after.png?v=1696002307949"
+      alt="Chrome DevTools Network panel showing 4 resources. The prefetched document (row 4) is fetched with the Lowest priority."
+      width="938"
+      height="194"
+      loading="lazy"
+    />
+  </p>
+  <p>
+    In the network panel above, the prefetched document
+    <code>2-prefetch</code>
+    is downloaded with the
+    <i>Lowest</i>
+    priority.
+  </p>
+  {{! prettier-ignore }}
+  <p>
+    <details>
+      <summary>View Source Code</summary>      
+      <pre><code>&lt;link rel=&quot;prefetch&quot; as=&quot;document&quot; href=&quot;/2-prefetch&quot;&gt;
+</code></pre>
+    </details>
+  </p>
+</div>

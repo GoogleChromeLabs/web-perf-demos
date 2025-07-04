@@ -1,0 +1,223 @@
+<div>
+  <p>
+    This demo contains an
+    <code>input</code>
+    element that filters a list of 6,000 records on each
+    <code>keyup</code>
+    event and returns the most relevant 500 results. On a low-end device, this
+    can result in a
+    <a href="https://developer.mozilla.org/en-US/docs/Glossary/Long_task">long
+      task</a>
+    and the search field could become sluggish or unresponsive.
+  </p>
+  <p>
+    The text field includes an animated SVG that is animating repeatedly to
+    better visualize when the page is unresponsive. The animation is not visible
+    if your browser is configured to
+    <code>prefer-reduced-motion</code>
+    and can be disabled with the "Hide animation" checkbox below.
+  </p>
+  <div class="demo">
+    <div class="input-pane">
+      <input
+        id="search"
+        type="text"
+        placeholder="Search..."
+        autocomplete="off"
+      />
+      <img
+        id="animation"
+        src="https://cdn.glitch.global/51cfd243-2e84-482b-86d1-b78a29ac1698/spinner.svg?v=1708439812353"
+        width="24"
+        height="24"
+        class="spinner"
+      />
+      <label><input id="hide-animation" type="checkbox" />Hide animation</label>
+    </div>
+    <div class="results-pane">
+      <ul id="list"></ul>
+    </div>
+  </div>
+  <p>
+    If you observe the performance tab in Chrome DevTools, you can notice any
+    long tasks flagged in red.
+  </p>
+  <p>
+    <img
+      src="https://cdn.glitch.global/51cfd243-2e84-482b-86d1-b78a29ac1698/Learn%20Performance%20-%20Scheduling%20-%20Long%20Task.png?v=1714663127387"
+      alt="Chrome DevTools Performance panel showing a Keyboard interaction and two long tasks."
+      width="848"
+      height="194"
+      loading="lazy"
+    />
+  </p>
+  <p>
+    In the preceding screenshot of the Chrome DevTools performance panel, a
+    <i>Keyboard</i>
+    interaction spans the length of two tasks. The first task includes the
+    <code>Event: keyup</code>
+    function, that in turn calls the
+    <code>filterResults</code>
+    function. This is also referred to as the
+    <i>processing time</i>
+    of the interaction.
+  </p>
+  <p>The second long task includes style recalculations, layout, and
+    paint. This is known as the
+    <i>presentation delay</i>
+    and increases when changes affect many DOM nodes and styles.
+  </p>
+  {{! prettier-ignore }}
+  <p>
+    <details>
+      <summary>View Source Code</summary>      
+      <pre><code>// sort the results by relevance to the search term
+// ATTN: insertion sort has a time complexity of O(n^2)
+const sort = (data) =&gt; {
+  for (let i = 1; i &lt; data.length; i++) {
+    const key = data[i];
+    let j;
+
+    for (j = i - 1; j &gt;= 0 &amp;&amp; data[j].relevance &lt; key.relevance; j--) {
+      data[j + 1] = data[j];
+    }
+
+    data[j + 1] = key;
+  }
+
+  return data;
+}
+
+// filter the results
+const filterResults = (data, searchTerm, limit) =&gt; {
+  const relevanceArray = data.map((n) =&gt; ({
+    ...n,
+    relevance: stringSimilarity(`${n.firstName} ${n.lastName}`, searchTerm),
+  }));
+
+  return sort(relevanceArray).slice(0, limit);
+};
+
+// render the HTML
+const renderList = (root, data) =&gt; {
+  let itemsHTML = &quot;&quot;;
+  // clear the list
+  root.innerHTML = &quot;&quot;;
+  for (let i = 0; i &lt; data.length; i++) {
+    // create the HTML for each li
+    itemsHTML += `&lt;li&gt;${data[i].firstName} ${data[i].lastName}&lt;/li&gt;`;
+  }
+
+  root.innerHTML = itemsHTML;
+};
+
+document.getElementById(&quot;search&quot;).addEventListener(&quot;keyup&quot;, (e) =&gt; {
+  const value = e.target.value.toLowerCase();
+  const filteredResults = filterResults(initial, value, 500);
+  renderList(document.getElementById(&quot;list&quot;), filteredResults);
+});</code></pre>
+    </details>
+  </p>
+</div>
+{{! prettier-ignore }}
+<script>
+  document.getElementById("hide-animation").addEventListener("change", () => {
+    document.getElementById("animation").classList.toggle("hide");
+  });
+</script>
+{{! prettier-ignore }}
+<script type="module">
+  // fetch and store the data in memory
+  const initial = await fetch(
+    "https://cdn.glitch.global/51cfd243-2e84-482b-86d1-b78a29ac1698/data.json?v=1708550781857",
+    {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+      },
+    }
+  ).then((response) => response.json());
+
+  // compare similarity between two strings
+  // source: https://github.com/stephenjjbrown/string-similarity-js
+  const stringSimilarity = (
+    str1,
+    str2,
+    substringLength = 2,
+    caseSensitive = false
+  ) => {
+    if (!caseSensitive) {
+      str1 = str1.toLowerCase();
+      str2 = str2.toLowerCase();
+    }
+
+    if (str1.length < substringLength || str2.length < substringLength)
+      return 0;
+
+    const map = new Map();
+    for (let i = 0; i < str1.length - (substringLength - 1); i++) {
+      const substr1 = str1.substr(i, substringLength);
+      map.set(substr1, map.has(substr1) ? map.get(substr1) + 1 : 1);
+    }
+
+    let match = 0;
+    for (let j = 0; j < str2.length - (substringLength - 1); j++) {
+      const substr2 = str2.substr(j, substringLength);
+      const count = map.has(substr2) ? map.get(substr2) : 0;
+      if (count > 0) {
+        map.set(substr2, count - 1);
+        match++;
+      }
+    }
+
+    return (
+      (match * 2) / (str1.length + str2.length - (substringLength - 1) * 2)
+    );
+  };
+  
+  // sort the results by relevance to the search term
+  // ATTN: insertion sort has a time complexity of O(n^2)
+  const sort = (data) => {
+    for (let i = 1; i < data.length; i++) {
+      const key = data[i];
+      let j;
+
+      for (j = i - 1; j >= 0 && data[j].relevance < key.relevance; j--) {
+        data[j + 1] = data[j];
+      }
+
+      data[j + 1] = key;
+    }
+
+    return data;
+  }
+
+  // filter the results
+  const filterResults = (data, searchTerm, limit) => {
+    const relevanceArray = data.map((n) => ({
+      ...n,
+      relevance: stringSimilarity(`${n.firstName} ${n.lastName}`, searchTerm),
+    }));
+
+    return sort(relevanceArray).slice(0, limit);
+  };
+
+  // render the HTML
+  const renderList = (root, data) => {
+    let itemsHTML = "";
+    // clear the list
+    root.innerHTML = "";
+    for (let i = 0; i < data.length; i++) {
+      // create the HTML for each li
+      itemsHTML += `<li>${data[i].firstName} ${data[i].lastName}</li>`;
+    }
+
+    root.innerHTML = itemsHTML;
+  };
+
+  document.getElementById("search").addEventListener("keyup", (e) => {
+    const value = e.target.value.toLowerCase();
+    const filteredResults = filterResults(initial, value, 500);
+    renderList(document.getElementById("list"), filteredResults);
+  });
+</script>
