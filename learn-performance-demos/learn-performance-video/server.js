@@ -76,17 +76,17 @@ fastify.get("/images-accept/*", function (request, reply) {
   if (request.headers.accept) {
     if (request.headers.accept.includes("image/avif")) {
       return reply.from(
-        `https://cdn.glitch.global/97616b87-f930-4eb0-a8a0-84c6a73d97e7/${filename}.avif`
+        `./${filename}.avif`
       );
     } else if (request.headers.accept.includes("image/webp")) {
       return reply.from(
-        `https://cdn.glitch.global/97616b87-f930-4eb0-a8a0-84c6a73d97e7/${filename}.webp`
+        `./${filename}.webp`
       );
     }
   }
 
   return reply.from(
-    `https://cdn.glitch.global/97616b87-f930-4eb0-a8a0-84c6a73d97e7/${filename}.jpg`
+    `./${filename}.jpg`
   );
 });
 

@@ -3,7 +3,6 @@
  *
  * Thx to these as the inspiration
  *   https://storage.googleapis.com/amp-vs-non-amp/youtube-lazy.html
- *   https://autoplay-youtube-player.glitch.me/
  *
  * Once built it, I also found these:
  *   https://github.com/ampproject/amphtml/blob/master/extensions/amp-youtube (👍👍)
