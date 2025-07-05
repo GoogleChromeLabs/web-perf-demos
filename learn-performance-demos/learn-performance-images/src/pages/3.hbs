@@ -8,7 +8,7 @@
     attribute in this demo uses width descriptors:
   </p>
   {{! prettier-ignore }}
-  <code><pre>srcset=&quot;/image-640.jpg 640w, /image-1280.jpg 1280w, /image-1920.jpg 1920w&quot;</pre></code>
+  <code><pre>srcset=&quot./image-640.jpg 640w,./image-1280.jpg 1280w,./image-1920.jpg 1920w&quot;</pre></code>
   <p>
     The width descriptor matches the image file's width. So the file
     <code>image-640.jpg</code>
@@ -31,8 +31,8 @@
         alt="Photograph of a group of pedestrians crossing the street."
         width="640"
         height="426"
-        src="./images/image-640-uncompressed.jpg?v=3"
-        srcset="/images/image-640-uncompressed.jpg?v=3 640w, /images/image-1280-uncompressed.jpg?v=3 1280w, /images/image-1920-uncompressed.jpg?v=3 1920w"
+        src="./image-640-uncompressed.jpg?v=3"
+        srcset="./image-640-uncompressed.jpg?v=3 640w, ./image-1280-uncompressed.jpg?v=3 1280w, ./image-1920-uncompressed.jpg?v=3 1920w"
         sizes="(min-width: 540px) 640px, calc(100vw - 2rem)"
       />
     </div>
@@ -116,8 +116,8 @@
   alt=&quot;Photograph of a group of pedestrians crossing the street.&quot;
   width=&quot;640&quot;
   height=&quot;426&quot;
-  src=&quot;/images/image-640-uncompressed.jpg&quot;
-  srcset=&quot;/images/image-640-uncompressed.jpg, /images/image-1280-uncompressed.jpg 2x, /images/image-1920-uncompressed.jpg 3x&quot;
+  src=&quot;./image-640-uncompressed.jpg&quot;
+  srcset=&quot;./image-640-uncompressed.jpg, ./image-1280-uncompressed.jpg 2x, ./image-1920-uncompressed.jpg 3x&quot;
 /&gt;</code></pre>
     </details>
   </p>

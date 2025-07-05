@@ -40,25 +40,37 @@ fastify.register(require("@fastify/view"), {
 // redirect URLs according to Accept header
 fastify.register(require("@fastify/reply-from"));
 
-fastify.get("/images-accept/*", function (request, reply) {
-  const { url } = request;
-  const filename = path.parse(url).name;
+fastify.get("/:file(.+).:ext(jpg)", function (request, reply) {
+  let returnExtension = "jpg";
 
-  if (request.headers.accept) {
+  if (!request.params["file"].includes('uncompressed') && request.headers.accept) {
     if (request.headers.accept.includes("image/avif")) {
-      return reply.from(
-        `https://cdn.glitch.global/5c7a461a-f9fa-4174-b79d-36b794063351/${filename}.avif`
-      );
+      returnExtension = "avif";
+      reply.type("image/avif");
     } else if (request.headers.accept.includes("image/webp")) {
-      return reply.from(
-        `https://cdn.glitch.global/5c7a461a-f9fa-4174-b79d-36b794063351/${filename}.webp`
-      );
+      returnExtension = "webp";
+      reply.type("image/webp");
+    } else {
+      reply.type("image/jpeg");
     }
+  } else {
+    reply.type("image/jpeg");
   }
 
-  return reply.from(
-    `https://cdn.glitch.global/5c7a461a-f9fa-4174-b79d-36b794063351/${filename}.jpg`
-  );
+  reply.headers({"cache-control": "max-age=1800"});
+
+  // Construct the absolute path to the file in the Cloud Function environment
+  const contentPath = path.join(__dirname, `public/${request.params["file"]}.${returnExtension}`);
+  let content;
+  try {
+      content = fs.readFileSync(contentPath);
+  } catch (error) {
+    console.error(`Error reading file ${contentPath}:`, error);
+    reply.statusCode = 404;
+    return "File not found";
+  }
+
+  return content;
 });
 
 /** start: routes **/
