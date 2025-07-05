@@ -6,7 +6,7 @@
     {{! prettier-ignore }}
     <pre><code>function yieldToMain () {
   return new Promise(resolve =&gt; {
-    setTimeout(resolve, 0); 
+    setTimeout(resolve, 0);
   });
 }</code></pre>
   </p>
@@ -29,7 +29,7 @@
       />
       <img
         id="animation"
-        src="https://cdn.glitch.global/51cfd243-2e84-482b-86d1-b78a29ac1698/spinner.svg?v=1708439812353"
+        src="./spinner.svg?v=1708439812353"
         width="24"
         height="24"
         class="spinner"
@@ -50,7 +50,7 @@
   </p>
   <p>
     <img
-      src="https://cdn.glitch.global/51cfd243-2e84-482b-86d1-b78a29ac1698/Learn%20Performance%20-%20Scheduling%20-%20yieldToMain.png?v=1714664350349"
+      src="./Learn%20Performance%20-%20Scheduling%20-%20yieldToMain.png?v=1714664350349"
       alt="Chrome DevTools Performance panel showing two tasks. filterResults is highlighted in the first task and renderList is highlighted in the second task."
       width="916"
       height="196"
@@ -68,7 +68,7 @@
   {{! prettier-ignore }}
   <p>
     <details>
-      <summary>View Source Code</summary>      
+      <summary>View Source Code</summary>
       <pre><code>function yieldToMain () {
   return new Promise(resolve =&gt; {
     setTimeout(resolve, 0);
@@ -105,7 +105,7 @@ document.getElementById(&quot;search&quot;).addEventListener(&quot;keyup&quot;, 
 
     // fetch and store the data in memory
   const initial = await fetch(
-    "https://cdn.glitch.global/51cfd243-2e84-482b-86d1-b78a29ac1698/data.json?v=1708550781857",
+    "./data.json?v=1708550781857",
     {
       method: "GET",
       headers: {
@@ -197,7 +197,7 @@ document.getElementById(&quot;search&quot;).addEventListener(&quot;keyup&quot;, 
     // Yield to the main thread
     await yieldToMain();
     const filteredResults = filterResults(initial, value, 500);
-    
+
     await yieldToMain();
     renderList(document.getElementById("list"), filteredResults);
   });

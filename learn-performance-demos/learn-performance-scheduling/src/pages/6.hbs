@@ -42,7 +42,7 @@
       />
       <img
         id="animation"
-        src="https://cdn.glitch.global/51cfd243-2e84-482b-86d1-b78a29ac1698/spinner.svg?v=1708439812353"
+        src="./spinner.svg?v=1708439812353"
         width="24"
         height="24"
         class="spinner"
@@ -56,7 +56,7 @@
   {{! prettier-ignore }}
   <p>
     <details>
-      <summary>View Source Code</summary>      
+      <summary>View Source Code</summary>
       <pre><code>function debounce(func, timeout = 200) {
   let timer;
   return (...args) =&gt; {
@@ -110,7 +110,7 @@ document.getElementById(&quot;search&quot;).addEventListener(&quot;keyup&quot;, 
 
   // fetch and store the data in memory
   const initial = await fetch(
-    "https://cdn.glitch.global/51cfd243-2e84-482b-86d1-b78a29ac1698/data.json?v=1708550781857",
+    "./data.json?v=1708550781857",
     {
       method: "GET",
       headers: {
@@ -161,14 +161,14 @@ document.getElementById(&quot;search&quot;).addEventListener(&quot;keyup&quot;, 
   const sort = async (data) => {
     // set a 50ms deadline
     let deadline = performance.now() + 50;
-    
+
     for (let i = 1; i < data.length; i++) {
       if (performance.now() >= deadline) {
         // update the deadline
         deadline = performance.now() + 50;
         await yieldToMain();
       }
-      
+
       const key = data[i];
       let j;
 
@@ -188,7 +188,7 @@ document.getElementById(&quot;search&quot;).addEventListener(&quot;keyup&quot;, 
       ...n,
       relevance: stringSimilarity(`${n.firstName} ${n.lastName}`, searchTerm),
     }));
-    
+
     await yieldToMain();
 
     const results =  await sort(relevanceArray);
@@ -200,15 +200,15 @@ document.getElementById(&quot;search&quot;).addEventListener(&quot;keyup&quot;, 
     let itemsHTML = "";
     // clear the list
     root.innerHTML = "";
-    
+
     let index = 0;
     const BATCH_SIZE = 100;
-    
+
     // iterate the data array in batches of 100
     while (index < data.length) {
       for (let i = index; i < Math.min(index + BATCH_SIZE, data.length); i++) {
         // create the HTML for each li
-        root.insertAdjacentHTML("beforeend", `<li>${data[i].firstName} ${data[i].lastName}</li>`);      
+        root.insertAdjacentHTML("beforeend", `<li>${data[i].firstName} ${data[i].lastName}</li>`);
       }
       index += BATCH_SIZE;
       await yieldToMain();
@@ -223,7 +223,7 @@ document.getElementById(&quot;search&quot;).addEventListener(&quot;keyup&quot;, 
     clearTimeout(timer);
     setTimeout(async () => {
       const value = e.target.value.toLowerCase();
-    
+
       // avoid updating if the value remains unchanged (ex: left/right arrow)
       if (value !== previousValue) {
         previousValue = value;
@@ -239,6 +239,6 @@ document.getElementById(&quot;search&quot;).addEventListener(&quot;keyup&quot;, 
         renderList(document.getElementById("list"), filteredResults);
         document.querySelector(".results-pane").classList.remove("loading");
       }
-    }, 200);    
+    }, 200);
   });
 </script>

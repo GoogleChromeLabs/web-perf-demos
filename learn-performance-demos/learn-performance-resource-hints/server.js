@@ -115,7 +115,7 @@ fastify.get("/3", function (request, reply) {
     title: "preload",
     head: `<link rel="stylesheet" href="./style.css?delay=1000" />
 <link rel="stylesheet" href="/background-image.css?delay=1000" />
-<link rel="preload" href="https://cdn.glitch.global/db01a8e4-9230-4c5c-977d-85d0e0c3e74c/image-1.jpg?v=1669198400523" as="image" />
+<link rel="preload" href="./image-1.jpg?v=1669198400523" as="image" />
 <script src="./gallery.js?delay=1000" defer></script>`,
     data: generateRandomString(2000, 2000),
   };
@@ -130,7 +130,7 @@ fastify.get("/4", function (request, reply) {
     step: 4,
     title: "preload - img",
     head: `<link rel="stylesheet" href="./style.css?delay=1000" />
-<link rel="preload" href="https://cdn.glitch.global/db01a8e4-9230-4c5c-977d-85d0e0c3e74c/image-1.jpg?v=1669198400523" as="image" />
+<link rel="preload" href="./image-1.jpg?v=1669198400523" as="image" />
 <script src="./gallery.js?delay=1000" defer></script>`,
     data: generateRandomString(2000, 2000),
   };
@@ -145,7 +145,7 @@ fastify.get("/5", function (request, reply) {
     step: 5,
     title: "fetchpriority",
     head: `<link rel="stylesheet" href="./style.css?delay=1000" />
-<link rel="preload" href="https://cdn.glitch.global/db01a8e4-9230-4c5c-977d-85d0e0c3e74c/image-1.jpg?v=1669198400523" as="image" fetchpriority="high" />
+<link rel="preload" href="./image-1.jpg?v=1669198400523" as="image" fetchpriority="high" />
 <script src="./gallery.js?delay=1000" defer></script>`,
     data: generateRandomString(2000, 2000),
   };

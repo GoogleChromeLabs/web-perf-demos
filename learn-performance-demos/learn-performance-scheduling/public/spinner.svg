@@ -1,0 +1,15 @@
+<svg viewBox="0 0 24 24" 
+  xmlns="http://www.w3.org/2000/svg">
+  <circle r="12" cx="50%" cy="50%" fill="#f66" transform-origin="50% 50%" opacity="0">
+    <animateTransform begin="1s" attributeName="transform" type="scale" dur="1.5s" values="0;1;0" repeatCount="indefinite"/>
+    <animate begin="1s" attributeName="opacity" dur="1.5s" values="0;1;0" repeatCount="indefinite"/>
+  </circle>
+  <circle r="12" cx="50%" cy="50%" fill="#66f" transform-origin="50% 50%" opacity="0">
+    <animateTransform begin="0.5s" attributeName="transform" type="scale" dur="1.5s" values="0;1;0" repeatCount="indefinite"/>
+    <animate begin="0.5s" attributeName="opacity" dur="1.5s" values="0;1;0" repeatCount="indefinite"/>
+  </circle>
+  <circle r="12" cx="50%" cy="50%" fill="#6f6" transform-origin="50% 50%" opacity="1">
+    <animateTransform begin="0s" attributeName="transform" type="scale" dur="1.5s" values="0;1;0" repeatCount="indefinite"/>
+    <animate begin="0s" attributeName="opacity" dur="1.5s" values="0;1;0" repeatCount="indefinite"/>
+  </circle>
+</svg>

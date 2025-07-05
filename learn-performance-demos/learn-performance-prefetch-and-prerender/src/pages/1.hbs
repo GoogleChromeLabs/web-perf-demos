@@ -23,7 +23,7 @@
   </p>
   <p>
     <img
-      src="https://cdn.glitch.global/850a76f6-ed10-4120-9f3c-4628563dd9d2/learn-performance-prefetch-resources.png?v=1695987651779"
+      src="./learn-performance-prefetch-resources.png?v=1695987651779"
       alt="Chrome DevTools Network panel showing 9 resources. The prefetched resources (rows 4-6) are fetched with the Lowest priority before being retrieved from the cache (rows 7-9)."
       width="936"
       height="443"
@@ -43,7 +43,7 @@
   {{! prettier-ignore }}
   <p>
     <details>
-      <summary>View Source Code</summary>      
+      <summary>View Source Code</summary>
       <pre><code>&lt;link rel=&quot;prefetch&quot; as=&quot;script&quot; href=&quot;/jquery.js&quot; /&gt;
 &lt;link rel=&quot;prefetch&quot; as=&quot;script&quot; href=&quot;/jquery-ui.js&quot; /&gt;
 &lt;link rel=&quot;prefetch&quot; as=&quot;style&quot; href=&quot;/jquery-ui.css&quot; /&gt;
@@ -58,13 +58,13 @@
       async () => {
         await import("/jquery.js");
         const [,cssModule] = await Promise.all([
-          import("/jquery-ui.js"), 
+          import("/jquery-ui.js"),
           import("/jquery-ui.css", {
             assert: { type: 'css' }
           })
         ]);
         document.adoptedStyleSheets = [cssModule.default];
-        
+
         $("#datepicker").datepicker({ dateFormat: 'yy-mm-dd' });
         $("#datepicker").datepicker("show");
       },

@@ -24,7 +24,7 @@
       />
       <img
         id="animation"
-        src="https://cdn.glitch.global/51cfd243-2e84-482b-86d1-b78a29ac1698/spinner.svg?v=1708439812353"
+        src="./spinner.svg?v=1708439812353"
         width="24"
         height="24"
         class="spinner"
@@ -41,7 +41,7 @@
   </p>
   <p>
     <img
-      src="https://cdn.glitch.global/51cfd243-2e84-482b-86d1-b78a29ac1698/Learn%20Performance%20-%20Scheduling%20-%20Presentation%20Delay.png?v=1714730226257"
+      src="./Learn%20Performance%20-%20Scheduling%20-%20Presentation%20Delay.png?v=1714730226257"
       alt="Chrome DevTools Performance panel showing five tasks. filterResults is divided into two tasks."
       width="978"
       height="154"
@@ -60,7 +60,7 @@
   {{! prettier-ignore }}
   <p>
     <details>
-      <summary>View Source Code</summary>      
+      <summary>View Source Code</summary>
       <pre><code>const renderList = async (root, data) =&gt; {
   let itemsHTML = &quot;&quot;;
   // clear the list
@@ -73,7 +73,7 @@
   while (index &lt; data.length) {
     for (let i = index; i &lt; Math.min(index + BATCH_SIZE, data.length); i++) {
       // create the HTML for each li
-      root.insertAdjacentHTML(&quot;beforeend&quot;, `&lt;li&gt;${data[i].firstName} ${data[i].lastName}&lt;/li&gt;`);      
+      root.insertAdjacentHTML(&quot;beforeend&quot;, `&lt;li&gt;${data[i].firstName} ${data[i].lastName}&lt;/li&gt;`);
     }
     index += BATCH_SIZE;
     await yieldToMain();
@@ -98,7 +98,7 @@
 
   // fetch and store the data in memory
   const initial = await fetch(
-    "https://cdn.glitch.global/51cfd243-2e84-482b-86d1-b78a29ac1698/data.json?v=1708550781857",
+    "./data.json?v=1708550781857",
     {
       method: "GET",
       headers: {
@@ -143,20 +143,20 @@
       (match * 2) / (str1.length + str2.length - (substringLength - 1) * 2)
     );
   };
-  
+
   // sort the results by relevance to the search term
   // ATTN: insertion sort has a time complexity of O(n^2)
   const sort = async (data) => {
     // set a 50ms deadline
     let deadline = performance.now() + 50;
-    
+
     for (let i = 1; i < data.length; i++) {
       if (performance.now() >= deadline) {
         // update the deadline
         deadline = performance.now() + 50;
         await yieldToMain();
       }
-      
+
       const key = data[i];
       let j;
 
@@ -178,7 +178,7 @@
     }));
 
     await yieldToMain();
-    
+
     const results =  await sort(relevanceArray);
     return results.slice(0, limit);
   };
@@ -188,15 +188,15 @@
     let itemsHTML = "";
     // clear the list
     root.innerHTML = "";
-    
+
     let index = 0;
     const BATCH_SIZE = 100;
-    
+
     // iterate the data array in batches of 100
     while (index < data.length) {
       for (let i = index; i < Math.min(index + BATCH_SIZE, data.length); i++) {
         // create the HTML for each li
-        root.insertAdjacentHTML("beforeend", `<li>${data[i].firstName} ${data[i].lastName}</li>`);      
+        root.insertAdjacentHTML("beforeend", `<li>${data[i].firstName} ${data[i].lastName}</li>`);
       }
       index += BATCH_SIZE;
       await yieldToMain();
