@@ -8,15 +8,15 @@
     "serve": "vite preview"
   },
   "dependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-spring": "^9.7.2",
-    "wouter": "^2.11.0",
-    "react-helmet-async": "^1.3.0",
-    "@vitejs/plugin-react": "^4.0.3"
+    "react": "^18.3.0",
+    "react-dom": "^18.3.0",
+    "react-spring": "^10.0.1",
+    "wouter": "^3.7.1",
+    "react-helmet-async": "^2.0.5",
+    "@vitejs/plugin-react": "^4.6.0"
   },
   "devDependencies": {
-    "vite": "^4.0.0"
+    "vite": "^7.0.2"
   },
   "browserslist": [
     ">0.2%",
