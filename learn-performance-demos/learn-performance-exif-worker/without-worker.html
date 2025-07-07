@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>
+      JPEG Metadata Extractor
+    </title>
+    <link rel="stylesheet" href="./css/styles.css">
+  </head>
+  <body>
+    <main id="app" aria-live="polite">
+      <section id="image-fetch">
+        <h1>JPEG Metadata Extractor!</h1>
+        <form id="image-form">
+          <label for="image-url">Copy/paste a url to a JPEG to start:</label>
+          <input type="text" autocomplete="off" id="image-url" name="image-url">
+          <button id="image-submit-button" type="submit">Get that JPEG!</button>
+        </form>
+      </section>
+      <section id="image-exif-data">
+        <p><a href="javascript:location.reload();">&lt;&lt;&nbsp;Start over</a></p>
+        <h1>EXIF Data:</h1>
+        <div id="exif-data"></div>
+      </section>
+    </main>
+    <script src="./js/without-worker/exifreader.js"></script>
+    <script src="./js/without-worker/scripts.js"></script>
+  </body>
+</html>
+

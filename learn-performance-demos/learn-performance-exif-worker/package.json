@@ -1,0 +1,16 @@
+{
+  "name": "learn-performance-exif-worker",
+  "version": "0.1.0",
+  "description": "",
+  "scripts": {
+    "deploy": "gsutil -m rsync -rd ./ gs://chrome-dev-demos/public/learn-performance-exif-worker"
+  },
+  "repository": {
+    "url": "https://github.com/GoogleChromeLabs/web-perf-demos/learn-performance-demos/learn-performance-exif-worker"
+  },
+  "license": "Apache-2.0",
+  "keywords": [
+    "node",
+    "express"
+  ]
+}
