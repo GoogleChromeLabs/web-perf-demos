@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Peach</title>
+  <link id="favicon" rel="icon" href="https://glitch.com/favicon.ico" type="image/x-icon" />
+  <script type="module" src="script.mjs"></script>
+  <script>console.log("Hi I'm peach.html")</script>
+  <style>
+    body {
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+      font-size: 18px;
+    }
+
+    ul li {
+      margin-block-end: 1em;
+    }
+
+    img {
+      max-width: 300px;
+    }
+
+    pre, code {
+      background: #f5f2f0;
+      padding-block: 4px;
+      padding-inline: 4px;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>Peach</h1>
+
+  <!-- Use another server since Glitch CDN doesn't serve TAO headers which gives an inaccurate LCP -->
+<!--   <img src="./images/peach.jpg?v=1705668525926" alt="A peach"> -->
+  <img src="./images/peach.jpg?v=1705668525926" alt="A peach">
+
+  <hr />
+
+  <h2>Speculation Rules API</h2>
+
+  <h3 id="lcp-heading">LCP time: <span id="lcp-time"></span></h3>
+  <div id ="lcp-explanation"></div>
+  <ul>
+    <li id="bfcache" class="hidden"><span>Page reactivated from bfcache: </span><code id="bfcache_count">0</code> time(s)</li>
+    <li><span>Initial script execution<span id="during-prerender" hidden> (during prerender)</span>: </span><pre id="initial"></pre>
+    </li>
+    <li id="no-prerender"><span>
+    This page should be prerendered, but it didn't. <br>Try in a fresh Chrome, it may be due to memory usage of your current browser.</span>
+    </li>
+    <li id="activation-item" hidden><span>After activation: </span><pre id="activation"></pre>
+    </li>
+    <li id="lcp" class="hidden"><span>LCP registered: </span><pre id="lcp_list"></pre></li>
+    <li id="lcp_finalize"><button>Finalise LCP</button></li>
+  </ul>
+
+  Go back to <a href="common-fruits.html">common fruits</a>.
+</body>
+</html>

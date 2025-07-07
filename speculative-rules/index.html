@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Prerendering with web-vitals: index</title>
+    <link
+      id="favicon"
+      rel="icon"
+      href="https://glitch.com/favicon.ico"
+      type="image/x-icon"
+    />
+    <style>
+      body {
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        font-size: 18px;
+      }
+      ul li {
+        margin-block-end: 1em;
+      }
+      
+      pre, code {
+      background: #f5f2f0;
+      padding-block: 4px;
+      padding-inline: 4px;
+    }
+    </style>
+  </head>
+  <body>
+    <h1>Fruits</h1>
+    <p>
+      Some of these pages load instantly when clicked, some do not.
+    </p>
+    <ul>
+      <li><a href="apple.html">🍎 Apple</a> - instant, should be prerendered</li>
+      <li><a href="orange.html">🍊 Orange</a> - instant, should be prerendered</li>
+      <li><a href="kiwi.html">🥝 Kiwi</a> - regular, not prerendered, typo in rules</li>
+      <li><a href="common-fruits.html">🔎 Discover more...</a> - document rules demo</li>
+    </ul>
+
+    <hr />
+
+    <h2>Speculation Rules API</h2>
+
+    <ul>
+      <li>Use the API to guide Chrome in prerendering pages that the user is likely to visit. <a href="https://goo.gle/debugging-speculation-rules">Learn more</a></li>
+      <li>
+        <span>API supported in this browser: </span>
+<!--         <input type="radio" id="browser_true" name="browser" value="true" disabled />
+        <label for="browser_true">True</label>
+        <input type="radio" id="browser_false" name="browser" value="false" disabled />
+        <label for="browser_false">False</label> -->
+        <code id="browser">Not supported</code>
+      </li>
+      <li><span>Status: </span><code id="status">Not available</code></li>
+      <li>
+        <span>Rules: </span>
+        <pre id="rules">Not available</pre>
+      </li>
+    </ul>
+
+    <hr />
+
+    <p>
+      <a href="https://glitch.com/edit/#!/speculative-rules"
+        >View the code on Glitch</a>
+    </p>
+
+    <script>
+      function updateSelector(selector, actionName) {
+        if(selector == '#browser') {
+          // document.querySelector(selector + "_" + actionName).checked = true;
+          document.querySelector(selector).textContent = actionName;
+        }
+        
+        if(selector == '#status') {
+          document.querySelector(selector).textContent = actionName;
+        }
+        
+        if(selector == '#rules') {
+          document.querySelector(selector).innerHTML = actionName;
+        }
+      }
+      
+      function addSpeculationRules() {
+        const specScript = document.createElement('script');
+        specScript.id = 'speculationrules';
+        specScript.type = 'speculationrules';
+        specScript.textContent = `
+        {
+          "prerender": [{
+            "source": "list",
+            "urls": [
+              "apple.html", 
+              "orange.html",
+              "kawa.html"
+            ]
+          }]
+        }`;
+        document.body.appendChild(specScript);
+      }
+
+      function start() {
+        if(!HTMLScriptElement?.supports('speculationrules')) {
+          // updateSelector('#browser', 'false');
+          updateSelector('#browser', 'Not Supported');
+          return;
+        }
+
+        // updateSelector('#browser', 'true');
+        updateSelector('#browser', 'Supported');
+        addSpeculationRules();
+
+        const code = document
+          .querySelector('#speculationrules').text.replaceAll('\n        ','\n').trim();
+        updateSelector('#status', 'Added speculationrules');
+        updateSelector('#rules', code);
+      }
+      
+      start();
+      
+      window.addEventListener('pageshow', (event) => {
+        // on bfcache restore, reinitialise the speculation rules to force another prerender
+        const navigationType =
+          performance.getEntriesByType('navigation')[0].type;
+
+        if (event.persisted || navigationType == 'back_forward') {
+          document.querySelector('#speculationrules')?.remove();
+          addSpeculationRules();
+          const code = document
+            .querySelector('#speculationrules').text.replaceAll('\n        ','\n').trim();
+      
+          updateSelector('#status', 'Page reactivated, re-added speculationrules');
+          updateSelector('#rules', code);
+        }
+      });
+    </script>
+  </body>
+</html>

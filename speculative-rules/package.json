@@ -1,0 +1,12 @@
+{
+  "name": "speculative-loading",
+  "version": "0.1.0",
+  "description": "",
+  "scripts": {
+    "deploy": "gsutil -m rsync -rd ./ gs://chrome-dev-demos/public/speculative-loading"
+  },
+  "repository": {
+    "url": "https://github.com/GoogleChromeLabs/web-perf-demos/speculative-loading"
+  },
+  "license": "Apache-2.0"
+}

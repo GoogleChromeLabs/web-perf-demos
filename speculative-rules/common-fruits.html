@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Prerendering with web-vitals: index</title>
+    <link
+      id="favicon"
+      rel="icon"
+      href="https://glitch.com/favicon.ico"
+      type="image/x-icon"
+    />
+    <style>
+      body {
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        font-size: 18px;
+      }
+      
+      ol li {
+        margin-block-end: 0.4em;
+      }
+      
+      .recipes a {
+        padding-inline: 4px;
+      }
+      
+      pre, code {
+        background: #f5f2f0;
+        padding-block: 4px;
+        padding-inline: 4px;
+      }
+      
+      @media only screen and (min-width: 600px) {
+        ol {
+          display: grid;
+          grid-template-rows: repeat(6, 1fr);
+          grid-auto-flow: column;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Common Fruits</h1>
+    <p>
+      Hover over each link to prerender it. Observe changes <a href="https://developer.chrome.com/blog/debugging-speculation-rules">with DevTools</a>.
+    </p>
+    <ol>
+      <!-- with pages -->
+      <li><a href="apple.html">🍎 Apple</a></li>
+      <li><a href="orange.html">🍊 Orange</a></li>
+      <li><a href="kiwi.html">🥝 Kiwi</a></li>
+      <li><a href="pineapple.html">🍍 Pineapple</a></li>
+      <li><a href="mango.html">🥭 Mango </a></li>
+      <li><a href="cherry.html">🍒 Cherry</a></li>
+      <!-- without pages -->
+      <li><a href="watermelon.html">🍉 Watermelon (404)</a></li>
+      <li><a href="avocado.html">🥑 Avocado (404)</a></li>
+      <li><a href="pear.html">🍐 Pear (404)</a></li>
+      <li><a href="lemon.html">🍋 Lemon (404)</a></li>
+      <li><a href="blueberry.html">🫐 Blueberry (404)</a></li>
+      <li><a href="olive.html">🫒 Olive (404)</a></li>
+      <!-- with pages -->
+      <li><a href="melon.html">🍈 Melon</a></li>
+      <li><a href="banana.html">🍌 Banana</a></li>
+      <li><a href="strawberry.html">🍓 Strawberry</a></li>
+      <li><a href="coconut.html">🥥 Coconut</a></li>
+      <li><a href="grape.html">🍇 Grape</a></li>
+      <li><a href="peach.html">🍑 Peach</a></li>
+      <li><a href="apple.html">🍎 Apple (again)</a></li>
+    </ol>
+    
+    <hr />
+
+    <h2>Fruit Recipes</h2>
+    <!-- with pages -->
+    <div class="recipes">
+      <a href="/recipes/banana-splits.html">🍌 Banana splits</a>
+      <a href="/recipes/blueberry-smoothies.html">🫐 Blueberry smoothies</a>
+      <!-- without pages -->
+      <a href="/recipes/lemon-energy-bites.html">🍎 Apple strudel</a>
+      <a href="/recipes/pineapple-acai-bowls.html">🍑 Peach yogurt</a>
+    </div>
+
+    <hr />
+
+    <h2>Speculation Rules API</h2>
+
+    <ul>
+      <li>Use the API to guide Chrome in prerendering pages that the user is likely to visit. <a href="https://goo.gle/debugging-speculation-rules">Learn more</a></li>
+      <li>
+        <span>API supported in this browser: </span>
+<!--         <input type="radio" id="browser_true" name="browser" value="true" />
+        <label for="browser_true">True</label>
+        <input type="radio" id="browser_false" name="browser" value="false" />
+        <label for="browser_false">False</label> -->
+        <code id="browser">Not supported</code>
+      </li>
+      <li><span>Status: </span><code id="status">Not available</code></li>
+      <li>
+        <span>Rules: </span>
+        <pre id="rules">Not available</pre>
+      </li>
+    </ul>
+
+    <hr />
+
+    <p>
+      <a href="https://glitch.com/edit/#!/speculative-rules"
+        >View the code on Glitch</a>
+    </p>
+
+    <script>
+      function updateSelector(selector, actionName) {
+        if(selector == '#browser') {
+          // document.querySelector(selector + "_" + actionName).checked = true;
+          document.querySelector(selector).textContent = actionName;
+        }
+        
+        if(selector == '#status') {
+          document.querySelector(selector).textContent = actionName;
+        }
+        
+        if(selector == '#rules') {
+          document.querySelector(selector).innerHTML = actionName;
+        }
+      }
+      
+      function addSpeculationRules() {
+        const specScript = document.createElement('script');
+        specScript.id = 'speculationrules';
+        specScript.type = 'speculationrules';
+        specScript.textContent = `
+        {
+          "prerender": [{
+            "source": "document",
+            "where": {
+            "and": [
+              { "href_matches": "/*" },
+              { "not": {"href_matches": "/recipes/*"}}
+            ]},
+            "eagerness": "moderate"
+          }]
+        }`;
+        document.body.appendChild(specScript);
+      }
+
+      function start() {
+        if(!HTMLScriptElement?.supports('speculationrules')) {
+          // updateSelector('#browser', 'false');
+          updateSelector('#browser', 'Not Supported');
+          return;
+        }
+
+        // updateSelector('#browser', 'true');
+        updateSelector('#browser', 'Supported');
+        addSpeculationRules();
+
+        const code = document
+          .querySelector('#speculationrules').text.replaceAll('\n        ','\n').trim();
+        updateSelector('#status', 'Added speculationrules');
+        updateSelector('#rules', code);
+      }
+      
+      start();
+      
+      window.addEventListener('pageshow', (event) => {
+        // on bfcache restore, reinitialise the speculation rules to force another prerender
+        const navigationType =
+          performance.getEntriesByType('navigation')[0].type;
+
+        if (event.persisted || navigationType == 'back_forward') {
+          document.querySelector('#speculationrules')?.remove();
+          addSpeculationRules();
+          const code = document
+            .querySelector('#speculationrules').text.replaceAll('\n        ','\n').trim();
+      
+          updateSelector('#status', 'Page reactivated, re-added speculationrules');
+          updateSelector('#rules', code);
+        }
+      });
+    </script>
+  </body>
+</html>
