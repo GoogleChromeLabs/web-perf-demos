@@ -15,8 +15,49 @@ const fastify = require("fastify")({
 
 Handlebars.registerHelper(require("./helpers.js"));
 
-fastify.register(require("@fastify/static"), {
-  root: path.join(__dirname, "public"),
+
+// Custom handler for static files (CSS/JS/PNG)
+fastify.get("/:file(.+).:ext(css|js|png|svg|json)", async function (request, reply) {
+  await delay(parseInt(request.query["delay"], 10) || 0);
+
+  const contentPath = path.join(__dirname, `public/${request.params["file"]}.${request.params["ext"]}`);
+  let content;
+  try {
+    content = request.params["ext"] === "png"
+      ? fs.readFileSync(contentPath)
+      : fs.readFileSync(contentPath, "utf-8");
+  } catch (error) {
+    reply.statusCode = 404;
+    return "File not found";
+  }
+
+  switch (request.params["ext"]) {
+    case "css":
+      reply.type("text/css; charset=utf-8");
+      reply.headers({"cache-control": "max-age=300"});
+      break;
+    case "js":
+      reply.type("text/javascript; charset=utf-8");
+      reply.headers({"cache-control": "max-age=300"});
+      break;
+    case "json":
+      reply.type("application/json; charset=utf-8");
+      reply.headers({"cache-control": "max-age=300"});
+      break;
+    case "png":
+      reply.type("image/svg+xml");
+      reply.headers({"cache-control": "max-age=1800"});
+      break;
+    case "png":
+      reply.type("image/png");
+      reply.headers({"cache-control": "max-age=1800"});
+      break;
+    default:
+      reply.type("text/plain; charset=utf-8");
+      reply.headers({"cache-control": "max-age=300"});
+  }
+
+  return content;
 });
 
 fastify.register(require("@fastify/view"), {
