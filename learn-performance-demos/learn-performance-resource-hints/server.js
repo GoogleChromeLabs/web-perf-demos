@@ -107,7 +107,7 @@ fastify.get("/2", function (request, reply) {
     data: generateRandomString(2000, 2000),
   };
 
-  reply.header("Link", "<https://cdn.glitch.global>; rel=preconnect;");
+  reply.header("Link", "<https://us-central1-web-devrel-apps.cloudfunctions.net/>; rel=preconnect;");
   reply.view("/src/pages/2.hbs", params);
 
   return reply;
@@ -118,7 +118,7 @@ fastify.get("/3", function (request, reply) {
     step: 3,
     title: "preload",
     head: `<link rel="stylesheet" href="./style.css?delay=1000" />
-<link rel="stylesheet" href="/background-image.css?delay=1000" />
+<link rel="stylesheet" href="./background-image.css?delay=1000" />
 <link rel="preload" href="./image-1.jpg?v=1669198400523" as="image" />
 <script src="./gallery.js?delay=1000" defer></script>`,
     data: generateRandomString(2000, 2000),

@@ -9,9 +9,9 @@
   <p>
     This demo includes a
     <code>&lt;link rel=&quot;preconnect&quot;
-      href=&quot;https://cdn.glitch.global&quot;/&gt;</code>
+      href=&quot;https://us-central1-web-devrel-apps.cloudfunctions.net&quot;/&gt;</code>
     in the page's markup. The
-    <code>https://cdn.glitch.global</code>
+    <code>https://us-central1-web-devrel-apps.cloudfunctions.net/</code>
     is used to serve the images in the grid below.
   </p>
   <p hidden>
@@ -20,29 +20,29 @@
   <div class="gallery">
     <div class="large">
       <img
-        src="./image-1.jpg?v=1669198400523"
+        src="https://us-central1-web-devrel-apps.cloudfunctions.net/learn_performance_resource_hints/image-1.jpg?v=1669198400523"
         alt="Image 1"
         class="image"
       />
     </div>
     <div class="thumbnails">
       <img
-        src="./image-1.jpg?v=1669198400523"
+        src="https://us-central1-web-devrel-apps.cloudfunctions.net/learn_performance_resource_hints/image-1.jpg?v=1669198400523"
         alt="Image 1"
         class="image"
       />
       <img
-        src="./image-2.jpg?v=1669198401407"
+        src="https://us-central1-web-devrel-apps.cloudfunctions.net/learn_performance_resource_hints/image-2.jpg?v=1669198401407"
         alt="Image 2"
         class="image"
       />
       <img
-        src="./image-3.jpg?v=1669198402295"
+        src="https://us-central1-web-devrel-apps.cloudfunctions.net/learn_performance_resource_hints/image-3.jpg?v=1669198402295"
         alt="Image 3"
         class="image"
       />
       <img
-        src="./image-4.jpg?v=1669198402935"
+        src="https://us-central1-web-devrel-apps.cloudfunctions.net/learn_performance_resource_hints/image-4.jpg?v=1669198402935"
         alt="Image 4"
         class="image"
       />
@@ -61,7 +61,9 @@
       target="_blank"
       rel="noreferrer noopener"
     >WebPageTest</a>
-    and shows the resources loaded for this page. If you observe the chart
+    and shows the resources loaded for this page
+    (though from a previous version that was hosted on glitch).
+    If you observe the chart
     above, you will notice that the connection for the first image resource,
     <code>image-1.jpg</code>
     is opened before the image is discovered at 1.7s.
