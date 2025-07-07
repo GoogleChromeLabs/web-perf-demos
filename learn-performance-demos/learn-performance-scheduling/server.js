@@ -17,13 +17,13 @@ Handlebars.registerHelper(require("./helpers.js"));
 
 
 // Custom handler for static files (CSS/JS/PNG)
-fastify.get("/:file(.+).:ext(css|js|png|svg|json)", async function (request, reply) {
+fastify.get("/:file(.+).:ext(css|js|jpg|png|svg|json)", async function (request, reply) {
   await delay(parseInt(request.query["delay"], 10) || 0);
 
   const contentPath = path.join(__dirname, `public/${request.params["file"]}.${request.params["ext"]}`);
   let content;
   try {
-    content = request.params["ext"] === "png"
+    content = request.params["ext"] === "png" || request.params["ext"] === "jpg"
       ? fs.readFileSync(contentPath)
       : fs.readFileSync(contentPath, "utf-8");
   } catch (error) {
@@ -44,7 +44,7 @@ fastify.get("/:file(.+).:ext(css|js|png|svg|json)", async function (request, rep
       reply.type("application/json; charset=utf-8");
       reply.headers({"cache-control": "max-age=300"});
       break;
-    case "png":
+    case "svg":
       reply.type("image/svg+xml");
       reply.headers({"cache-control": "max-age=1800"});
       break;

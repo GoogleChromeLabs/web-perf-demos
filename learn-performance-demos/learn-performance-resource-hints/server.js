@@ -14,9 +14,9 @@ const fastify = require("fastify")({
 });
 
 // replaced @fastify/static with a custom get handler which delays the response by N milliseconds
-fastify.get("/:file(.+).:ext(css|js|png)", async function (request, reply) {
+fastify.get("/:file(.+).:ext(css|js|jpg|png)", async function (request, reply) {
   await delay(parseInt(request.query["delay"], 10) || 0);
-  const content = request.params["ext"] === "png"
+  const content = request.params["ext"] === "png" || request.params["ext"] === "jpg"
     ? fs.readFileSync(
     `./public/${request.params["file"]}.${request.params["ext"]}`)
     : fs.readFileSync(
@@ -30,6 +30,10 @@ fastify.get("/:file(.+).:ext(css|js|png)", async function (request, reply) {
     case "js":
       reply.type("text/javascript; charset=utf-8");
       reply.headers({"cache-control": "max-age=300"});
+      break;
+    case "jpg":
+      reply.type("image/jpeg");
+      reply.headers({"cache-control": "max-age=1800"});
       break;
     case "png":
       reply.type("image/png");
