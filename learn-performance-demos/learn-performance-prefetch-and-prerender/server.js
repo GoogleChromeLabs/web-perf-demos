@@ -82,9 +82,9 @@ fastify.get("/1", function (request, reply) {
   let params = {
     step: 1,
     title: "Prefetch resources",
-    head: `<link rel="prefetch" as="script" href="/jquery.js" />
-<link rel="prefetch" as="script" href="/jquery-ui.js" />
-<link rel="prefetch" as="style" href="/jquery-ui.css" />`,
+    head: `<link rel="prefetch" as="script" href="./jquery.js" />
+<link rel="prefetch" as="script" href="./jquery-ui.js" />
+<link rel="prefetch" as="style" href="./jquery-ui.css" />`,
   };
 
   reply.view(`/src/pages/${params.step}.hbs`, params);
@@ -96,7 +96,7 @@ fastify.get("/2", function (request, reply) {
   let params = {
     step: 2,
     title: "Prefetch documents",
-    head: `<link rel="prefetch" as="document" href="/2-prefetch">`,
+    head: `<link rel="prefetch" as="document" href="./2-prefetch?noslash">`,
   };
 
   reply.view(`/src/pages/${params.step}.hbs`, params);

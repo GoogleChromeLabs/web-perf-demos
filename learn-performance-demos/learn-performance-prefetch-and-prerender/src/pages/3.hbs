@@ -8,6 +8,11 @@
     document
     <code>3-prefetch</code>.
   </p>
+  <aside>
+    <strong>Note:</strong>
+    Speculation Rules do not work within third-party iframes so if viewing this demo inline,
+    then you will need to expand the demo out of the iframe into it's own document.
+  </aside>
   <p>
     <a href="./3-prefetch?noslash" style="font-size:1.25rem;font-weight:600;">Go to
       prefetched page</a>
@@ -56,7 +61,7 @@
     "prefetch": [
       {
         "source": "list",
-        "urls": ["/3-prefetch"]
+        "urls": ["./3-prefetch?noslash"]
       }
     ]
   }

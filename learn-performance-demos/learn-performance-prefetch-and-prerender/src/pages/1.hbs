@@ -56,10 +56,10 @@
     input.addEventListener(
       "focus",
       async () => {
-        await import("/jquery.js");
+        await import("./jquery.js");
         const [,cssModule] = await Promise.all([
-          import("/jquery-ui.js"),
-          import("/jquery-ui.css", {
+          import("./jquery-ui.js"),
+          import("./jquery-ui.css", {
             assert: { type: 'css' }
           })
         ]);
