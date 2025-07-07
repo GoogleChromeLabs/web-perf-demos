@@ -36,9 +36,9 @@ fastify.register(require("@fastify/view"), {
 /** start: routes **/
 
 // replaced @fastify/static with a custom get handler which delays the response by N milliseconds
-fastify.get("/:file(.+).:ext(css|js|png)", async function (request, reply) {
+fastify.get("/:file(.+).:ext(css|js|jpg|png|mp4|webm)", async function (request, reply) {
   await delay(parseInt(request.query["delay"], 10) || 0);
-  const content = request.params["ext"] === "png"
+  const content = request.params["ext"] === "png" || request.params["ext"] === "jpg" || request.params["ext"] === "mp4" || request.params["ext"] === "webm"
     ? fs.readFileSync(
     `./public/${request.params["file"]}.${request.params["ext"]}`)
     : fs.readFileSync(
@@ -53,8 +53,20 @@ fastify.get("/:file(.+).:ext(css|js|png)", async function (request, reply) {
       reply.type("text/javascript; charset=utf-8");
       reply.headers({"cache-control": "max-age=300"});
       break;
+    case "jpg":
+      reply.type("image/jpeg");
+      reply.headers({"cache-control": "max-age=1800"});
+      break;
     case "png":
       reply.type("image/png");
+      reply.headers({"cache-control": "max-age=1800"});
+      break;
+    case "webm":
+      reply.type("video/webm");
+      reply.headers({"cache-control": "max-age=1800"});
+      break;
+    case "mp4":
+      reply.type("video/mp4");
       reply.headers({"cache-control": "max-age=1800"});
       break;
     default:
@@ -161,7 +173,7 @@ fastify.get("/6", function (request, reply) {
   let params = {
     step: 6,
     title: "lite-youtube-embed",
-    head: `<link rel="stylesheet" href="/lite-yt-embed.css">
+    head: `<link rel="stylesheet" href="./lite-yt-embed.css">
 <script src="./lite-yt-embed.js"></script>`
   };
 
