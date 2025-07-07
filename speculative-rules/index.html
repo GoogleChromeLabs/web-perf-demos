@@ -3,12 +3,6 @@
   <head>
     <meta charset="utf-8" />
     <title>Prerendering with web-vitals: index</title>
-    <link
-      id="favicon"
-      rel="icon"
-      href="https://glitch.com/favicon.ico"
-      type="image/x-icon"
-    />
     <style>
       body {
         font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -17,7 +11,7 @@
       ul li {
         margin-block-end: 1em;
       }
-      
+
       pre, code {
       background: #f5f2f0;
       padding-block: 4px;
@@ -31,10 +25,10 @@
       Some of these pages load instantly when clicked, some do not.
     </p>
     <ul>
-      <li><a href="apple.html">🍎 Apple</a> - instant, should be prerendered</li>
-      <li><a href="orange.html">🍊 Orange</a> - instant, should be prerendered</li>
-      <li><a href="kiwi.html">🥝 Kiwi</a> - regular, not prerendered, typo in rules</li>
-      <li><a href="common-fruits.html">🔎 Discover more...</a> - document rules demo</li>
+      <li><a href="./apple.html">🍎 Apple</a> - instant, should be prerendered</li>
+      <li><a href="./orange.html">🍊 Orange</a> - instant, should be prerendered</li>
+      <li><a href="./kiwi.html">🥝 Kiwi</a> - regular, not prerendered, typo in rules</li>
+      <li><a href="./common-fruits.html">🔎 Discover more...</a> - document rules demo</li>
     </ul>
 
     <hr />
@@ -42,7 +36,7 @@
     <h2>Speculation Rules API</h2>
 
     <ul>
-      <li>Use the API to guide Chrome in prerendering pages that the user is likely to visit. <a href="https://goo.gle/debugging-speculation-rules">Learn more</a></li>
+      <li>Use the API to guide Chrome in prerendering pages that the user is likely to visit. <a href="./https://goo.gle/debugging-speculation-rules">Learn more</a></li>
       <li>
         <span>API supported in this browser: </span>
 <!--         <input type="radio" id="browser_true" name="browser" value="true" disabled />
@@ -61,8 +55,8 @@
     <hr />
 
     <p>
-      <a href="https://glitch.com/edit/#!/speculative-rules"
-        >View the code on Glitch</a>
+      <a href="https://github.com/GoogleChromeLabs/web-perf-demos/speculative-loading"
+        >View the code</a>
     </p>
 
     <script>
@@ -71,16 +65,16 @@
           // document.querySelector(selector + "_" + actionName).checked = true;
           document.querySelector(selector).textContent = actionName;
         }
-        
+
         if(selector == '#status') {
           document.querySelector(selector).textContent = actionName;
         }
-        
+
         if(selector == '#rules') {
           document.querySelector(selector).innerHTML = actionName;
         }
       }
-      
+
       function addSpeculationRules() {
         const specScript = document.createElement('script');
         specScript.id = 'speculationrules';
@@ -90,7 +84,7 @@
           "prerender": [{
             "source": "list",
             "urls": [
-              "apple.html", 
+              "apple.html",
               "orange.html",
               "kawa.html"
             ]
@@ -115,9 +109,9 @@
         updateSelector('#status', 'Added speculationrules');
         updateSelector('#rules', code);
       }
-      
+
       start();
-      
+
       window.addEventListener('pageshow', (event) => {
         // on bfcache restore, reinitialise the speculation rules to force another prerender
         const navigationType =
@@ -128,7 +122,7 @@
           addSpeculationRules();
           const code = document
             .querySelector('#speculationrules').text.replaceAll('\n        ','\n').trim();
-      
+
           updateSelector('#status', 'Page reactivated, re-added speculationrules');
           updateSelector('#rules', code);
         }
