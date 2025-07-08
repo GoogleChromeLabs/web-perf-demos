@@ -17,7 +17,7 @@ export default function Home() {
           The source code for this demo
           <a href="https://github.com/GoogleChromeLabs/web-perf-demos/tree/main/learn-performance-demos/learn-performance-react-use-transition">
             is available on GitHub
-          </a>
+          </a>.
         </p>
         <p>
           Use the pane on the left to navigate through the different demos, or
