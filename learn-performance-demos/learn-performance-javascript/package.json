@@ -10,8 +10,7 @@
   "dependencies": {
     "fastify": "^5.4.0",
     "handlebars": "^4.7.8",
-    "@fastify/view": "^11.1.0",
-    "@fastify/static": "^6.5.0"
+    "@fastify/view": "^11.1.0"
   },
   "repository": {
     "url": "https://github.com/GoogleChromeLabs/web-perf-demos/learn-performance-demos/learn-performance-javascript"
