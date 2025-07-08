@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Prerendering with web-vitals: index</title>
+  <link id="favicon" rel="icon" href="./favicon.ico" type="image/x-icon" />
+</head>
+<body>
+
+  <h1>Start page</h1>
+
+  <p><a href="next.html">This link should be prerendered</a></p>
+  <p><a href="next2.html">This link should also be prerendered</a></p>
+
+  <button id="remove">Remove speculations</button>
+
+  <hr>
+
+  <pre id="output1"></pre>
+  <pre id="output2"></pre>
+
+  <hr>
+
+  <p><a href="https://github.com/GoogleChromeLabs/web-perf-demos/tree/main/prerender-demos">View the code on GitHub</a></p>
+
+  <script>
+    function trackAction(selector, actionName, args) {
+      document.querySelector(selector).textContent = `${actionName}: ${JSON.stringify(args, 0, 2).replaceAll('\\"','"')}`;
+    }
+    function addSpeculationRules() {
+      const specScript = document.createElement("script");
+      specScript.id = "speculationrules";
+      specScript.type = "speculationrules";
+      specScript.textContent = `
+        {
+          "prerender": [
+            {
+              "source": "list",
+              "urls": ["next.html", "next2.html", "next3.html"]
+            }
+          ]
+        }`;
+      document.body.appendChild(specScript);
+    }
+    if (!('supports' in HTMLScriptElement && HTMLScriptElement.supports('speculationrules'))) {
+      trackAction('#output1', 'Speculation Rules supported on your browser', 'false');
+    } else {
+      trackAction('#output1', 'Speculation Rules supported on your browser', 'true');
+      addSpeculationRules();
+      trackAction('#output2', 'Added speculationrules', document.querySelector('#speculationrules').text.replaceAll('\n','').replace(/  +/g,' '));
+    }
+    window.addEventListener('pageshow', (event) => {
+      // on bfcache restore, reinitialise the speculation rules to force another prerender
+      const navigationType = performance.getEntriesByType('navigation')[0].type;
+      if (event.persisted || navigationType == 'back_forward' ) {
+        document.querySelector('#speculationrules')?.remove();
+        addSpeculationRules();
+        trackAction('#output2', 'Page reactivated: re-added speculationrules', document.querySelector('#speculationrules').text.replaceAll('\n','').replace(/  +/g,' '));
+      }
+    });
+    const removeButton = document.querySelector('#remove');
+    removeButton.addEventListener('click', (event) => {
+      document.querySelector('#speculationrules')?.remove();
+    });
+  </script>
+</body>
+</html>

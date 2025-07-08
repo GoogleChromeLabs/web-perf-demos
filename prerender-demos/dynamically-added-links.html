@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Prerendering with web-vitals: index</title>
+  <link id="favicon" rel="icon" href="./favicon.ico" type="image/x-icon" />
+</head>
+<body>
+
+  <h1>Start page</h1>
+
+  <div id="links">
+  <p><a href="next.html">This link should be prerendered</a></p>
+  <p><a href="next2.html">This link should also be prerendered</a></p>
+  </div>
+  <button id="add-link">Add links</button>
+
+  <p><a href="https://github.com/GoogleChromeLabs/web-perf-demos/tree/main/prerender-demos">View the code on GitHub</a></p>
+
+  <script type = "speculationrules">
+        {
+          "prerender": [
+            {
+              "where": { "href_matches": "/*"}
+            }
+          ]
+        }
+  </script>
+  <script>
+    links = document.querySelector('#links')
+
+    document.querySelector('#add-link').addEventListener('click', () => {
+      console.log('Added link');
+      links.innerHTML = links.innerHTML + '<p><a href="next4.html">This link should also also be prerendered</a></p>';
+    });
+  </script>
+</body>
+</html>

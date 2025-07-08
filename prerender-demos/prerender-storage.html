@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Prerendering with web-vitals: index</title>
+  <link id="favicon" rel="icon" href="./favicon.ico" type="image/x-icon" />
+</head>
+<body>
+
+  <h1>Start page</h1>
+
+  <p><a href="next-storage.html">This link should be prerendered</a></p>
+  <p><a href="next2-storage.html">This link should also be prerendered</a></p>
+
+  <hr>
+
+  <pre id="output1"></pre>
+  <pre id="output2"></pre>
+  <pre id="output3"></pre>
+
+  <hr>
+
+  <p><a href="https://github.com/GoogleChromeLabs/web-perf-demos/tree/main/prerender-demos">View the code on GitHub</a></p>
+
+  <script>
+
+    // Open (or create) the IndexedDB database
+    const dbName = "PrerenderMeasurements";
+    const storeName = "measurements";
+    const EXPIRATION_TIME_MS = 24 * 60 * 60 * 1000; // Example: 24 hours
+
+    function openDatabase() {
+        return new Promise((resolve, reject) => {
+            const request = indexedDB.open(dbName, 1);
+            console.log('BARRY: Opened database');
+
+            request.onupgradeneeded = (event) => {
+              console.log('BARRY: Upgrade needed');
+                const db = event.target.result;
+                if (!db.objectStoreNames.contains(storeName)) {
+                    db.createObjectStore(storeName);
+                    console.log(`Object store '${storeName}' created.`);
+                }
+            };
+
+            request.onsuccess = (event) => {
+                resolve(event.target.result);
+            };
+
+            request.onerror = (event) => {
+                reject(event.target.error);
+            };
+        });
+    }
+
+    function addEntry(db, key, value) {
+        return new Promise((resolve, reject) => {
+            const transaction = db.transaction(storeName, "readwrite");
+            const store = transaction.objectStore(storeName);
+            if (!value.timestamp) {
+              value.timestamp = Date.now();
+            }
+            const request = store.put(value, key);
+
+            request.onsuccess = () => {
+                resolve();
+            };
+
+            request.onerror = (event) => {
+                reject(event.target.error);
+            };
+        });
+    }
+
+    function getEntry(db, key) {
+        return new Promise((resolve, reject) => {
+            const transaction = db.transaction(storeName, "readonly");
+            const store = transaction.objectStore(storeName);
+            const request = store.get(key);
+
+            request.onsuccess = (event) => {
+                resolve(event.target.result);
+            };
+
+            request.onerror = (event) => {
+                reject(event.target.error);
+            };
+        });
+    }
+
+
+    function deleteEntry(db, key) {
+          return new Promise((resolve, reject) => {
+              const transaction = db.transaction(storeName, "readwrite");
+              const store = transaction.objectStore(storeName);
+              const request = store.delete(key);
+
+              request.onsuccess = () => {
+                  resolve(`Entry with key: ${key} deleted successfully.`);
+              };
+
+              request.onerror = (event) => {
+                  reject(`Error deleting entry: ${event.target.error}`);
+              };
+          });
+      }
+
+      function cleanExpiredEntries(db) {
+          return new Promise((resolve, reject) => {
+              const transaction = db.transaction(storeName, "readwrite");
+              const store = transaction.objectStore(storeName);
+              const request = store.openCursor();
+              const now = Date.now();
+              const expiredKeys = [];
+
+              request.onsuccess = (event) => {
+                  const cursor = event.target.result;
+                  if (cursor) {
+                      const { key, value } = cursor;
+                      if (now - value.timestamp > EXPIRATION_TIME_MS) {
+                          expiredKeys.push(key);
+                      }
+                      cursor.continue();
+                  } else {
+                      // No more entries, start cleanup
+                      Promise.all(expiredKeys.map(key => deleteEntry(db, key)))
+                          .then(() => resolve(`Cleaned up ${expiredKeys.length} expired entries.`))
+                          .catch(reject);
+                  }
+              };
+
+              request.onerror = (event) => {
+                  reject(`Error during cleanup: ${event.target.error}`);
+              };
+          });
+      }
+
+
+    function trackAction(selector, actionName, args) {
+      document.querySelector(selector).textContent = `${actionName}: ${JSON.stringify(args, 0, 2).replaceAll('\\"','"')}`;
+    }
+    function addSpeculationRules() {
+      const specScript = document.createElement("script");
+      specScript.id = "speculationrules";
+      specScript.type = "speculationrules";
+      specScript.textContent = `
+        {
+          "prerender": [
+            {
+              "source": "document",
+              "where": {
+                "href_matches": "/*"
+              },
+              "eagerness": "moderate"
+            }
+          ]
+        }`;
+      document.body.appendChild(specScript);
+    }
+    if (!('supports' in HTMLScriptElement && HTMLScriptElement.supports('speculationrules'))) {
+      trackAction('#output1', 'Speculation Rules supported on your browser', 'false');
+    } else {
+      trackAction('#output1', 'Speculation Rules supported on your browser', 'true');
+      addSpeculationRules();
+      trackAction('#output2', 'Added speculationrules', document.querySelector('#speculationrules').text.replaceAll('\n','').replace(/  +/g,' '));
+    }
+
+    window.addEventListener('pageshow', (event) => {
+      // on bfcache restore, reinitialise the speculation rules to force another prerender
+      const navigationType = performance.getEntriesByType('navigation')[0].type;
+      if (event.persisted || navigationType == 'back_forward' ) {
+        document.querySelector('#speculationrules')?.remove();
+        addSpeculationRules();
+        trackAction('#output2', 'Page reactivated: re-added speculationrules', document.querySelector('#speculationrules').text.replaceAll('\n','').replace(/  +/g,' '));
+      }
+
+      // Let us open our database
+      const DBOpenRequest = window.indexedDB.open("PrerenderMeasurements", 1);
+      DBOpenRequest.onsuccess = (event) => {
+        prerenderMeasurementsDB = DBOpenRequest.result;
+      }
+
+    });
+    window.addEventListener('visibilitychange', async (event) => {
+
+      if (document.visibilityState === "hidden") {
+
+        const db = await openDatabase();
+
+        const key = `${window.location.pathname}`;
+        const retrievedValue = await getEntry(db, key);
+
+        // alert(`Number of prerenders: ${retrievedValue.prerenders}`);
+        // page hide beacon back the number of triggered prerenders saved in localstorage
+        // and then reset it
+        trackAction('#output3', 'Number of prerenders', parseInt(localStorage.getItem(window.location.href)) || 0);
+        console.log('Number of prerenders (visibility change)', retrievedValue.prerenders);
+      }
+
+
+    });
+    window.addEventListener('beforeunload', async (event) => {
+      event.preventDefault();
+
+      const db = await openDatabase();
+
+      const key = `${window.location.pathname}`;
+      const retrievedValue = await getEntry(db, key);
+
+      console.log('Number of prerenders (beforeunload)', retrievedValue.prerenders);
+    });
+
+    requestIdleCallback(cleanExpiredEntries(db));
+
+  </script>
+</body>
+</html>

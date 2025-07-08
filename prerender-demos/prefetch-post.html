@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Prefetch example</title>
+  <link id="favicon" rel="icon" href="./favicon.ico" type="image/x-icon" />
+
+
+  <script type="speculationrules">
+{
+  "prefetch": [{
+    "where": { "href_matches": "/*" },
+    "eagerness": "eager"
+  }]
+}
+</script>
+
+</head>
+<body>
+
+  <h1>Start page</h1>
+
+  <p><a href="next.html">This link should be prefetched</a></p>
+  <form action="next.html" method="POST">
+    <button type="submit">Make a POST request</button>
+  </form>
+
+  <hr>
+
+  <pre id="output1"></pre>
+  <pre id="output2"></pre>
+
+  <hr>
+
+  <p><a href="https://github.com/GoogleChromeLabs/web-perf-demos/tree/main/prerender-demos">View the code on GitHub</a></p>
+</body>
+</html>

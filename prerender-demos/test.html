@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Prerendering with web-vitals: index</title>
+  <link id="favicon" rel="icon" href="./favicon.ico" type="image/x-icon" />
+  <script type="speculationrules">
+    {
+      "prerender": [
+        {
+          "urls": ["/next.html"],
+          "eagerness": "eager"
+        },
+        {
+          "urls": ["/next2.html"],
+          "eagerness": "moderate"
+        }
+      ]
+    }
+
+  </script>
+</head>
+<body>
+
+  <h1>Start page</h1>
+
+  <p><a href="next.html">This link should be prerendered</a></p>
+  <p><a href="next2.html">This link should also be prerendered</a></p>
+
+  <hr>
+
+  <pre id="output1"></pre>
+  <pre id="output2"></pre>
+
+  <hr>
+
+  <p><a href="https://github.com/GoogleChromeLabs/web-perf-demos/tree/main/prerender-demos">View the code on GitHub</a></p>
+
+</body>
+</html>

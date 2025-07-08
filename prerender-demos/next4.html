@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Example page 2</title>
+  <link id="favicon" rel="icon" href="./favicon.ico" type="image/x-icon" />
+  <script type="module" src="script.mjs"></script>
+
+  <style>
+    #output {
+      text-wrap: pre;
+      font-family: monospace;
+    }
+  </style>
+</head>
+<body>
+  <h1>Example page 2</h1>
+
+  <img src="https://placecats.com/200/300" alt="A kitten">
+
+  <pre id="output1"></pre>
+
+  <p id="no-prerender">
+    If the page did not prerender, then it may be due to memory usage of your current Chrome browser. Try in a fresh Chrome.
+  </p>
+
+  <p id="finalise-lcp">
+    Click to finalise LCP
+  </p>
+  <pre id="output2"></pre>
+  <pre id="output3"></pre>
+  <pre id="output4"></pre>
+</body>
+</html>

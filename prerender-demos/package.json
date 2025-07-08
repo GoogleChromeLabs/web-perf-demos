@@ -1,0 +1,12 @@
+{
+  "name": "prerender-demos",
+  "version": "0.1.0",
+  "description": "",
+  "scripts": {
+    "deploy": "gsutil -m rsync -rd ./ gs://chrome-dev-demos/public/prerender-demos"
+  },
+  "repository": {
+    "url": "https://github.com/GoogleChromeLabs/web-perf-demos/prerender-demos"
+  },
+  "license": "Apache-2.0"
+}

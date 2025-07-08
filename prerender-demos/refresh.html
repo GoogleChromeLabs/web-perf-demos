@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Prerendering with web-vitals: index</title>
+  <link id="favicon" rel="icon" href="./favicon.ico" type="image/x-icon" />
+</head>
+<body>
+
+  <h1>Start page</h1>
+
+  <p><a href="next.html">This link should be prerendered</a></p>
+  <p><a href="next2.html">This link should be prerendered on hover</a></p>
+  <p><a href="next4.html">This link should also be prerendered on hover</a></p>
+
+  <button id="refresh">Refresh the speculations</button>
+
+  <hr>
+
+  <pre id="output1"></pre>
+  <pre id="output2"></pre>
+
+  <hr>
+
+  <p><a href="https://github.com/GoogleChromeLabs/web-perf-demos/tree/main/prerender-demos">View the code on GitHub</a></p>
+
+  <script>
+    function trackAction(selector, actionName, args) {
+      document.querySelector(selector).textContent = `${actionName}: ${JSON.stringify(args, 0, 2).replaceAll('\\"','"')}`;
+    }
+    function addSpeculationRules() {
+      const specScript = document.createElement("script");
+      specScript.id = "speculationrules";
+      specScript.type = "speculationrules";
+      specScript.textContent = `
+        {
+          "prerender": [
+            {
+              "urls": ["next.html"]
+            },
+            {
+              "urls": ["next2.html", "next4.html"],
+              "eagerness": "moderate"
+            }
+          ]
+        }`;
+      document.body.appendChild(specScript);
+    }
+    if (!('supports' in HTMLScriptElement && HTMLScriptElement.supports('speculationrules'))) {
+      trackAction('#output1', 'Speculation Rules supported on your browser', 'false');
+    } else {
+      trackAction('#output1', 'Speculation Rules supported on your browser', 'true');
+      addSpeculationRules();
+      trackAction('#output2', 'Added speculationrules', document.querySelector('#speculationrules').text.replaceAll('\n','').replace(/  +/g,' '));
+    }
+    window.addEventListener('pageshow', (event) => {
+      // on bfcache restore, reinitialise the speculation rules to force another prerender
+      const navigationType = performance.getEntriesByType('navigation')[0].type;
+      if (event.persisted || navigationType == 'back_forward' ) {
+        document.querySelector('#speculationrules')?.remove();
+        addSpeculationRules();
+        trackAction('#output2', 'Page reactivated: re-added speculationrules', document.querySelector('#speculationrules').text.replaceAll('\n','').replace(/  +/g,' '));
+      }
+    });
+
+    async function refreshSpeculations() {
+      const speculationScripts = document.querySelectorAll('script[type="speculationrules"]');
+
+      for (const speculationScript of speculationScripts) {
+        // Get the current rules as JSON text
+        const ruleSet = speculationScript.textContent;
+
+        // Remove the existing script to reset prerendering
+        speculationScript.remove();
+
+        // Await for a microtask before re-inserting.
+        await Promise.resolve();
+
+        // Reinsert rule in a new speculation rules script
+        const newScript = document.createElement('script');
+        newScript.type = 'speculationrules';
+        newScript.textContent = ruleSet;
+        console.log(newScript);
+
+        // Append the new script back to the document
+        document.body.appendChild(newScript);
+      }
+    }
+
+
+
+    const refreshButton = document.querySelector('#refresh');
+    refreshButton.addEventListener('click', (event) => {
+      refreshSpeculations();
+    });
+  </script>
+</body>
+</html>

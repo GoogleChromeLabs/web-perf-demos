@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+  <title>Example page (next.html)</title>
+  <link id="favicon" rel="icon" href="./favicon.ico" type="image/x-icon" />
+  <script type="module" src="script.mjs"></script>
+  <script>console.log("Hi I'm page next.html")</script>
+
+<!--   <script type="speculationrules">
+    {
+      "prefetch": [
+        {
+          "source": "list",
+          "urls": ["next2.html"],
+    "eagerness":"immediate"
+        }
+      ]
+    }
+  </script> -->
+  <script type="speculationrules">
+{
+  "prerender": [{
+    "where": {
+      "and": [
+        { "href_matches": "/*" },
+        { "not": {"href_matches": "/*\\?*(^|&)add-to-cart=*"}},
+        { "not": {"selector_matches": ".do-not-prerender"}},
+        { "not": {"selector_matches": "[rel~=nofollow]"}}
+      ]
+    },
+    "eagerness":"moderate"
+  }]
+}
+</script>
+
+
+  <style>
+    #output {
+      text-wrap: pre;
+      font-family: monospace;
+    }
+  </style>
+</head>
+<body>
+  <h1>Example page (next.html)</h1>
+
+  <img class="1234" src="https://placecats.com/200/300" alt="A kitten">
+
+  <a href="next2.html">Next 2</a>
+  <a href="next3.html" rel="nofollow">Next 3</a>
+  <a href="next4.html" rel="nofollow sponsored">Next 4</a>
+  <a href="next4.html" rel="sponsored nofollow">Next 4</a>
+
+
+  <p>Debug info:</p>
+  <pre id="output1"></pre>
+
+  <p id="no-prerender">
+    If the page did not prerender, then it may be due to memory usage of your current Chrome browser. Try in a fresh Chrome.
+  </p>
+
+  <p id="finalise-lcp">
+    Click to finalise LCP
+  </p>
+  <pre id="output2"></pre>
+  <pre id="output3"></pre>
+  <pre id="output4"></pre>
+</body>
+</html>
+
+
