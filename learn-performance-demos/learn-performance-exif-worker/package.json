@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "description": "",
   "scripts": {
-    "deploy": "gsutil -m rsync -rd ./ gs://chrome-dev-demos/public/learn-performance-exif-worker"
+    "deploy": "gsutil -m rsync -rd ./ gs://chrome-dev-demos/public/learn_performance_exif_worker"
   },
   "repository": {
     "url": "https://github.com/GoogleChromeLabs/web-perf-demos/learn-performance-demos/learn-performance-exif-worker"
   },
-  "license": "Apache-2.0",
+  "license": "Apache-2.0"
 }
