@@ -80,7 +80,7 @@ onLCP(({ value, navigationType, attribution }) => {
       attribution.url.origin !== "https://www.tunetheweb.com" &&
       attribution.lcpEntry.renderTime === 0
      ) {
-    lcpExplanation.innerHTML = '<em><strong>Note:</strong> LCP image is cross-origin and <a href="./https://web.dev/articles/crux-and-rum-differences#cross-origin_resources">does not include render time<a/>!</em>';
+    lcpExplanation.innerHTML = '<em><strong>Note:</strong> LCP image is cross-origin and <a href="https://web.dev/articles/crux-and-rum-differences#cross-origin_resources">does not include render time<a/>!</em>';
   }
   document.getElementById('lcp_finalize')?.remove();
 }, {reportAllChanges: true});
@@ -97,4 +97,3 @@ window.addEventListener('pageshow', (event) => {
     updateSelector('#bfcache_count', bfcacheCounter);
   }
 });
-
