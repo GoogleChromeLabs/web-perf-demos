@@ -1,0 +1,11 @@
+{
+  "name": "horizontal_lazy_loading",
+  "version": "1.0.0",
+  "main": "index.html",
+  "scripts": {
+    "deploy": "gsutil -m rsync -rd ./ gs://chrome-dev-demos/public/horizontal-lazy-loading"
+  },
+  "author": "",
+  "license": "Apache-2.0",
+  "description": "A demo of a horizontal lazy loading showing when images are loaded as they approach the viewport"
+}
