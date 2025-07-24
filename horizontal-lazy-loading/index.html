@@ -1,0 +1,86 @@
+<!--
+ Copyright 2025 Google Inc. All Rights Reserved.
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Horizontal Scroll demo</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+</head>
+<body>
+  <h1 class="title">Horizontal Lazy Loading demo</h1>
+  <p>
+    Horizontally scroll the grey box slowly below with the console open and caching disabled. Note when the lazy-loaded images load.
+  </p>
+  <p>
+    In Chrome 120-, Safari and Firefox only the first image is loaded immediately and the rest of the images should load just before being scrolled on to the screen.
+    This is very late and often can result in a user-visible delay to the loading if the image is on screen before it's finished loading.
+  </p>
+  <p>
+    In Chrome 121+, the first 7 images* are loaded immediately as they are "near the viewport", and the rest are loaded as you scroll - well in advance of them being needed.
+  </p>
+  <p>
+    <em>* Depending on network type. Note, DevTools network emulation does not change this.</em>
+  </p>
+
+  <style>
+    #scroller {
+      width: 100px;
+      height: 100px;
+      overflow: scroll;
+      background-color: gray;
+      display: flex;
+    }
+
+    .target {
+      width: 100px;
+      height: 100px;
+      min-width: 100px;
+      margin-right: 10px;
+    }
+  </style>
+
+  <div id="scroller">
+    <img class="target" src="./illustration.svg?v=1618177344016" loading="lazy" onload="img_onload('1');">
+    <img class="target" src="./illustration.svg?v=1618177344016&image=2" loading="lazy" onload="img_onload('2');">
+    <img class="target" src="./illustration.svg?v=1618177344016&image=3" loading="lazy" onload="img_onload('3');">
+    <img class="target" src="./illustration.svg?v=1618177344016&image=4" loading="lazy" onload="img_onload('4');">
+    <img class="target" src="./illustration.svg?v=1618177344016&image=5" loading="lazy" onload="img_onload('5');">
+    <img class="target" src="./illustration.svg?v=1618177344016&image=6" loading="lazy" onload="img_onload('6');">
+    <img class="target" src="./illustration.svg?v=1618177344016&image=7" loading="lazy" onload="img_onload('7');">
+    <img class="target" src="./illustration.svg?v=1618177344016&image=8" loading="lazy" onload="img_onload('8');">
+    <img class="target" src="./illustration.svg?v=1618177344016&image=9" loading="lazy" onload="img_onload('9');">
+    <img class="target" src="./illustration.svg?v=1618177344016&image=10" loading="lazy" onload="img_onload('10');">
+  </div>
+  <p>
+    <em>
+      Source code maintained <a href="https://github.com/GoogleChromeLabs/web-perf-demos/tree/main/horizontal-lazy-loading">on GitHub</a>.
+      Based on <a href="https://gist.github.com/tcaptan-cr/bf0ac25f77cb6b6c58c916e6577d91c3">an original demo</a> by <a href="https://gist.github.com/tcaptan-cr">Traian Captan</a>.</a>
+    </em>
+  </p>
+
+  <script>
+    const scroller = document.querySelector('#scroller');
+
+    // Firefox remembers the scroll position on reload so lets reset this
+    if (scroller.scrollLeft != 0) {
+      scroller.scrollLeft = 0;
+    }
+    function img_onload(name) {
+      console.log(`Image ${name} hash loaded at ${scroller.scrollLeft}`);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,6 @@
+.gcloudignore
+.git
+.gitignore
+**/.DS_Store
+
+package.json
