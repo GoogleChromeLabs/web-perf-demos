@@ -21,6 +21,7 @@ trackAction('#output1', 'initial script execution', {
   'document.prerendering': document.prerendering,
   'activationStart': performance.getEntriesByType('navigation')[0].activationStart,
   'type': performance.getEntriesByType('navigation')[0].type,
+  'deliveryType': performance.getEntriesByType('navigation')[0].deliveryType,
 });
 
 onLCP(({ delta, navigationType }) => {
