@@ -1,0 +1,12 @@
+{
+  "name": "prerender-stats-demo-local-storage",
+  "version": "0.1.0",
+  "description": "",
+  "scripts": {
+    "deploy": "gsutil -m rsync -rd ./ gs://chrome-dev-demos/public/prerender-stats-demo-local-storage"
+  },
+  "repository": {
+    "url": "https://github.com/GoogleChromeLabs/web-perf-demos/prerender-stats-demo-local-storage"
+  },
+  "license": "Apache-2.0"
+}
