@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Prerendering with web-vitals: index</title>
+  <link id="favicon" rel="icon" href="./favicon.ico" type="image/x-icon" />
+  <script type="module" src="script.mjs"></script>
+
+</head>
+<body>
+
+  <h1>Start page</h1>
+
+  <p>
+    This demo uses local storage to register prerenders, and then reports
+    them (to the console, rather than via a beacon) from the calling page
+    when you switch tabs or navigate away.
+  </p>
+  <p>
+    If you navigate to a same-origin page, the console will report the
+    number of prerenders and activations for the referring page.
+  </p>
+  <p>
+    If you navigate to a cross-origin page, the totals will be logged in
+    the console. You will need to click back to see them.
+  </p>
+
+  <p>
+    <i>Note: this demo does not handle multiple tabs opening the same page.</i>
+  </p>
+
+  <p><a href="next.html">This link should be prerendered</a></p>
+  <p><a href="next2.html">This link should also be prerendered</a></p>
+  <p><a href="next3.html">This link should not be prerendered</a></p>
+  <p>Switch tabs to report prerenders early.</p>
+  <p><a href="https://www.example.com">This is a cross-origin link to example.com.</a></p>
+  <button id="refresh">Refresh the speculations</button>
+
+  <hr>
+
+  <pre id="output1"></pre>
+  <pre id="output2"></pre>
+  <pre id="output3"></pre>
+  <div id="output4"></div>
+
+  <hr>
+
+  <p><a href="https://glitch.com/edit/#!/prerender-stats-demo-local-storage">View the code on Glitch</a></p>
+
+</body>
+</html>
