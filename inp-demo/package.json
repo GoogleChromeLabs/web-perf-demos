@@ -17,7 +17,7 @@
   "license": "Apache-2.0",
   "scripts": {
     "start": "http-server public -p 4000",
-    "deploy": "gsutil -m rsync -rd public gs://chrome-dev-demos/public/inp-demo"
+    "deploy": "gcloud storage rsync --recursive --delete-unmatched-destination-objects public gs://chrome-dev-demos/public/inp-demo"
   },
   "dependencies": {
     "http-server": "^14.1.1"

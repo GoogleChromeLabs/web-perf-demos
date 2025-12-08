@@ -1,9 +1,9 @@
 {
-  "name": "prerender-demos",
+  "name": "event-logger",
   "version": "0.1.0",
   "description": "",
   "scripts": {
-    "deploy": "gcloud storage rsync --recursive --delete-unmatched-destination-objects ./ gs://chrome-dev-demos/public/prerender-demos"
+    "deploy": "gcloud storage rsync --recursive --delete-unmatched-destination-objects ./ gs://chrome-dev-demos/public/event-logger"
   },
   "repository": {
     "url": "https://github.com/GoogleChromeLabs/web-perf-demos/prerender-demos"
