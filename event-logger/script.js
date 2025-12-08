@@ -103,7 +103,7 @@ addEventListener('freeze', trackEvent, true);
 addEventListener('resume', trackEvent, true);
 addEventListener('beforeunload', trackEvent, true);
 addEventListener('load', trackEvent, true);
-// addEventListener('unload', trackEvent, true);
+addEventListener('unload', trackEvent, true);
 addEventListener('prerenderingchange', trackEvent, true);
 
 updateDisplayedState();
