@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "deploy": "gcloud functions deploy bfcache_no_store --runtime nodejs22 --trigger-http",
+    "deploy": "gcloud functions deploy bfcache_no_store --project=web-devrel-apps --runtime nodejs22 --trigger-http",
     "permission": "gcloud functions add-invoker-policy-binding bfcache_no_store --member='allUsers'",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

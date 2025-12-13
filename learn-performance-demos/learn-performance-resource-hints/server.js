@@ -88,7 +88,7 @@ fastify.get("/1", function (request, reply) {
   let params = {
     step: 1,
     title: "preconnect",
-    head: `<link rel="stylesheet" href="./style.css?delay=1000" />
+    head: `<link rel="preconnect" href="https://us-central1-web-devrel-apps.cloudfunctions.net"/><link rel="stylesheet" href="./style.css?delay=1000" />
 <script src="./gallery.js?delay=1000" defer></script>`,
     data: generateRandomString(2000, 2000),
   };
