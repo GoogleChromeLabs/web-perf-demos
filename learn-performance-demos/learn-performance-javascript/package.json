@@ -4,7 +4,7 @@
   "description": "Part of the Learn Performance series.",
   "main": "server.js",
   "scripts": {
-    "deploy": "gcloud functions deploy learn_performance_javascript --runtime nodejs22 --trigger-http",
+    "deploy": "gcloud functions deploy learn_performance_javascript --project=web-devrel-apps --runtime nodejs22 --trigger-http",
     "permission": "gcloud functions add-invoker-policy-binding learn_performance_javascript --member='allUsers'"
   },
   "dependencies": {

@@ -4,7 +4,7 @@
   "description": "Demo of etag, last-modified, and cache-control headers.",
   "main": "server.js",
   "scripts": {
-    "deploy": "gcloud functions deploy learn_performance_defer_images --runtime nodejs22 --trigger-http",
+    "deploy": "gcloud functions deploy learn_performance_defer_images --project=web-devrel-apps --runtime nodejs22 --trigger-http",
     "permission": "gcloud functions add-invoker-policy-binding learn_performance_defer_images --member='allUsers'"
   },
   "dependencies": {
