@@ -99,7 +99,7 @@ addEventListener('blur', trackEvent, true);
 addEventListener('visibilitychange', trackEvent, true);
 addEventListener('pagehide', trackEvent, true);
 addEventListener('pageshow', trackEvent, true);
-addEventListener('pagereview', trackEvent, true);
+addEventListener('pagereveal', trackEvent, true);
 addEventListener('pageswap', trackEvent, true);
 addEventListener('freeze', trackEvent, true);
 addEventListener('resume', trackEvent, true);
