@@ -45,7 +45,7 @@
           "prefetch": [
             {
               "where": {"href_matches": "/*"},
-              "eagerness": "eager"
+              "eagerness": "immediate"
             }
           ]
         }`;
@@ -59,6 +59,7 @@
       trackAction('#output2', 'Added speculationrules', document.querySelector('#speculationrules').text.replaceAll('\n','').replace(/  +/g,' '));
     }
     window.addEventListener('pageshow', (event) => {
+      console.log(event);
       // on bfcache restore, reinitialise the speculation rules to force another prerender
       const navigationType = performance.getEntriesByType('navigation')[0].type;
       // if (event.persisted || navigationType == 'back_forward' ) {

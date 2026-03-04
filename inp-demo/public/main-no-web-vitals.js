@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import {onINP} from 'https://unpkg.com/web-vitals@5.1.0/dist/web-vitals.js?module';
+// import {onINP} from 'https://unpkg.com/web-vitals@5.1.0/dist/web-vitals.js?module';
 
 const FRAME = 16; // Milliseconds per frame at 60hz
 const SPEED = 3000; // Milliseconds per one full revolution.
@@ -181,10 +181,10 @@ function initialize() {
   periodicBlock();
 
   // Log INP any time its value changes.
-  onINP((inp) => ($('#inp-value').innerHTML = inp.value), {
-    reportAllChanges: true,
-    durationThreshold: 0,
-  });
+  // onINP((inp) => ($('#inp-value').innerHTML = inp.value), {
+  //   reportAllChanges: true,
+  //   durationThreshold: 0,
+  // });
 }
 
 if (

@@ -99,6 +99,8 @@ addEventListener('blur', trackEvent, true);
 addEventListener('visibilitychange', trackEvent, true);
 addEventListener('pagehide', trackEvent, true);
 addEventListener('pageshow', trackEvent, true);
+addEventListener('pagereview', trackEvent, true);
+addEventListener('pageswap', trackEvent, true);
 addEventListener('freeze', trackEvent, true);
 addEventListener('resume', trackEvent, true);
 addEventListener('beforeunload', trackEvent, true);
