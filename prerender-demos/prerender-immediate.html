@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Prerendering with web-vitals: index</title>
+  <title>Moderate prefetch example</title>
   <link id="favicon" rel="icon" href="./favicon.ico" type="image/x-icon" />
 </head>
 <body>
@@ -10,22 +10,18 @@
   <h1>Start page</h1>
 
   <p><a href="next.html">This link should be prerendered</a></p>
-  <p><a href="next.html" target="_self">This is the same link but with <code>target="_self"</code></a></p>
-  <p><a href="next.html" target="_blank">This is the same link but with <code>target="_blank"</code></a></p>
-  <p><a href="next.html?param=1">This link should be prerendered</a></p>
-  <p><a href="next.html?param=2">This link should be prerendered</a></p>
-  <p><a href="next.html?param=3">This link should be prerendered</a></p>
-  <p><a href="next.html?param=4">This link should be prerendered</a></p>
-  <p><a href="next.html?param=5">This link should be prerendered</a></p>
-  <p><a href="next.html?param=6">This link should be prerendered</a></p>
-  <p><a href="next.html?param=7">This link should be prerendered</a></p>
-  <p><a href="next.html?param=8">This link should be prerendered</a></p>
-  <p><a href="next.html?param=9">This link should be prerendered</a></p>
-  <p><a href="next.html?param=10">This link should be prerendered</a></p>
-
-  <p>
-    Speculation Rules doesn't recognise <code>target="self"</code> as being same URL as not specifying a <code>target</code> despite them effecitvely being the same.
-  </p>
+  <p><a href="next2.html">This link should also be prerendered</a></p>
+  <p><a href="next4.html?test=1">This link should also be prerendered</a></p>
+  <p><a href="next4.html?test=2">This link should also be prerendered</a></p>
+  <p><a href="next4.html?test=3">This link should also be prerendered</a></p>
+  <p><a href="next4.html?test=4">This link should also be prerendered</a></p>
+  <p><a href="next4.html?test=5">This link should also be prerendered</a></p>
+  <p><a href="next4.html?test=6">This link should also be prerendered</a></p>
+  <p><a href="next4.html?test=7">This link should also be prerendered</a></p>
+  <p><a href="next4.html?test=8">This link should also be prerendered</a></p>
+  <p><a href="next4.html?test=9">This link should also be prerendered</a></p>
+  <p><a href="next4.html?test=10">This link should also be prerendered</a></p>
+  <p><a href="next4.html?test=11">This link should also be prerendered</a></p>
 
   <hr>
 
@@ -48,11 +44,8 @@
         {
           "prerender": [
             {
-              "source": "document",
-              "where": {
-                "href_matches": "/*"
-              },
-              "eagerness": "eager"
+              "where": {"href_matches": "/*"},
+              "eagerness": "immediate"
             }
           ]
         }`;
@@ -66,13 +59,14 @@
       trackAction('#output2', 'Added speculationrules', document.querySelector('#speculationrules').text.replaceAll('\n','').replace(/  +/g,' '));
     }
     window.addEventListener('pageshow', (event) => {
+      console.log(event);
       // on bfcache restore, reinitialise the speculation rules to force another prerender
       const navigationType = performance.getEntriesByType('navigation')[0].type;
-      if (event.persisted || navigationType == 'back_forward' ) {
-        document.querySelector('#speculationrules')?.remove();
-        addSpeculationRules();
-        trackAction('#output2', 'Page reactivated: re-added speculationrules', document.querySelector('#speculationrules').text.replaceAll('\n','').replace(/  +/g,' '));
-      }
+      // if (event.persisted || navigationType == 'back_forward' ) {
+      //   document.querySelector('#speculationrules')?.remove();
+      //   addSpeculationRules();
+      //   trackAction('#output2', 'Page reactivated: re-added speculationrules', document.querySelector('#speculationrules').text.replaceAll('\n','').replace(/  +/g,' '));
+      // }
     });
   </script>
 </body>

@@ -2,29 +2,18 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Prerendering with web-vitals: index</title>
+  <title>Prefetch example</title>
   <link id="favicon" rel="icon" href="./favicon.ico" type="image/x-icon" />
 </head>
 <body>
 
   <h1>Start page</h1>
 
-  <p><a href="next.html">This link should be prerendered</a></p>
-  <p><a href="next.html" target="_self">This is the same link but with <code>target="_self"</code></a></p>
-  <p><a href="next.html" target="_blank">This is the same link but with <code>target="_blank"</code></a></p>
-  <p><a href="next.html?param=1">This link should be prerendered</a></p>
-  <p><a href="next.html?param=2">This link should be prerendered</a></p>
-  <p><a href="next.html?param=3">This link should be prerendered</a></p>
-  <p><a href="next.html?param=4">This link should be prerendered</a></p>
-  <p><a href="next.html?param=5">This link should be prerendered</a></p>
-  <p><a href="next.html?param=6">This link should be prerendered</a></p>
-  <p><a href="next.html?param=7">This link should be prerendered</a></p>
-  <p><a href="next.html?param=8">This link should be prerendered</a></p>
-  <p><a href="next.html?param=9">This link should be prerendered</a></p>
-  <p><a href="next.html?param=10">This link should be prerendered</a></p>
-
+  <p><a href="next.html">This link should be prefetched and then prerendered on hover</a></p>
+  <p><a href="next2.html">This link should also be prefetched and then prerendered on hover</a></p>
   <p>
-    Speculation Rules doesn't recognise <code>target="self"</code> as being same URL as not specifying a <code>target</code> despite them effecitvely being the same.
+    <a href="https://www.example.com">This cross-origin link should also be prefetched</a><br>
+    (but only because it doesn't store cookies - so probably best not to prefetch cross-origin in general)
   </p>
 
   <hr>
@@ -46,13 +35,18 @@
       specScript.type = "speculationrules";
       specScript.textContent = `
         {
+          "prefetch": [
+            {
+              "tag": "prefetch-rule",
+              "urls": ["next.html", "next2.html", "next3.html", "https://www.example.com"],
+              "eagerness": "moderate"
+            }
+          ],
           "prerender": [
             {
-              "source": "document",
-              "where": {
-                "href_matches": "/*"
-              },
-              "eagerness": "eager"
+              "tag": "prerender-rule",
+              "urls": ["next.html", "next2.html", "next3.html", "https://www.example.com"],
+              "eagerness": "moderate"
             }
           ]
         }`;
