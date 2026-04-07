@@ -16,7 +16,7 @@
     "@vitejs/plugin-react": "^4.6.0"
   },
   "devDependencies": {
-    "vite": "^7.1.11"
+    "vite": "^7.3.2"
   },
   "browserslist": [
     ">0.2%",
