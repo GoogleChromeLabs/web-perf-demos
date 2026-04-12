@@ -18,15 +18,15 @@ export default function Nav() {
           </Link>
         </li>
         <li className={isOneActive ? "selected" : undefined}>
-          <Link href="./1?noslash">
-            <a href="./1?noslash">
+          <Link href="../1/">
+            <a href="../1/">
               <span className="step">Blocking</span>
             </a>
           </Link>
         </li>
         <li className={isTwoActive ? "selected" : undefined}>
-          <Link href="./2?noslash">
-            <a href="./2?noslash">
+          <Link href="../2/">
+            <a href="../2/">
               <span className="step">
                 <code>useTransition</code>
               </span>
@@ -34,8 +34,8 @@ export default function Nav() {
           </Link>
         </li>
         <li className={isThreeActive ? "selected" : undefined}>
-          <Link href="./3?noslash">
-            <a href="./3?noslash">
+          <Link href="../3/">
+            <a href="../3/">
               <span className="step">
                 <code>Yielding</code>
               </span>

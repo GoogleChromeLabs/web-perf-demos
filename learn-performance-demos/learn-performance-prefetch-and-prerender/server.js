@@ -96,7 +96,7 @@ fastify.get("/2/", function (request, reply) {
   let params = {
     step: 2,
     title: "Prefetch documents",
-    head: `<link rel="prefetch" as="document" href="./2-prefetch?noslash">`,
+    head: `<link rel="prefetch" as="document" href="../2-prefetch/">`,
   };
 
   reply.view(`/src/pages/${params.step}.hbs`, params);
