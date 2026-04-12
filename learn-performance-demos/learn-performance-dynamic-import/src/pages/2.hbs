@@ -25,16 +25,16 @@
   {{! prettier-ignore }}
   <p>
     <details>
-      <summary>View Source Code</summary>      
+      <summary>View Source Code</summary>
       <pre><code>document.querySelectorAll(&quot;form input&quot;).forEach((input) =&gt; {
   input.addEventListener(
     &quot;focus&quot;,
     async () =&gt; {
       const form = input.closest(&quot;form&quot;);
-      const { validate } = await import(&quot;./form-validation.js?delay=1000&quot;);
+      const { validate } = await import(&quot;../form-validation.js?delay=1000&quot;);
 
-      form.querySelector(&quot;[type=submit]&quot;).removeAttribute(&quot;disabled&quot;);              
-      form.addEventListener(&quot;submit&quot;, validate(form));        
+      form.querySelector(&quot;[type=submit]&quot;).removeAttribute(&quot;disabled&quot;);
+      form.addEventListener(&quot;submit&quot;, validate(form));
     },
     { once: true }
   );

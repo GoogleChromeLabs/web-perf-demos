@@ -82,9 +82,9 @@ fastify.get("/1/", function (request, reply) {
   let params = {
     step: 1,
     title: "Prefetch resources",
-    head: `<link rel="prefetch" as="script" href="./jquery.js" />
-<link rel="prefetch" as="script" href="./jquery-ui.js" />
-<link rel="prefetch" as="style" href="./jquery-ui.css" />`,
+    head: `<link rel="prefetch" as="script" href="../jquery.js" />
+<link rel="prefetch" as="script" href="../jquery-ui.js" />
+<link rel="prefetch" as="style" href="../jquery-ui.css" />`,
   };
 
   reply.view(`/src/pages/${params.step}.hbs`, params);
@@ -96,7 +96,7 @@ fastify.get("/2/", function (request, reply) {
   let params = {
     step: 2,
     title: "Prefetch documents",
-    head: `<link rel="prefetch" as="document" href="./2-prefetch?noslash">`,
+    head: `<link rel="prefetch" as="document" href="../2-prefetch/">`,
   };
 
   reply.view(`/src/pages/${params.step}.hbs`, params);
@@ -104,11 +104,11 @@ fastify.get("/2/", function (request, reply) {
   return reply;
 });
 
-fastify.get("/2/-prefetch", function (request, reply) {
+fastify.get("/2-prefetch/", function (request, reply) {
   let params = {
     step: 2,
     title: "Prefetch documents",
-    head: `<script src="./2-prefetch.js"></script>`,
+    head: `<script src="../2-prefetch.js"></script>`,
   };
 
   reply.view(`/src/pages/${params.step}-prefetch.hbs`, params);
@@ -127,11 +127,11 @@ fastify.get("/3/", function (request, reply) {
   return reply;
 });
 
-fastify.get("/3/-prefetch", function (request, reply) {
+fastify.get("/3-prefetch/", function (request, reply) {
   let params = {
     step: 3,
     title: "Speculation rules",
-    head: `<script src="./3-prefetch.js"></script>`,
+    head: `<script src="../3-prefetch.js"></script>`,
   };
 
   reply.view(`/src/pages/${params.step}-prefetch.hbs`, params);
@@ -150,11 +150,11 @@ fastify.get("/4/", function (request, reply) {
   return reply;
 });
 
-fastify.get("/4/-prerender", function (request, reply) {
+fastify.get("/4-prerender/", function (request, reply) {
   let params = {
     step: 4,
     title: "Prerender",
-    head: `<script src="./4-prerender.js"></script>`,
+    head: `<script src="../4-prerender.js"></script>`,
   };
 
   reply.view(`/src/pages/${params.step}-prerender.hbs`, params);

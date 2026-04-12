@@ -85,7 +85,7 @@ fastify.get("/1/", function (request, reply) {
     scripts: `<script type="module">
   const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
   if (!mediaQuery.matches) {
-    await import("./canvas-confetti.js?delay=1000");
+    await import("../canvas-confetti.js?delay=1000");
     document.getElementById("clickMe").addEventListener("click", () => {
       confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
     });
@@ -108,7 +108,7 @@ fastify.get("/2/", function (request, reply) {
       "focus",
       async () => {
         const form = input.closest("form");
-        const { validate } = await import("./form-validation.js?delay=1000");
+        const { validate } = await import("../form-validation.js?delay=1000");
 
         form.querySelector("[type=submit]").removeAttribute("disabled");
         form.addEventListener("submit", validate(form));

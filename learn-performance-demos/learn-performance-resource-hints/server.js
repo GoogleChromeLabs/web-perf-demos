@@ -88,8 +88,8 @@ fastify.get("/1/", function (request, reply) {
   let params = {
     step: 1,
     title: "preconnect",
-    head: `<link rel="preconnect" href="https://us-central1-web-devrel-apps.cloudfunctions.net"/><link rel="stylesheet" href="./style.css?delay=1000" />
-<script src="./gallery.js?delay=1000" defer></script>`,
+    head: `<link rel="preconnect" href="https://us-central1-web-devrel-apps.cloudfunctions.net"/><link rel="stylesheet" href="../style.css?delay=1000" />
+<script src="../gallery.js?delay=1000" defer></script>`,
     data: generateRandomString(2000, 2000),
   };
 
@@ -102,8 +102,8 @@ fastify.get("/2/", function (request, reply) {
   let params = {
     step: 2,
     title: "HTTP headers",
-    head: `<link rel="stylesheet" href="./style.css?delay=1000" />
-<script src="./gallery.js?delay=1000" defer></script>`,
+    head: `<link rel="stylesheet" href="../style.css?delay=1000" />
+<script src="../gallery.js?delay=1000" defer></script>`,
     data: generateRandomString(2000, 2000),
   };
 
@@ -117,10 +117,10 @@ fastify.get("/3/", function (request, reply) {
   let params = {
     step: 3,
     title: "preload",
-    head: `<link rel="stylesheet" href="./style.css?delay=1000" />
-<link rel="stylesheet" href="./background-image.css?delay=1000" />
-<link rel="preload" href="./image-1.jpg?v=1669198400523" as="image" />
-<script src="./gallery.js?delay=1000" defer></script>`,
+    head: `<link rel="stylesheet" href="../style.css?delay=1000" />
+<link rel="stylesheet" href="../background-image.css?delay=1000" />
+<link rel="preload" href="../image-1.jpg?v=1669198400523" as="image" />
+<script src="../gallery.js?delay=1000" defer></script>`,
     data: generateRandomString(2000, 2000),
   };
 
@@ -133,9 +133,9 @@ fastify.get("/4/", function (request, reply) {
   let params = {
     step: 4,
     title: "preload - img",
-    head: `<link rel="stylesheet" href="./style.css?delay=1000" />
-<link rel="preload" href="./image-1.jpg?v=1669198400523" as="image" />
-<script src="./gallery.js?delay=1000" defer></script>`,
+    head: `<link rel="stylesheet" href="../style.css?delay=1000" />
+<link rel="preload" href="../image-1.jpg?v=1669198400523" as="image" />
+<script src="../gallery.js?delay=1000" defer></script>`,
     data: generateRandomString(2000, 2000),
   };
 
@@ -148,9 +148,9 @@ fastify.get("/5/", function (request, reply) {
   let params = {
     step: 5,
     title: "fetchpriority",
-    head: `<link rel="stylesheet" href="./style.css?delay=1000" />
-<link rel="preload" href="./image-1.jpg?v=1669198400523" as="image" fetchpriority="high" />
-<script src="./gallery.js?delay=1000" defer></script>`,
+    head: `<link rel="stylesheet" href="../style.css?delay=1000" />
+<link rel="preload" href="../image-1.jpg?v=1669198400523" as="image" fetchpriority="high" />
+<script src="../gallery.js?delay=1000" defer></script>`,
     data: generateRandomString(2000, 2000),
   };
 

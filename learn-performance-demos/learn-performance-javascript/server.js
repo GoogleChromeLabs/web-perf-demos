@@ -82,8 +82,8 @@ fastify.get("/1/", function (request, reply) {
   let params = {
     step: 1,
     title: "blocking - head",
-    head: `<script src="./script.js?delay=1000"></script>
-<link rel="stylesheet" href="./style.css" />`,
+    head: `<script src="../script.js?delay=1000"></script>
+<link rel="stylesheet" href="../style.css" />`,
   };
 
   reply.view("/src/pages/1.hbs", params);
@@ -112,7 +112,7 @@ fastify.get("/2/", function (request, reply) {
     console.log("setTimeout");
   }, 1000);
 </script>
-<link rel="stylesheet" href="./style.css" />`,
+<link rel="stylesheet" href="../style.css" />`,
   };
 
   reply.view("/src/pages/2.hbs", params);
@@ -124,7 +124,7 @@ fastify.get("/3/", function (request, reply) {
   let params = {
     step: 3,
     title: "blocking - inverted",
-    head: `<link rel="stylesheet" href="./style.css" />
+    head: `<link rel="stylesheet" href="../style.css" />
 <script>
   // block main thread for N milliseconds
   function sleep(n) {
@@ -153,9 +153,9 @@ fastify.get("/4/", function (request, reply) {
   let params = {
     step: 4,
     title: "blocking - body",
-    head: `<link rel="stylesheet" href="./style.css" />`,
+    head: `<link rel="stylesheet" href="../style.css" />`,
     data: generateRandomString(500, 500),
-    scripts: `<script src="./script.js?delay=1000"></script>`
+    scripts: `<script src="../script.js?delay=1000"></script>`
   };
 
   reply.view("/src/pages/4.hbs", params);
@@ -167,8 +167,8 @@ fastify.get("/5/", function (request, reply) {
   let params = {
     step: 5,
     title: "async",
-    head: `<link rel="stylesheet" href="./style.css" />
-<script src="./script.js?delay=500" async></script>`,
+    head: `<link rel="stylesheet" href="../style.css" />
+<script src="../script.js?delay=500" async></script>`,
     data: generateRandomString(2000, 2000),
   };
 
@@ -181,8 +181,8 @@ fastify.get("/6/", function (request, reply) {
   let params = {
     step: 6,
     title: "defer",
-    head: `<link rel="stylesheet" href="./style.css" />
-<script src="./script.js?delay=1000" async></script>`,
+    head: `<link rel="stylesheet" href="../style.css" />
+<script src="../script.js?delay=1000" async></script>`,
     data: generateRandomString(500, 500),
   };
 
@@ -195,8 +195,8 @@ fastify.get("/7/", function (request, reply) {
   let params = {
     step: 7,
     title: "module",
-    head: `<link rel="stylesheet" href="./style.css" />
-<script src="./module.js?delay=1000" type="module"></script>`,
+    head: `<link rel="stylesheet" href="../style.css" />
+<script src="../module.js?delay=1000" type="module"></script>`,
     data: generateRandomString(500, 500),
   };
 
@@ -209,8 +209,8 @@ fastify.get("/8/", function (request, reply) {
   let params = {
     step: 8,
     title: "module - import",
-    head: `<link rel="stylesheet" href="./style.css" />
-<script src="./module-import.js?delay=1000" type="module"></script>`,
+    head: `<link rel="stylesheet" href="../style.css" />
+<script src="../module-import.js?delay=1000" type="module"></script>`,
     data: generateRandomString(500, 500),
   };
 
@@ -223,8 +223,8 @@ fastify.get("/9/", function (request, reply) {
   let params = {
     step: 9,
     title: "module - async",
-    head: `<link rel="stylesheet" href="./style.css" />
-<script src="./module.js?delay=10" type="module" async></script>`,
+    head: `<link rel="stylesheet" href="../style.css" />
+<script src="../module.js?delay=10" type="module" async></script>`,
     data: generateRandomString(2000, 2000),
   };
 

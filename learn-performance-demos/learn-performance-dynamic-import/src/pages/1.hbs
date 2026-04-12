@@ -34,10 +34,10 @@
   {{! prettier-ignore }}
   <p>
     <details>
-      <summary>View Source Code</summary>      
+      <summary>View Source Code</summary>
       <pre><code>const mediaQuery = window.matchMedia(&#39;(prefers-reduced-motion: reduce)&#39;);
-  if (!mediaQuery.matches) { 
-    await import(&quot;./canvas-confetti.js?delay=1000&quot;);
+  if (!mediaQuery.matches) {
+    await import(&quot;../canvas-confetti.js?delay=1000&quot;);
     document.getElementById(&quot;clickMe&quot;).addEventListener(&quot;click&quot;, () =&gt; {
       confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
     });

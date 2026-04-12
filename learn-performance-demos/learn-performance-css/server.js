@@ -88,8 +88,8 @@ fastify.get("/1/", function (request, reply) {
   let params = {
     step: 1,
     title: "FOUC",
-    scripts: `<script src="./script.js?delay=500"></script>
-<link rel="stylesheet" href="./style.css?delay=2000" />`,
+    scripts: `<script src="../script.js?delay=500"></script>
+<link rel="stylesheet" href="../style.css?delay=2000" />`,
   };
 
   reply.view("/src/pages/1.hbs", params);
@@ -99,9 +99,9 @@ fastify.get("/2/", function (request, reply) {
   let params = {
     step: 2,
     title: "Partial FOUC",
-    head: `<link rel="stylesheet" href="./style.css?delay=1000" />`,
-    scripts: `<script src="./script.js?delay=500"></script>
-<link rel="stylesheet" href="./demo.css?delay=2000" />`,
+    head: `<link rel="stylesheet" href="../style.css?delay=1000" />`,
+    scripts: `<script src="../script.js?delay=500"></script>
+<link rel="stylesheet" href="../demo.css?delay=2000" />`,
   };
 
   reply.view("/src/pages/2.hbs", params);
@@ -111,8 +111,8 @@ fastify.get("/3/", function (request, reply) {
   let params = {
     step: 3,
     title: "@import",
-    head: `<link rel="stylesheet" href="./import.css?delay=1000" />`,
-    scripts: `<script src="./script.js?delay=500"></script>`,
+    head: `<link rel="stylesheet" href="../import.css?delay=1000" />`,
+    scripts: `<script src="../script.js?delay=500"></script>`,
   };
 
   reply.view("/src/pages/3.hbs", params);
@@ -122,9 +122,9 @@ fastify.get("/4/", function (request, reply) {
   let params = {
     step: 4,
     title: "@import - link",
-    head: `<link rel="stylesheet" href="./vars.css?delay=1000" />
-<link rel="stylesheet" href="./import-link.css?delay=1000" />`,
-    scripts: `<script src="./script.js?delay=500"></script>`,
+    head: `<link rel="stylesheet" href="../vars.css?delay=1000" />
+<link rel="stylesheet" href="../import-link.css?delay=1000" />`,
+    scripts: `<script src="../script.js?delay=500"></script>`,
   };
 
   reply.view("/src/pages/4.hbs", params);
@@ -134,12 +134,12 @@ fastify.get("/5/", function (request, reply) {
   let params = {
     step: 5,
     title: "@import - preload",
-    head: `<link rel="preload" href="./vars.css?delay=1000" as="style" />
-<link rel="stylesheet" href="./import.css?delay=1000" />`,
-    scripts: `<script src="./script.js?delay=500"></script>`,
+    head: `<link rel="preload" href="../vars.css?delay=1000" as="style" />
+<link rel="stylesheet" href="../import.css?delay=1000" />`,
+    scripts: `<script src="../script.js?delay=500"></script>`,
   };
 
-  reply.view("./src/pages/5.hbs", params);
+  reply.view("/src/pages/5.hbs", params);
 });
 
 /** end: routes **/
