@@ -60,7 +60,7 @@
         const [,cssModule] = await Promise.all([
           import("../jquery-ui.js"),
           import("../jquery-ui.css", {
-            assert: { type: 'css' }
+            with: { type: 'css' }
           })
         ]);
         document.adoptedStyleSheets = [cssModule.default];
