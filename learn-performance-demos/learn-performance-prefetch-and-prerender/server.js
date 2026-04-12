@@ -82,7 +82,7 @@ fastify.get("/1/", function (request, reply) {
   let params = {
     step: 1,
     title: "Prefetch resources",
-    head: `<link rel="prefetch" as="script" href="./jquery.js" />
+    head: `<link rel="prefetch" as="script" href="../jquery.js" />
 <link rel="prefetch" as="script" href="../jquery-ui.js" />
 <link rel="prefetch" as="style" href="../jquery-ui.css" />`,
   };
