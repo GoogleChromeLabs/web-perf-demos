@@ -90,8 +90,8 @@ fastify.get("/1/", function (request, reply) {
   let params = {
     step: 1,
     title: "Web Font",
-    head: `<link rel='stylesheet' href='./dancing-script.css'>
-<link rel="stylesheet" href="./style.css?delay=300">`
+    head: `<link rel='stylesheet' href='../dancing-script.css'>
+<link rel="stylesheet" href="../style.css?delay=300">`
   };
 
   reply.view(`/src/pages/${params.step}.hbs`, params);
@@ -103,9 +103,9 @@ fastify.get("/2/", function (request, reply) {
   let params = {
     step: 2,
     title: "preload",
-    head: `<link rel="preload" as="font" href="./DancingScript-Regular.woff2?v=1676325285146" crossorigin>
-<link rel='stylesheet' href='./dancing-script.css'>
-<link rel="stylesheet" href="./style.css?delay=300">`
+    head: `<link rel="preload" as="font" href="../DancingScript-Regular.woff2?v=1676325285146" crossorigin>
+<link rel='stylesheet' href='../dancing-script.css'>
+<link rel="stylesheet" href="../style.css?delay=300">`
   };
 
   reply.view(`/src/pages/${params.step}.hbs`, params);
@@ -117,9 +117,9 @@ fastify.get("/3/", function (request, reply) {
   let params = {
     step: 3,
     title: "Unused preload",
-    head: `<link rel="preload" as="font" href="./DancingScript-Regular.woff2?v=1676325285146">
-<link rel='stylesheet' href='./dancing-script.css'>
-<link rel="stylesheet" href="./style.css?delay=300">`
+    head: `<link rel="preload" as="font" href="../DancingScript-Regular.woff2?v=1676325285146">
+<link rel='stylesheet' href='../dancing-script.css'>
+<link rel="stylesheet" href="../style.css?delay=300">`
   };
 
   reply.view(`/src/pages/${params.step}.hbs`, params);
@@ -134,7 +134,7 @@ fastify.get("/4/", function (request, reply) {
     head: `<style>
 @font-face {
   font-family: "Dancing Script";
-  src: url("./DancingScript-Regular.woff2?v=1676325285146");
+  src: url("../DancingScript-Regular.woff2?v=1676325285146");
 }
 
 html {
@@ -450,15 +450,15 @@ fastify.get("/5/", function (request, reply) {
     head: `<style>
 @font-face {
   font-family: "Dancing Script";
-  src: url("./DancingScript-Regular.woff2?v=1676325285146");
+  src: url("../DancingScript-Regular.woff2?v=1676325285146");
 }
 
 .fancy {
   font-family: "Dancing Script", sans-serif;
 }
 </style>
-<link rel="stylesheet" href="./style.css?delay=300">
-<script src="./script.js?delay=600"></script>`
+<link rel="stylesheet" href="../style.css?delay=300">
+<script src="../script.js?delay=600"></script>`
   };
 
   reply.view(`/src/pages/${params.step}.hbs`, params);
@@ -470,19 +470,19 @@ fastify.get("/6/", function (request, reply) {
   let params = {
     step: 6,
     title: "Inline @font-face and preload",
-    head: `<link rel="preload" as="font" href="./DancingScript-Regular.woff2?v=1676325285146" crossorigin>
+    head: `<link rel="preload" as="font" href="../DancingScript-Regular.woff2?v=1676325285146" crossorigin>
 <style>
   @font-face {
     font-family: "Dancing Script";
-    src: url("./DancingScript-Regular.woff2?v=1676325285146");
+    src: url("../DancingScript-Regular.woff2?v=1676325285146");
   }
 
   .fancy {
     font-family: "Dancing Script", sans-serif;
   }
 </style>
-<link rel="stylesheet" href="./style.css?delay=300">
-<script src="./script.js?delay=600"></script>`
+<link rel="stylesheet" href="../style.css?delay=300">
+<script src="../script.js?delay=600"></script>`
   };
 
   reply.view(`/src/pages/${params.step}.hbs`, params);
@@ -494,7 +494,7 @@ fastify.get("/7/", function (request, reply) {
   let params = {
     step: 7,
     title: "Google Fonts",
-    head: `<link rel="stylesheet" href="./style.css?delay=300">
+    head: `<link rel="stylesheet" href="../style.css?delay=300">
 <link href="https://fonts.googleapis.com/css2?family=Dancing+Script" rel="stylesheet">
 <style>
 .fancy {
@@ -514,7 +514,7 @@ fastify.get("/8/", function (request, reply) {
     title: "Google Fonts with preconnect",
     head: `<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="./style.css?delay=300">
+<link rel="stylesheet" href="../style.css?delay=300">
 <link href="https://fonts.googleapis.com/css2?family=Dancing+Script" rel="stylesheet">
 <style>
 .fancy {
@@ -532,8 +532,8 @@ fastify.get("/9/", function (request, reply) {
   let params = {
     step: 9,
     title: "font-display: swap",
-    head: `<link rel='stylesheet' href='./dancing-script-swap.css'>
-<link rel="stylesheet" href="./style.css?delay=300">`
+    head: `<link rel='stylesheet' href='../dancing-script-swap.css'>
+<link rel="stylesheet" href="../style.css?delay=300">`
   };
 
   reply.view(`/src/pages/${params.step}.hbs`, params);
@@ -545,8 +545,8 @@ fastify.get("/10/", function (request, reply) {
   let params = {
     step: 10,
     title: "font-display: optional",
-    head: `<link rel='stylesheet' href='./dancing-script-optional.css'>
-<link rel="stylesheet" href="./style.css?delay=300">`
+    head: `<link rel='stylesheet' href='../dancing-script-optional.css'>
+<link rel="stylesheet" href="../style.css?delay=300">`
   };
 
   reply.view(`/src/pages/${params.step}.hbs`, params);

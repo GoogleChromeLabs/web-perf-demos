@@ -1,7 +1,7 @@
 <ol>
-  <li {{#unless step}}selected{{/unless}}><a href="./"><span class="step">Welcome</span></a></li>
-  <li {{#ifeq step 1}}selected{{/ifeq}}><a href="./1?noslash"><span class="step">Prefetch resources</span></a></li>
-  <li {{#ifeq step 2}}selected{{/ifeq}}><a href="./2?noslash"><span class="step">Prefetch documents</span></a></li>
-  <li {{#ifeq step 3}}selected{{/ifeq}}><a href="./3?noslash"><span class="step">Speculation Rules</span></a></li>
-  <li {{#ifeq step 4}}selected{{/ifeq}}><a href="./4?noslash"><span class="step">Prerender</span></a></li>
+  <li {{#unless step}}selected{{/unless}}><a href="{{#if step}}../{{else}}./{{/if}}"><span class="step">Welcome</span></a></li>
+  <li {{#ifeq step 1}}selected{{/ifeq}}><a href="{{#if step}}../1/{{else}}./1/{{/if}}"><span class="step">Prefetch resources</span></a></li>
+  <li {{#ifeq step 2}}selected{{/ifeq}}><a href="{{#if step}}../2/{{else}}./2/{{/if}}"><span class="step">Prefetch documents</span></a></li>
+  <li {{#ifeq step 3}}selected{{/ifeq}}><a href="{{#if step}}../3/{{else}}./3/{{/if}}"><span class="step">Speculation Rules</span></a></li>
+  <li {{#ifeq step 4}}selected{{/ifeq}}><a href="{{#if step}}../4/{{else}}./4/{{/if}}"><span class="step">Prerender</span></a></li>
 </ol>

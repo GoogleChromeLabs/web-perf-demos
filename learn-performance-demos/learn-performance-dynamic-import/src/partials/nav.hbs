@@ -1,5 +1,5 @@
 <ol>
-  <li {{#unless step}}selected{{/unless}}><a href="./"><span class="step">Welcome</span></a></li>
-  <li {{#ifeq step 1}}selected{{/ifeq}}><a href="./1?noslash"><span class="step">Conditional&nbsp;<code>import()</code></span></a></li>
-  <li {{#ifeq step 2}}selected{{/ifeq}}><a href="./2?noslash"><span class="step"><code>import()</code>&nbsp;on interaction</span></a></li>
+  <li {{#unless step}}selected{{/unless}}><a href="{{#if step}}../{{else}}./{{/if}}"><span class="step">Welcome</span></a></li>
+  <li {{#ifeq step 1}}selected{{/ifeq}}><a href="{{#if step}}../1/{{else}}./1/{{/if}}"><span class="step">Conditional&nbsp;<code>import()</code></span></a></li>
+  <li {{#ifeq step 2}}selected{{/ifeq}}><a href="{{#if step}}../2/{{else}}./2/{{/if}}"><span class="step"><code>import()</code>&nbsp;on interaction</span></a></li>
 </ol>

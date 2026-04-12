@@ -53,7 +53,7 @@ fastify.get("/1/", function (request, reply) {
   let params = {
     step: 1,
     title: "loading=\"lazy\"",
-    head: `<script src="./script.js" defer></script>`
+    head: `<script src="../script.js" defer></script>`
   };
 
   reply.view(`/src/pages/${params.step}.hbs`, params);
@@ -63,7 +63,7 @@ fastify.get("/2/", function (request, reply) {
   let params = {
     step: 2,
     title: "Hidden IFrames",
-    head: `<script src="./script.js" defer></script>`
+    head: `<script src="../script.js" defer></script>`
   };
 
   reply.view(`/src/pages/${params.step}.hbs`, params);

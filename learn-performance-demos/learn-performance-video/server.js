@@ -173,8 +173,8 @@ fastify.get("/6/", function (request, reply) {
   let params = {
     step: 6,
     title: "lite-youtube-embed",
-    head: `<link rel="stylesheet" href="./lite-yt-embed.css">
-<script src="./lite-yt-embed.js"></script>`
+    head: `<link rel="stylesheet" href="../lite-yt-embed.css">
+<script src="../lite-yt-embed.js"></script>`
   };
 
   reply.view("/src/pages/6.hbs", params);
@@ -186,7 +186,7 @@ fastify.get("/7/", function (request, reply) {
   let params = {
     step: 7,
     title: "fetchpriority on poster image",
-    head: `<script src="./script.js?delay=300"></script>`
+    head: `<script src="../script.js?delay=300"></script>`
   };
 
   reply.view("/src/pages/7.hbs", params);
