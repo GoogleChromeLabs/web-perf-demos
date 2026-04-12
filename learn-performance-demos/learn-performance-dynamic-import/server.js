@@ -78,7 +78,7 @@ fastify.get("/", function (request, reply) {
 });
 
 /** start: routes **/
-fastify.get("/1", function (request, reply) {
+fastify.get("/1/", function (request, reply) {
   let params = {
     step: 1,
     title: "Conditional import()",
@@ -98,7 +98,7 @@ fastify.get("/1", function (request, reply) {
   return reply;
 });
 
-fastify.get("/2", function (request, reply) {
+fastify.get("/2/", function (request, reply) {
   let params = {
     step: 2,
     title: "import() on user interaction",

@@ -49,7 +49,7 @@ fastify.get("/", function (request, reply) {
 });
 
 
-fastify.get("/1", function (request, reply) {
+fastify.get("/1/", function (request, reply) {
   let params = {
     step: 1,
     title: "loading=\"lazy\"",
@@ -59,7 +59,7 @@ fastify.get("/1", function (request, reply) {
   reply.view(`/src/pages/${params.step}.hbs`, params);
 });
 
-fastify.get("/2", function (request, reply) {
+fastify.get("/2/", function (request, reply) {
   let params = {
     step: 2,
     title: "Hidden IFrames",

@@ -81,104 +81,104 @@ fastify.get("/", function (request, reply) {
     title: "Learn Performance - Images",
   };
 
-  reply.view("/src/pages/index.hbs", params);
+  reply.view("src/pages/index.hbs", params);
 
   return reply;
 });
 
 /** start: demo routes **/
-fastify.get("/1", function (request, reply) {
+fastify.get("/1//", function (request, reply) {
   let params = {
     step: 1,
     title: "The <img> element",
     head: `<script src="./script.js" defer></script>`
   };
 
-  reply.view("/src/pages/1.hbs", params);
+  reply.view("src/pages/1.hbs", params);
 
   return reply;
 });
 
-fastify.get("/2", function (request, reply) {
+fastify.get("/2//", function (request, reply) {
   let params = {
     step: 2,
     title: "srcset",
     head: `<script src="./script.js" defer></script>`
   };
 
-  reply.view("/src/pages/2.hbs", params);
+  reply.view("src/pages/2.hbs", params);
 
   return reply;
 });
 
-fastify.get("/3", function (request, reply) {
+fastify.get("/3//", function (request, reply) {
   let params = {
     step: 3,
     title: "sizes",
     head: `<script src="./script.js" defer></script>`
   };
 
-  reply.view("/src/pages/3.hbs", params);
+  reply.view("src/pages/3.hbs", params);
 
   return reply;
 });
 
-fastify.get("/4", function (request, reply) {
+fastify.get("/4//", function (request, reply) {
   let params = {
     step: 4,
     title: "Lossy compression",
     head: `<script src="./script.js" defer></script>`
   };
 
-  reply.view("/src/pages/4.hbs", params);
+  reply.view("src/pages/4.hbs", params);
 
   return reply;
 });
 
-fastify.get("/5", function (request, reply) {
+fastify.get("/5//", function (request, reply) {
   let params = {
     step: 5,
     title: "Lossless compression",
     head: `<script src="./script.js" defer></script>`
   };
 
-  reply.view("/src/pages/5.hbs", params);
+  reply.view("src/pages/5.hbs", params);
 
   return reply;
 });
 
-fastify.get("/6", function (request, reply) {
+fastify.get("/6//", function (request, reply) {
   let params = {
     step: 6,
     title: "The picture element",
     head: `<script src="./script.js" defer></script>`
   };
 
-  reply.view("/src/pages/6.hbs", params);
+  reply.view("src/pages/6.hbs", params);
 
   return reply;
 });
 
-fastify.get("/7", function (request, reply) {
+fastify.get("/7//", function (request, reply) {
   let params = {
     step: 7,
     title: "The picture element and srcset",
     head: `<script src="./script.js" defer></script>`
   };
 
-  reply.view("/src/pages/7.hbs", params);
+  reply.view("src/pages/7.hbs", params);
 
   return reply;
 });
 
-fastify.get("/8", function (request, reply) {
+fastify.get("/8//", function (request, reply) {
   let params = {
     step: 8,
     title: "Accept header",
     head: `<script src="./script.js" defer></script>`
   };
 
-  reply.view("/src/pages/8.hbs", params);
+  reply.view("src/pages/8.hbs", params);
 
   return reply;
 });

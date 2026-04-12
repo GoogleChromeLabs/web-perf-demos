@@ -78,7 +78,7 @@ fastify.get("/", function (request, reply) {
 });
 
 /** start: demo routes **/
-fastify.get("/1", function (request, reply) {
+fastify.get("/1/", function (request, reply) {
   let params = {
     step: 1,
     title: "blocking - head",
@@ -91,7 +91,7 @@ fastify.get("/1", function (request, reply) {
   return reply;
 });
 
-fastify.get("/2", function (request, reply) {
+fastify.get("/2/", function (request, reply) {
   let params = {
     step: 2,
     title: "blocking - inline",
@@ -120,7 +120,7 @@ fastify.get("/2", function (request, reply) {
   return reply;
 });
 
-fastify.get("/3", function (request, reply) {
+fastify.get("/3/", function (request, reply) {
   let params = {
     step: 3,
     title: "blocking - inverted",
@@ -149,7 +149,7 @@ fastify.get("/3", function (request, reply) {
   return reply;
 });
 
-fastify.get("/4", function (request, reply) {
+fastify.get("/4/", function (request, reply) {
   let params = {
     step: 4,
     title: "blocking - body",
@@ -163,7 +163,7 @@ fastify.get("/4", function (request, reply) {
   return reply;
 });
 
-fastify.get("/5", function (request, reply) {
+fastify.get("/5/", function (request, reply) {
   let params = {
     step: 5,
     title: "async",
@@ -177,7 +177,7 @@ fastify.get("/5", function (request, reply) {
   return reply;
 });
 
-fastify.get("/6", function (request, reply) {
+fastify.get("/6/", function (request, reply) {
   let params = {
     step: 6,
     title: "defer",
@@ -191,7 +191,7 @@ fastify.get("/6", function (request, reply) {
   return reply;
 });
 
-fastify.get("/7", function (request, reply) {
+fastify.get("/7/", function (request, reply) {
   let params = {
     step: 7,
     title: "module",
@@ -205,7 +205,7 @@ fastify.get("/7", function (request, reply) {
   return reply;
 });
 
-fastify.get("/8", function (request, reply) {
+fastify.get("/8/", function (request, reply) {
   let params = {
     step: 8,
     title: "module - import",
@@ -219,7 +219,7 @@ fastify.get("/8", function (request, reply) {
   return reply;
 });
 
-fastify.get("/9", function (request, reply) {
+fastify.get("/9/", function (request, reply) {
   let params = {
     step: 9,
     title: "module - async",

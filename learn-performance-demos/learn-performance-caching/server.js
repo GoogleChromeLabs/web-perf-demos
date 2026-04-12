@@ -85,7 +85,7 @@ fastify.get("/", function (request, reply) {
 });
 
 /** start: demo routes **/
-fastify.get("/1", function (request, reply) {
+fastify.get("/1/", function (request, reply) {
   let params = {
     step: 1,
     title: "no-store",
@@ -100,7 +100,7 @@ fastify.get("/1", function (request, reply) {
   reply.view("/src/pages/1.hbs", params);
 });
 
-fastify.get("/2", function (request, reply) {
+fastify.get("/2/", function (request, reply) {
   let params = {
     step: 2,
     time: getTime(new Date()),
@@ -123,7 +123,7 @@ fastify.get("/2", function (request, reply) {
   }
 });
 
-fastify.get("/3", function (request, reply) {
+fastify.get("/3/", function (request, reply) {
   const time = getTime(new Date());
 
   let params = {
@@ -146,7 +146,7 @@ fastify.get("/3", function (request, reply) {
   }
 });
 
-fastify.get("/4", function (request, reply) {
+fastify.get("/4/", function (request, reply) {
   let params = {
     step: 4,
     time: getTime(new Date()),

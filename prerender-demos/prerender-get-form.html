@@ -2,33 +2,68 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Prefetch example</title>
+  <title>GET form example</title>
   <link id="favicon" rel="icon" href="./favicon.ico" type="image/x-icon" />
 
-
-  <script type="speculationrules">
-{
-  "prerender": [{
-    "urls": ["next.html?"],
-    "form_submission": true
-  }]
-}
-</script>
+  <meta http-equiv="origin-trial" content="Aqh8Mf5Ukkjn5hz14kIvERPvfW2pl/Q+jQcVNjHqmMRGAWsdHYt+RHbce1FTmOKIBSywWYQnVEJLj1h5ETUAYAwAAABneyJvcmlnaW4iOiJodHRwczovL2Nocm9tZS5kZXY6NDQzIiwiZmVhdHVyZSI6IlByZXJlbmRlckFjdGl2YXRpb25CeUZvcm1TdWJtaXNzaW9uIiwiZXhwaXJ5IjoxNzg4ODI1NjAwfQ==">
 
 </head>
 <body>
 
   <h1>Start page</h1>
 
-  <p><a href="next.html?">This link should be prerender</a></p>
-  <form action="next.html" method="GET">
-    <button type="submit">Make a GET request to use a prerender</button>
+
+    <script type="speculationrules">
+    {
+      "prerender": [
+        {
+          "urls": ["next.html?q=Porsche"]
+        },
+        {
+          "urls": ["next.html?"],
+          "form_submission": true
+        },
+        {
+          "urls": ["next.html?q=Ferrari"],
+          "form_submission": true
+        },
+        {
+          "urls": ["next.html?q=Ferrari&q2=Car"],
+          "form_submission": true
+        }
+      ]
+    }
+    </script>
+
+
+  <h2>Link with URL param - this works!</h2>
+  <a href="next.html?q=Porsche">Link</a>
+
+  <hr>
+
+  <h2>Form with no params - this works!</h2>
+  <form action="/prerender-demos/next.html" method="GET">
+    <button id="search-button" type="submit">Make a GET request to use a prerender</button>
   </form>
 
   <hr>
 
-  <pre id="output1"></pre>
-  <pre id="output2"></pre>
+  <h2>Form with one param - this doesn't work :-(</h2>
+  <p>This form's action should be prerendered on page load</p>
+  <form action="/prerender-demos/next.html" method="GET">
+    <input name="q" id="q" class="qs" size="37" value="Ferrari" autocomplete="off" aria-label="Search">
+    <button id="search-button" type="submit">Make a GET request to use a prerender</button>
+  </form>
+
+  <hr>
+
+  <h2>Form with two params - this works!</h2>
+  <p>This form's action should be prerendered on page load</p>
+  <form action="/prerender-demos/next.html" method="GET">
+    <input name="q" id="q" class="qs" size="37" value="Ferrari" autocomplete="off" aria-label="Search">
+    <input name="q2" id="q2" class="qs" size="37" value="Car" autocomplete="off" aria-label="Search2">
+    <button id="search-button" type="submit">Make a GET request to use a prerender</button>
+  </form>
 
   <hr>
 

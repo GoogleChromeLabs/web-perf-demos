@@ -114,7 +114,7 @@ fastify.get("/", function (request, reply) {
 });
 
 /** start: demo routes **/
-fastify.get("/1", function (request, reply) {
+fastify.get("/1/", function (request, reply) {
   let params = {
     step: 1,
     title: "The video element",
@@ -125,7 +125,7 @@ fastify.get("/1", function (request, reply) {
   return reply;
 });
 
-fastify.get("/2", function (request, reply) {
+fastify.get("/2/", function (request, reply) {
   let params = {
     step: 2,
     title: "preload"
@@ -136,7 +136,7 @@ fastify.get("/2", function (request, reply) {
   return reply;
 });
 
-fastify.get("/3", function (request, reply) {
+fastify.get("/3/", function (request, reply) {
   let params = {
     step: 3,
     title: "autoplay"
@@ -147,7 +147,7 @@ fastify.get("/3", function (request, reply) {
   return reply;
 });
 
-fastify.get("/4", function (request, reply) {
+fastify.get("/4/", function (request, reply) {
   let params = {
     step: 4,
     title: "GIF replacement"
@@ -158,7 +158,7 @@ fastify.get("/4", function (request, reply) {
   return reply;
 });
 
-fastify.get("/5", function (request, reply) {
+fastify.get("/5/", function (request, reply) {
   let params = {
     step: 5,
     title: "YouTube embed"
@@ -169,7 +169,7 @@ fastify.get("/5", function (request, reply) {
   return reply;
 });
 
-fastify.get("/6", function (request, reply) {
+fastify.get("/6/", function (request, reply) {
   let params = {
     step: 6,
     title: "lite-youtube-embed",
@@ -182,7 +182,7 @@ fastify.get("/6", function (request, reply) {
   return reply;
 });
 
-fastify.get("/7", function (request, reply) {
+fastify.get("/7/", function (request, reply) {
   let params = {
     step: 7,
     title: "fetchpriority on poster image",

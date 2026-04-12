@@ -28,7 +28,7 @@ function getStoredState() {
 const windowId = Math.floor(Math.random() * (9e12 - 1)) + 1e12;
 
 
-function appendStoredState(event, target, visibilityState, date, windowId) {
+function appendStoredState(event, target, visibilityState, date, windowId, extraInfo) {
   var stateHistory = getStoredState();
 
   stateHistory.push({event: event, target: target, visibilityState: visibilityState, date: date, windowId: windowId});
@@ -81,14 +81,18 @@ function updateDisplayedState() {
 };
 
 function trackEvent(event) {
-  const target = (event.target === window ? '#window' : event.target.nodeName).toLowerCase();
-  appendStoredState(event.persisted ? `${event.type} (persisted)` : event.type, target, document.visibilityState, new Date().toISOString(), windowId);
+  const eventLabel = event.persisted ? `${event.type} (persisted)` : event.type;
+  const target = (event.target === window ? '#window' : event.target.nodeName)?.toLowerCase();
+  appendStoredState(eventLabel, target, document.visibilityState, new Date().toISOString(), windowId, event?.destination?.url);
 }
 
 document.getElementById('clear').onclick = function() {
   clearStoredState();
   updateDisplayedState();
 };
+
+// Add random URL param to sameorigin link:
+document.querySelector('#sameorigin').href = "./?" + Math.random();
 
 addEventListener('pointerup', trackEvent, true);
 addEventListener('pointerdown', trackEvent, true);
@@ -97,6 +101,7 @@ addEventListener('keydown', trackEvent, true);
 addEventListener('click', trackEvent, true);
 addEventListener('blur', trackEvent, true);
 addEventListener('visibilitychange', trackEvent, true);
+navigation.addEventListener('navigate', trackEvent, true);
 addEventListener('pagehide', trackEvent, true);
 addEventListener('pageshow', trackEvent, true);
 addEventListener('pagereveal', trackEvent, true);

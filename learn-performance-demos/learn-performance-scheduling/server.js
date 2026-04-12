@@ -94,7 +94,7 @@ fastify.get("/", function (request, reply) {
   return reply;
 });
 
-fastify.get("/1", function (request, reply) {
+fastify.get("/1/", function (request, reply) {
   let params = {
     step: 1,
     title: "Long tasks",
@@ -105,7 +105,7 @@ fastify.get("/1", function (request, reply) {
   return reply;
 });
 
-fastify.get("/2", function (request, reply) {
+fastify.get("/2/", function (request, reply) {
   let params = {
     step: 2,
     title: "setTimeout",
@@ -116,7 +116,7 @@ fastify.get("/2", function (request, reply) {
   return reply;
 });
 
-fastify.get("/3", function (request, reply) {
+fastify.get("/3/", function (request, reply) {
   let params = {
     step: 3,
     title: "yieldToMain",
@@ -127,7 +127,7 @@ fastify.get("/3", function (request, reply) {
   return reply;
 });
 
-fastify.get("/4", function (request, reply) {
+fastify.get("/4/", function (request, reply) {
   let params = {
     step: 4,
     title: "Yielding Periodically",
@@ -138,7 +138,7 @@ fastify.get("/4", function (request, reply) {
   return reply;
 });
 
-fastify.get("/5", function (request, reply) {
+fastify.get("/5/", function (request, reply) {
   let params = {
     step: 5,
     title: "Presentation Delay",
@@ -149,7 +149,7 @@ fastify.get("/5", function (request, reply) {
   return reply;
 });
 
-fastify.get("/6", function (request, reply) {
+fastify.get("/6/", function (request, reply) {
   let params = {
     step: 6,
     title: "Debounce",
@@ -160,7 +160,7 @@ fastify.get("/6", function (request, reply) {
   return reply;
 });
 
-fastify.get("/7", function (request, reply) {
+fastify.get("/7/", function (request, reply) {
   let params = {
     step: 7,
     title: "Scheduler: PostTask",
@@ -171,7 +171,7 @@ fastify.get("/7", function (request, reply) {
   return reply;
 });
 
-fastify.get("/8", function (request, reply) {
+fastify.get("/8/", function (request, reply) {
   let params = {
     step: 8,
     title: "Compare setTimouet and requestAnimationFrame",

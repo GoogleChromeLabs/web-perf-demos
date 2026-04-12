@@ -54,7 +54,7 @@ fastify.get("/", function (request, reply) {
 });
 
 
-fastify.get("/1", function (request, reply) {
+fastify.get("/1/", function (request, reply) {
   let params = {
     step: 1,
     title: "loading=\"lazy\"",
@@ -66,7 +66,7 @@ fastify.get("/1", function (request, reply) {
   return reply;
 });
 
-fastify.get("/2", function (request, reply) {
+fastify.get("/2/", function (request, reply) {
   let params = {
     step: 2,
     title: "Lazy LCP image",
@@ -78,7 +78,7 @@ fastify.get("/2", function (request, reply) {
   return reply;
 });
 
-fastify.get("/3", function (request, reply) {
+fastify.get("/3/", function (request, reply) {
   let params = {
     step: 3,
     title: "Fetch Priority",

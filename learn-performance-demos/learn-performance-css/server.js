@@ -84,7 +84,7 @@ fastify.get("/", function (request, reply) {
 });
 
 /** start: demo routes **/
-fastify.get("/1", function (request, reply) {
+fastify.get("/1/", function (request, reply) {
   let params = {
     step: 1,
     title: "FOUC",
@@ -95,7 +95,7 @@ fastify.get("/1", function (request, reply) {
   reply.view("/src/pages/1.hbs", params);
 });
 
-fastify.get("/2", function (request, reply) {
+fastify.get("/2/", function (request, reply) {
   let params = {
     step: 2,
     title: "Partial FOUC",
@@ -107,7 +107,7 @@ fastify.get("/2", function (request, reply) {
   reply.view("/src/pages/2.hbs", params);
 });
 
-fastify.get("/3", function (request, reply) {
+fastify.get("/3/", function (request, reply) {
   let params = {
     step: 3,
     title: "@import",
@@ -118,7 +118,7 @@ fastify.get("/3", function (request, reply) {
   reply.view("/src/pages/3.hbs", params);
 });
 
-fastify.get("/4", function (request, reply) {
+fastify.get("/4/", function (request, reply) {
   let params = {
     step: 4,
     title: "@import - link",
@@ -130,7 +130,7 @@ fastify.get("/4", function (request, reply) {
   reply.view("/src/pages/4.hbs", params);
 });
 
-fastify.get("/5", function (request, reply) {
+fastify.get("/5/", function (request, reply) {
   let params = {
     step: 5,
     title: "@import - preload",

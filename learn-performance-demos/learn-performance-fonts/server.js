@@ -86,7 +86,7 @@ fastify.get("/", function (request, reply) {
 });
 
 /** start: demo routes **/
-fastify.get("/1", function (request, reply) {
+fastify.get("/1/", function (request, reply) {
   let params = {
     step: 1,
     title: "Web Font",
@@ -99,7 +99,7 @@ fastify.get("/1", function (request, reply) {
   return reply;
 });
 
-fastify.get("/2", function (request, reply) {
+fastify.get("/2/", function (request, reply) {
   let params = {
     step: 2,
     title: "preload",
@@ -113,7 +113,7 @@ fastify.get("/2", function (request, reply) {
   return reply;
 });
 
-fastify.get("/3", function (request, reply) {
+fastify.get("/3/", function (request, reply) {
   let params = {
     step: 3,
     title: "Unused preload",
@@ -127,7 +127,7 @@ fastify.get("/3", function (request, reply) {
   return reply;
 });
 
-fastify.get("/4", function (request, reply) {
+fastify.get("/4/", function (request, reply) {
   let params = {
     step: 4,
     title: "Inline @font-face",
@@ -443,7 +443,7 @@ table tbody td:nth-child(2n) {
   return reply;
 });
 
-fastify.get("/5", function (request, reply) {
+fastify.get("/5/", function (request, reply) {
   let params = {
     step: 5,
     title: "Inline @font-face and external stylesheets",
@@ -466,7 +466,7 @@ fastify.get("/5", function (request, reply) {
   return reply;
 });
 
-fastify.get("/6", function (request, reply) {
+fastify.get("/6/", function (request, reply) {
   let params = {
     step: 6,
     title: "Inline @font-face and preload",
@@ -490,7 +490,7 @@ fastify.get("/6", function (request, reply) {
   return reply;
 });
 
-fastify.get("/7", function (request, reply) {
+fastify.get("/7/", function (request, reply) {
   let params = {
     step: 7,
     title: "Google Fonts",
@@ -508,7 +508,7 @@ fastify.get("/7", function (request, reply) {
   return reply;
 });
 
-fastify.get("/8", function (request, reply) {
+fastify.get("/8/", function (request, reply) {
   let params = {
     step: 8,
     title: "Google Fonts with preconnect",
@@ -528,7 +528,7 @@ fastify.get("/8", function (request, reply) {
   return reply;
 });
 
-fastify.get("/9", function (request, reply) {
+fastify.get("/9/", function (request, reply) {
   let params = {
     step: 9,
     title: "font-display: swap",
@@ -541,7 +541,7 @@ fastify.get("/9", function (request, reply) {
   return reply;
 });
 
-fastify.get("/10", function (request, reply) {
+fastify.get("/10/", function (request, reply) {
   let params = {
     step: 10,
     title: "font-display: optional",

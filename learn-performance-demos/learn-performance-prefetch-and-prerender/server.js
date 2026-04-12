@@ -78,7 +78,7 @@ fastify.get("/", function (request, reply) {
 });
 
 /** start: routes **/
-fastify.get("/1", function (request, reply) {
+fastify.get("/1/", function (request, reply) {
   let params = {
     step: 1,
     title: "Prefetch resources",
@@ -92,7 +92,7 @@ fastify.get("/1", function (request, reply) {
   return reply;
 });
 
-fastify.get("/2", function (request, reply) {
+fastify.get("/2/", function (request, reply) {
   let params = {
     step: 2,
     title: "Prefetch documents",
@@ -104,7 +104,7 @@ fastify.get("/2", function (request, reply) {
   return reply;
 });
 
-fastify.get("/2-prefetch", function (request, reply) {
+fastify.get("/2/-prefetch", function (request, reply) {
   let params = {
     step: 2,
     title: "Prefetch documents",
@@ -116,7 +116,7 @@ fastify.get("/2-prefetch", function (request, reply) {
   return reply;
 });
 
-fastify.get("/3", function (request, reply) {
+fastify.get("/3/", function (request, reply) {
   let params = {
     step: 3,
     title: "Speculation Rules",
@@ -127,7 +127,7 @@ fastify.get("/3", function (request, reply) {
   return reply;
 });
 
-fastify.get("/3-prefetch", function (request, reply) {
+fastify.get("/3/-prefetch", function (request, reply) {
   let params = {
     step: 3,
     title: "Speculation rules",
@@ -139,7 +139,7 @@ fastify.get("/3-prefetch", function (request, reply) {
   return reply;
 });
 
-fastify.get("/4", function (request, reply) {
+fastify.get("/4/", function (request, reply) {
   let params = {
     step: 4,
     title: "Prerender",
@@ -150,7 +150,7 @@ fastify.get("/4", function (request, reply) {
   return reply;
 });
 
-fastify.get("/4-prerender", function (request, reply) {
+fastify.get("/4/-prerender", function (request, reply) {
   let params = {
     step: 4,
     title: "Prerender",
