@@ -1,0 +1,19 @@
+{
+  "name": "declarative-patching-demos",
+  "version": "0.1.0",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "deploy": "gcloud functions deploy declarative-patching-demos --project=web-devrel-apps --runtime nodejs22 --trigger-http",
+    "permission": "gcloud functions add-invoker-policy-binding declarative-patching-demos --member='allUsers'"
+  },
+  "dependencies": {},
+  "repository": {
+    "url": "https://github.com/GoogleChromeLabs/web-perf-demos/declarative-patching-demos"
+  },
+  "license": "Apache",
+  "keywords": [
+    "node",
+    "express"
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "name": "declarative-patching-counter",
+  "version": "0.1.0",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "deploy": "gcloud functions deploy declarative-patching-counter --project=web-devrel-apps --runtime nodejs22 --trigger-http",
+    "permission": "gcloud functions add-invoker-policy-binding --project=web-devrel-apps declarative-patching-counter --member='allUsers'"
+  },
+  "dependencies": {},
+  "repository": {
+    "url": "https://github.com/GoogleChromeLabs/web-perf-demos/declarative-patching-counter"
+  },
+  "license": "Apache",
+  "keywords": [
+    "node",
+    "express"
+  ]
+}
