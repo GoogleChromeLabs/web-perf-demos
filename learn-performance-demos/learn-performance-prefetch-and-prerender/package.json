@@ -11,7 +11,7 @@
     "fastify": "^5.8.3",
     "handlebars": "^4.7.9",
     "@fastify/view": "^11.1.0",
-    "@fastify/static": "^8.2.0"
+    "@fastify/static": "^9.1.1"
   },
   "repository": {
     "url": "https://github.com/GoogleChromeLabs/web-perf-demos/learn-performance-demos/learn-performance-prefetch-and-prerender"
