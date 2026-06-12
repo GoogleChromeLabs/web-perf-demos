@@ -13,10 +13,10 @@
     "react-spring": "^10.0.1",
     "wouter": "^3.7.1",
     "react-helmet-async": "^2.0.5",
-    "@vitejs/plugin-react": "^4.6.0"
+    "@vitejs/plugin-react": "^6.0.2"
   },
   "devDependencies": {
-    "vite": "^7.3.2"
+    "vite": "^8.0.16"
   },
   "browserslist": [
     ">0.2%",
