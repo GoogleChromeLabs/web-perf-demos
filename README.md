@@ -1,3 +1,5 @@
-#web-perf-demos
+# web-perf-demos
 
-[chrome.dev deployment details](https://github.com/GoogleChrome/chrome.dev/#build-and-deploy-a-demo)
+Hosted versions available at [chrome.dev](https://chrome.dev/)
+
+Use `npm run deploy` to deploy each demo if you have permissions to deploy to chrome.dev
