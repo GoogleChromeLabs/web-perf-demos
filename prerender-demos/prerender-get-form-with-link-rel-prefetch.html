@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>GET form example (with an additional link rel -prefetch)</title>
+  <link id="favicon" rel="icon" href="./favicon.ico" type="image/x-icon" />
+
+  <meta http-equiv="origin-trial" content="Aqh8Mf5Ukkjn5hz14kIvERPvfW2pl/Q+jQcVNjHqmMRGAWsdHYt+RHbce1FTmOKIBSywWYQnVEJLj1h5ETUAYAwAAABneyJvcmlnaW4iOiJodHRwczovL2Nocm9tZS5kZXY6NDQzIiwiZmVhdHVyZSI6IlByZXJlbmRlckFjdGl2YXRpb25CeUZvcm1TdWJtaXNzaW9uIiwiZXhwaXJ5IjoxNzg4ODI1NjAwfQ==">
+
+    <link rel="prefetch" href="next.html?">
+
+  <script type="speculationrules">
+{
+  "prerender": [{
+    "urls": ["next.html?"],
+    "form_submission": true
+  }]
+}
+</script>
+
+</head>
+<body>
+
+  <h1>Start page</h1>
+
+  <p>This form's action should be prerendered on page load</p>
+  <form action="next.html" method="GET">
+    <button type="submit">Make a GET request to use a prerender</button>
+  </form>
+
+  <hr>
+
+  <pre id="output1"></pre>
+  <pre id="output2"></pre>
+
+  <hr>
+
+  <p><a href="https://github.com/GoogleChromeLabs/web-perf-demos/tree/main/prerender-demos">View the code on GitHub</a></p>
+</body>
+</html>

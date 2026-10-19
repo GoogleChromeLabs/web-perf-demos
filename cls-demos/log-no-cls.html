@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Log no CLS</title>
+
+	<!-- Website is responsive -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link id="favicon" rel="icon" href="/favicon.ico" type="image/x-icon" />
+</head>
+<body>
+
+  <h1>This page should have no CLS</h1>
+
+  <hr>
+
+  <pre id="output1"></pre>
+  <pre id="output2"></pre>
+
+  <hr>
+
+  <p><a href="https://github.com/GoogleChromeLabs/web-perf-demos/tree/main/cls-demos">View the code on GitHub</a></p>
+
+  <script>
+    const output1 = document.querySelector('#output1');
+    new PerformanceObserver((entryList) => {
+      for (const entry of entryList.getEntries()) {
+        console.log('Layout shift:', entry);
+        output1.textContent = output1.textContent + `${JSON.stringify(entry)}\n`;
+      }
+    }).observe({type: 'layout-shift', buffered: true});
+  </script>
+</body>
+</html>

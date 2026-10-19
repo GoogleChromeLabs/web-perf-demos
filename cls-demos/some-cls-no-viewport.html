@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Log some CLS - no viewport</title>
+
+  <link id="favicon" rel="icon" href="/favicon.ico" type="image/x-icon" />
+</head>
+<body>
+
+  <h1>This page should have some CLS</h1>
+  <p>There is no viewport on this page</p>
+
+  <hr>
+
+  <pre id="output1" style="min-height:400px;"></pre>
+  <pre id="output2"></pre>
+
+  <hr>
+
+  <p><a href="https://github.com/GoogleChromeLabs/web-perf-demos/tree/main/cls-demos">View the code on GitHub</a></p>
+
+  <script>
+    const output1 = document.querySelector('#output1');
+    new PerformanceObserver((entryList) => {
+      for (const entry of entryList.getEntries()) {
+        console.log('Layout shift:', entry);
+        output1.textContent = output1.textContent + `[hadRecentInput: ${entry.hadRecentInput}] ${JSON.stringify(entry)}\n`;
+      }
+    }).observe({type: 'layout-shift', buffered: true});
+
+    requestAnimationFrame(() => {
+      // This runs right before the paint.
+      // We schedule a second rAF to run in the next frame (after the paint).
+      requestAnimationFrame(() => {
+        document.querySelector('h1').style.height = '100px';
+      });
+    });
+  </script>
+</body>
+</html>
