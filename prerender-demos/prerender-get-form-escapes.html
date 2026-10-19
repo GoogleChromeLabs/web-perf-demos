@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>GET form example</title>
+  <link id="favicon" rel="icon" href="./favicon.ico" type="image/x-icon" />
+
+  <meta http-equiv="origin-trial" content="Aqh8Mf5Ukkjn5hz14kIvERPvfW2pl/Q+jQcVNjHqmMRGAWsdHYt+RHbce1FTmOKIBSywWYQnVEJLj1h5ETUAYAwAAABneyJvcmlnaW4iOiJodHRwczovL2Nocm9tZS5kZXY6NDQzIiwiZmVhdHVyZSI6IlByZXJlbmRlckFjdGl2YXRpb25CeUZvcm1TdWJtaXNzaW9uIiwiZXhwaXJ5IjoxNzg4ODI1NjAwfQ==">
+
+</head>
+<body>
+
+  <h1>Start page</h1>
+
+  <p>This form's action should be prerendered on page load</p>
+  <form action="/prerender-demos/next.html" method="GET">
+    <select name="fkSECTION[]" class="fsh p5 bgd" aria-label="Section">
+      <option value="All" selected="">All sections</option>
+      <option value="Kits">Kits</option><option value="Reviews">» Reviews</option>
+      <option value="Instructions">» Instructions</option>
+      <option value="Decals">» Markings</option>
+      <option value="Utensils">Utensils</option>
+      <option value="Paints">Paints</option>
+      <option value="Marketplace">Marketplace</option>
+      <option value="">---</option><option value="Books">Books</option>
+      <option value="Magazines">Magazines</option><option value="Walkarounds">Walkarounds</option>
+      <option value="">---</option><option value="Gallery">Gallery</option>
+      <option value="Projects">Projects</option><option value="Members">Mates</option>
+      <option value="Brands">Brands</option><option value="Shops">Shops</option>
+      <option value="Sites">Sites</option><option value="Topics">Topics</option>
+    </select>
+    <input name="q" id="q" class="qs" size="37" value="Porsche" autocomplete="off" aria-label="Search">
+    <button id="search-button" type="submit">Make a GET request to use a prerender</button>
+  </form>
+
+  <hr>
+
+  <pre id="output1"></pre>
+  <pre id="output2"></pre>
+
+  <hr>
+
+  <script type="module">
+    document.querySelector('#search-button').addEventListener("mouseover", () => {
+      let didPrerender=false;
+
+      if (!didPrerender) {
+        let sf = event.target.closest('form');
+        let fd = new FormData(sf);
+        let search = new URLSearchParams(fd);
+        let sl = sf.action + '?' + search.toString();
+
+        var ipf = document.createElement('link');
+        ipf.rel = 'prefetch';
+        ipf.href = "https://chrome.dev/prerender-demos/next.html?fkSECTION%5B%5D=All&q=Porsche";
+        document.head.appendChild(ipf)
+
+        const sr = document.createElement('script');
+        sr.type = 'speculationrules';
+        const srj = {
+            prerender: [{
+                urls: ["https://chrome.dev/prerender-demos/next.html?fkSECTION%5B%5D=All&q=Porsche"],
+                form_submission: true
+            }]
+        };
+        sr.textContent = JSON.stringify(srj);
+        document.body.append(sr);
+
+        didPrerender=true;
+      }
+    });
+  </script>
+
+  <p><a href="https://github.com/GoogleChromeLabs/web-perf-demos/tree/main/prerender-demos">View the code on GitHub</a></p>
+</body>
+</html>

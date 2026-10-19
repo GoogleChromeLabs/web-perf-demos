@@ -1,0 +1,12 @@
+{
+  "name": "cls-demos",
+  "version": "0.1.0",
+  "description": "",
+  "scripts": {
+    "deploy": "gcloud storage rsync --recursive --delete-unmatched-destination-objects ./ gs://chrome-dev-demos/public/cls-demos"
+  },
+  "repository": {
+    "url": "https://github.com/GoogleChromeLabs/web-perf-demos/cls-demos"
+  },
+  "license": "Apache-2.0"
+}
