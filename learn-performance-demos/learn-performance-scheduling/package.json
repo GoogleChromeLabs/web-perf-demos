@@ -12,7 +12,7 @@
     "@fastify/static": "^9.1.1",
     "@fastify/view": "^11.1.0",
     "fastify": "^5.12.5",
-    "handlebars": "^4.7.9"
+    "handlebars": "^4.7.10"
   },
   "repository": {
     "url": "https://github.com/GoogleChromeLabs/web-perf-demos/learn-performance-demos/learn-performance-scheduling"
